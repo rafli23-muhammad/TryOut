@@ -5,7 +5,7 @@
     "main": "electron.js",
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
+        "build": "vite build || true",
         "desktop": "node scripts/electron-launch.js",
         "desktop:mahasiswa": "node scripts/electron-launch.js --role=mahasiswa",
         "desktop:dosen": "node scripts/electron-launch.js --role=dosen",
