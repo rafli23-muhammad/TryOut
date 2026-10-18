@@ -31,8 +31,14 @@ RUN echo "memory_limit = 256M" > /usr/local/etc/php/conf.d/docker-php-ram.ini \
     && echo "post_max_size = 64M" >> /usr/local/etc/php/conf.d/docker-php-ram.ini \
     && echo "variables_order = 'EGPCS'" >> /usr/local/etc/php/conf.d/docker-php-ram.ini
 
+# Install Composer from official image
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
 # Copy source code
 COPY . /app
+
+# Ensure environment exists for build-time package discovery
+RUN if [ ! -f .env ]; then cp .env.example .env; fi
 
 # Run Composer install
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
