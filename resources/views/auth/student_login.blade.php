@@ -3,11 +3,11 @@
 @section('title', 'Masuk Siswa - Bimbel Cemerlang')
 
 @section('content')
-<div class="max-w-md mx-auto my-12 px-4">
-    <div class="bg-white rounded-3xl shadow-xl border-4 border-[#FFBE2A] p-8">
+<div class="max-w-md mx-auto my-6 sm:my-12 px-3 sm:px-4">
+    <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl border-2 sm:border-4 border-[#FFBE2A] p-5 sm:p-8">
         <div class="text-center mb-6">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo Bimbel Cemerlang" class="h-28 sm:h-32 mx-auto mb-2 object-contain drop-shadow-md animate-float">
-            <h2 class="text-2xl font-black font-serif text-[#1F366A]">Masuk Peserta Try Out</h2>
+            <img src="{{ asset('images/logo.png') }}" alt="Logo Bimbel Cemerlang" class="h-20 sm:h-28 mx-auto mb-2 object-contain drop-shadow-md animate-float">
+            <h2 class="text-xl sm:text-2xl font-black font-serif text-[#1F366A]">Masuk Peserta Try Out</h2>
             <p class="text-xs text-slate-500 font-semibold mt-1">Gunakan akun Bimbel Cemerlang Anda untuk memulai ujian</p>
         </div>
 
@@ -26,8 +26,8 @@
                     <div id="google-signin-btn" class="w-full flex justify-center"></div>
                 </div>
             @else
-                <button type="button" onclick="triggerGoogleDeviceAuth()" class="w-full max-w-[340px] mx-auto flex items-center justify-center gap-3 py-2.5 px-4 rounded-full border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-bold shadow-sm hover:shadow transition group">
-                    <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+                <button type="button" onclick="triggerGoogleDeviceAuth()" class="w-full max-w-[320px] mx-auto flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-full border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-bold shadow-sm hover:shadow transition group">
+                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
@@ -38,7 +38,7 @@
             @endif
 
             <div class="flex justify-center">
-                <button type="button" onclick="loginWithFacebook()" id="fb-signin-btn" class="w-[320px] max-w-full h-[40px] flex items-center justify-center gap-2 rounded-full bg-[#1877F2] hover:bg-[#166fe5] text-white text-[14px] font-medium transition shadow-xs">
+                <button type="button" onclick="loginWithFacebook()" id="fb-signin-btn" class="w-full max-w-[320px] h-[40px] flex items-center justify-center gap-2 rounded-full bg-[#1877F2] hover:bg-[#166fe5] text-white text-[13px] sm:text-[14px] font-medium transition shadow-xs">
                     <i class="fa-brands fa-facebook text-[18px]"></i>
                     <span>Masuk dengan Facebook</span>
                 </button>

@@ -3,10 +3,10 @@
 @section('title', 'Edit Profil Siswa - Bimbel Cemerlang')
 
 @section('content')
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
 
     <!-- Breadcrumb & Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
         <div>
             <div class="inline-flex items-center space-x-2 text-xs font-bold text-slate-500 mb-1">
                 <a href="{{ url('/student/dashboard') }}" class="hover:text-[#1F366A]"><i class="fa-solid fa-graduation-cap mr-1"></i> Dashboard</a>
@@ -17,16 +17,16 @@
             <p class="text-xs sm:text-sm text-slate-500 mt-1">Perbarui foto profil, informasi akun, data sekolah, dan kata sandi Anda</p>
         </div>
         <div>
-            <a href="{{ url('/student/dashboard') }}" class="inline-flex items-center text-xs font-bold text-[#1F366A] bg-white hover:bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm transition">
+            <a href="{{ url('/student/dashboard') }}" class="inline-flex items-center text-xs font-bold text-[#1F366A] bg-white hover:bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm transition w-full sm:w-auto justify-center">
                 <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Dashboard
             </a>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
         <!-- Sidebar Profile Card with Avatar Change -->
         <div class="lg:col-span-1 space-y-6">
-            <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-slate-200 text-center relative overflow-hidden">
+            <div class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-md border-2 border-slate-200 text-center relative overflow-hidden">
                 <!-- Avatar Display & Change Button -->
                 <div class="relative w-28 h-28 mx-auto mb-4 group">
                     <div id="avatar-preview-container" class="w-28 h-28 rounded-3xl overflow-hidden shadow-md border-4 border-white flex items-center justify-center bg-gradient-to-br from-[#FFBE2A] to-[#E5A817] text-[#1F366A]">

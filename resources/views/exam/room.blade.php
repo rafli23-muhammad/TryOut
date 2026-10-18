@@ -5,32 +5,34 @@
 @section('content')
 <!-- Header Bar -->
 <header class="bg-[#1F366A] text-white border-b-4 border-[#FFBE2A] sticky top-0 z-40 shadow-lg">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-18 py-2 sm:py-3 flex items-center justify-between gap-2">
         <!-- Logo & Package Title -->
-        <div class="flex items-center space-x-3">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10 bg-white rounded p-1 shadow-sm">
-            <div>
-                <span class="text-xs font-bold text-[#FFBE2A] uppercase tracking-wider block">{{ $package['category'] }}</span>
-                <h1 class="text-base sm:text-lg font-black font-serif truncate max-w-xs sm:max-w-md">{{ $package['title'] }}</h1>
+        <div class="flex items-center space-x-2 sm:space-x-3 min-w-0">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-8 sm:h-10 bg-white rounded p-1 shadow-sm flex-shrink-0">
+            <div class="min-w-0">
+                <span class="text-[9px] sm:text-xs font-bold text-[#FFBE2A] uppercase tracking-wider block leading-none truncate">{{ $package['category'] }}</span>
+                <h1 class="text-xs sm:text-base lg:text-lg font-black font-serif truncate max-w-[130px] sm:max-w-xs md:max-w-md leading-tight mt-0.5">{{ $package['title'] }}</h1>
             </div>
         </div>
 
         <!-- Timer & Submit Action -->
-        <div class="flex items-center space-x-3 sm:space-x-4">
+        <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
             <!-- Real-time Countdown Timer -->
-            <div class="flex items-center space-x-2 bg-[#132347] border border-amber-300/40 px-3.5 py-1.5 rounded-2xl shadow-inner">
-                <i class="fa-solid fa-stopwatch text-[#FFBE2A] text-lg animate-pulse"></i>
+            <div class="flex items-center space-x-1.5 sm:space-x-2 bg-[#132347] border border-amber-300/40 px-2 sm:px-3.5 py-1 sm:py-1.5 rounded-xl sm:rounded-2xl shadow-inner">
+                <i class="fa-solid fa-stopwatch text-[#FFBE2A] text-sm sm:text-lg animate-pulse"></i>
                 <div>
-                    <span class="text-[9px] text-slate-300 uppercase font-extrabold block leading-tight">Sisa Waktu</span>
-                    <span id="countdown-timer" class="font-mono text-sm sm:text-base font-black text-white tracking-widest">
+                    <span class="text-[8px] sm:text-[9px] text-slate-300 uppercase font-extrabold block leading-none">Sisa Waktu</span>
+                    <span id="countdown-timer" class="font-mono text-xs sm:text-base font-black text-white tracking-wider sm:tracking-widest">
                         00:00:00
                     </span>
                 </div>
             </div>
 
             <!-- Finish Exam Button -->
-            <button onclick="confirmSubmitExam()" class="btn-cemerlang-yellow text-xs font-black px-4 py-2.5 rounded-xl shadow flex items-center">
-                <i class="fa-solid fa-flag-checkered mr-1.5"></i> Selesai Ujian
+            <button onclick="confirmSubmitExam()" class="btn-cemerlang-yellow text-[11px] sm:text-xs font-black px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl shadow flex items-center">
+                <i class="fa-solid fa-flag-checkered mr-1 sm:mr-1.5"></i>
+                <span class="hidden sm:inline">Selesai Ujian</span>
+                <span class="sm:hidden">Selesai</span>
             </button>
         </div>
     </div>
@@ -140,65 +142,65 @@
 </div>
 
 <!-- Main Exam Body -->
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 flex flex-col md:flex-row gap-6 items-start">
+<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 flex-1 flex flex-col md:flex-row gap-4 sm:gap-6 items-start w-full">
 
     <!-- Left / Center: Question Workspace -->
-    <div class="relative flex-1 w-full bg-white rounded-3xl p-6 sm:p-8 shadow-xl border-2 border-slate-200 flex flex-col justify-between min-h-[580px] overflow-hidden">
+    <div class="relative flex-1 w-full bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xl border-2 border-slate-200 flex flex-col justify-between min-h-[460px] sm:min-h-[580px] overflow-hidden">
         <!-- Discreet Security Watermark Pattern (Student ID & Anti-Leak Stamp) -->
         <div class="absolute inset-0 exam-watermark-pattern pointer-events-none select-none z-0"></div>
         <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 opacity-[0.035] rotate-[-25deg]">
-            <span class="text-3xl sm:text-5xl font-black text-[#1F366A] tracking-widest uppercase">
+            <span class="text-2xl sm:text-5xl font-black text-[#1F366A] tracking-widest uppercase">
                 {{ $session['student_name'] ?? 'Bimbel Cemerlang' }} • {{ $session['student_id'] ?? 'Try Out' }}
             </span>
         </div>
 
         <div class="relative z-10">
             <!-- Question Header / Badge -->
-            <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
-                <div class="flex items-center space-x-3">
-                    <span id="current-question-badge" class="bg-[#1F366A] text-[#FFBE2A] text-sm font-black px-4 py-1.5 rounded-full shadow">
+            <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-200 mb-4 sm:mb-6">
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <span id="current-question-badge" class="bg-[#1F366A] text-[#FFBE2A] text-xs sm:text-sm font-black px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow">
                         Soal No. 1
                     </span>
-                    <span id="question-type-badge" class="bg-amber-100 text-amber-900 border border-amber-300 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                    <span id="question-type-badge" class="bg-amber-100 text-amber-900 border border-amber-300 text-[10px] sm:text-[11px] font-extrabold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full uppercase tracking-wider">
                         Pilihan Ganda
                     </span>
                 </div>
-                <div class="text-xs text-slate-500 font-semibold">
+                <div class="text-[11px] sm:text-xs text-slate-500 font-semibold">
                     Total: <b>{{ count($safeQuestions) }}</b> Soal
                 </div>
             </div>
 
             <!-- Question Text -->
-            <div id="question-text-container" class="text-base sm:text-lg font-medium text-slate-900 leading-relaxed mb-8 select-none">
+            <div id="question-text-container" class="text-sm sm:text-lg font-medium text-slate-900 leading-relaxed mb-6 sm:mb-8 select-none">
                 <!-- Injected via JS -->
             </div>
 
             <!-- Options Area (Dynamic for PG, MCMA, TF) -->
-            <div id="options-container" class="space-y-3.5 mb-8">
+            <div id="options-container" class="space-y-2.5 sm:space-y-3.5 mb-6 sm:mb-8">
                 <!-- Injected via JS -->
             </div>
         </div>
 
         <!-- Question Navigation Bottom Bar -->
-        <div class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <button id="btn-prev" onclick="prevQuestion()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl border-2 border-slate-300 text-slate-700 hover:bg-slate-100 font-bold text-xs flex items-center justify-center transition">
+        <div class="pt-4 sm:pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-4">
+            <button id="btn-prev" onclick="prevQuestion()" class="w-full sm:w-auto px-4 sm:px-5 py-2.5 rounded-xl border-2 border-slate-300 text-slate-700 hover:bg-slate-100 font-bold text-xs flex items-center justify-center transition">
                 <i class="fa-solid fa-arrow-left mr-2"></i> Sebelumnya
             </button>
 
             <!-- Raguragu Button -->
-            <button id="btn-doubt" onclick="toggleDoubt()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl border-2 border-amber-400 bg-amber-50 text-amber-900 hover:bg-amber-100 font-extrabold text-xs flex items-center justify-center transition">
+            <button id="btn-doubt" onclick="toggleDoubt()" class="w-full sm:w-auto px-4 sm:px-5 py-2.5 rounded-xl border-2 border-amber-400 bg-amber-50 text-amber-900 hover:bg-amber-100 font-extrabold text-xs flex items-center justify-center transition">
                 <i id="doubt-icon" class="fa-regular fa-bookmark mr-2 text-amber-600"></i>
                 <span id="doubt-label">Tandai Ragu-ragu</span>
             </button>
 
-            <button id="btn-next" onclick="nextQuestion()" class="w-full sm:w-auto btn-cemerlang-navy px-6 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center shadow transition">
+            <button id="btn-next" onclick="nextQuestion()" class="w-full sm:w-auto btn-cemerlang-navy px-5 sm:px-6 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center shadow transition">
                 Selanjutnya <i class="fa-solid fa-arrow-right ml-2 text-[#FFBE2A]"></i>
             </button>
         </div>
     </div>
 
     <!-- Right Sidebar: Interactive Number Grid & Status -->
-    <div class="w-full md:w-80 bg-white rounded-3xl p-5 shadow-xl border-2 border-slate-200 flex flex-col space-y-5">
+    <div class="w-full md:w-80 bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-xl border-2 border-slate-200 flex flex-col space-y-4 sm:space-y-5">
         <div>
             <h3 class="text-sm font-black font-serif text-[#1F366A] uppercase tracking-wider mb-2 flex items-center">
                 <i class="fa-solid fa-table-cells mr-2 text-[#FFBE2A]"></i> Navigasi Nomor Soal

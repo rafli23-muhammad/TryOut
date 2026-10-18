@@ -3,30 +3,30 @@
 @section('title', 'Dashboard Siswa - Bimbel Cemerlang')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
 
     <!-- Profile & Welcome Banner -->
-    <div class="bg-gradient-to-r from-[#1F366A] to-[#132347] text-white rounded-3xl p-6 sm:p-8 shadow-xl border-4 border-[#FFBE2A] flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="flex items-center space-x-5">
-            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl overflow-hidden bg-[#FFBE2A] text-[#1F366A] font-black text-2xl sm:text-3xl flex items-center justify-center shadow-lg border-2 border-white/20">
+    <div class="bg-gradient-to-r from-[#1F366A] to-[#132347] text-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-xl border-2 sm:border-4 border-[#FFBE2A] flex flex-col md:flex-row items-start md:items-center justify-between gap-4 sm:gap-6">
+        <div class="flex items-center space-x-3.5 sm:space-x-5 min-w-0">
+            <div class="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl overflow-hidden bg-[#FFBE2A] text-[#1F366A] font-black text-xl sm:text-3xl flex items-center justify-center shadow-lg border-2 border-white/20 flex-shrink-0">
                 @if(session('student_avatar'))
                     <img src="{{ asset(session('student_avatar')) }}" alt="Foto Siswa" class="w-full h-full object-cover">
                 @else
                     {{ strtoupper(substr(session('student_name', 'S'), 0, 1)) }}
                 @endif
             </div>
-            <div>
-                <span class="text-xs font-bold text-[#FFBE2A] uppercase tracking-wider block">Panel Siswa Terdaftar</span>
-                <h1 class="text-2xl sm:text-3xl font-extrabold font-serif">{{ session('student_name') }}</h1>
-                <p class="text-xs sm:text-sm text-slate-300 mt-1 flex flex-wrap items-center gap-3">
-                    <span><i class="fa-solid fa-envelope mr-1 text-[#FFBE2A]"></i>{{ session('student_email') }}</span>
+            <div class="min-w-0">
+                <span class="text-[10px] sm:text-xs font-bold text-[#FFBE2A] uppercase tracking-wider block">Panel Siswa Terdaftar</span>
+                <h1 class="text-xl sm:text-3xl font-extrabold font-serif truncate">{{ session('student_name') }}</h1>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1 flex flex-wrap items-center gap-2 sm:gap-3">
+                    <span class="truncate"><i class="fa-solid fa-envelope mr-1 text-[#FFBE2A]"></i>{{ session('student_email') }}</span>
                     <span><i class="fa-solid fa-phone mr-1 text-[#FFBE2A]"></i>{{ session('student_phone', '-') }}</span>
                     <span><i class="fa-solid fa-school mr-1 text-[#FFBE2A]"></i>{{ session('student_school', '-') }}</span>
                 </p>
             </div>
         </div>
-        <div>
-            <a href="{{ url('/student/catalog') }}" class="btn-cemerlang-yellow text-xs font-extrabold px-5 py-3.5 rounded-xl shadow inline-flex items-center">
+        <div class="w-full md:w-auto">
+            <a href="{{ url('/student/catalog') }}" class="btn-cemerlang-yellow text-xs font-extrabold px-5 py-3 rounded-xl shadow flex items-center justify-center w-full md:w-auto">
                 <i class="fa-solid fa-cart-plus mr-2"></i> Tambah Paket Try Out
             </a>
         </div>

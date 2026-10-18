@@ -74,22 +74,29 @@
     </style>
     @stack('styles')
 </head>
-<body class="min-h-screen flex flex-col md:flex-row bg-slate-50 text-slate-900">
+<body class="min-h-screen flex flex-col md:flex-row bg-slate-50 text-slate-900 overflow-x-hidden">
 
     <!-- Admin Sidebar -->
-    <aside class="w-full md:w-64 bg-[#1F366A] text-white flex-shrink-0 flex flex-col justify-between border-r-4 border-[#FFBE2A]">
+    <aside class="w-full md:w-64 bg-[#1F366A] text-white flex-shrink-0 flex flex-col justify-between border-b-4 md:border-b-0 md:border-r-4 border-[#FFBE2A] z-40">
         <div>
             <!-- Sidebar Header / Brand -->
-            <div class="p-5 border-b border-blue-900/60 flex items-center space-x-3.5">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo Bimbel Cemerlang" class="w-14 h-14 bg-white rounded-2xl p-1.5 shadow-md object-contain shrink-0">
-                <div>
-                    <h2 class="text-sm sm:text-base font-black font-serif text-white tracking-wide leading-tight">BIMBEL CEMERLANG</h2>
-                    <span class="text-[10px] font-bold text-[#FFBE2A] uppercase tracking-wider block mt-0.5">Admin Control Center</span>
+            <div class="p-3.5 sm:p-5 border-b border-blue-900/60 flex items-center justify-between">
+                <div class="flex items-center space-x-2.5 sm:space-x-3.5 min-w-0">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo Bimbel Cemerlang" class="w-9 h-9 sm:w-14 sm:h-14 bg-white rounded-xl sm:rounded-2xl p-1 shadow-md object-contain shrink-0">
+                    <div class="min-w-0">
+                        <h2 class="text-xs sm:text-base font-black font-serif text-white tracking-wide leading-tight truncate">BIMBEL CEMERLANG</h2>
+                        <span class="text-[8px] sm:text-[10px] font-bold text-[#FFBE2A] uppercase tracking-wider block mt-0.5 truncate">Admin Control Center</span>
+                    </div>
                 </div>
+
+                <!-- Mobile Nav Toggle Button -->
+                <button type="button" onclick="toggleAdminNav()" class="md:hidden w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm focus:outline-none transition" aria-label="Toggle Menu">
+                    <i id="admin-nav-icon" class="fa-solid fa-bars"></i>
+                </button>
             </div>
 
             <!-- Navigation Links -->
-            <nav id="admin-sidebar-nav" class="p-4 space-y-1.5 text-xs font-bold relative">
+            <nav id="admin-sidebar-nav" class="hidden md:block p-3 sm:p-4 space-y-1.5 text-xs font-bold relative">
                 <!-- Single Floating Animated Yellow Indicator -->
                 <div id="sidebar-indicator" class="absolute rounded-xl bg-[#FFBE2A] shadow pointer-events-none z-0" style="opacity: 0; transition: top 0.32s cubic-bezier(0.25, 1, 0.5, 1), height 0.32s ease, width 0.32s ease;"></div>
 
@@ -138,7 +145,7 @@
         </div>
 
         <!-- Sidebar Footer / Logout -->
-        <div class="p-4 border-t border-blue-900/60 bg-[#132347]">
+        <div id="admin-sidebar-footer" class="hidden md:block p-4 border-t border-blue-900/60 bg-[#132347]">
             <div class="flex items-center justify-between">
                 <a href="{{ url('/admin/profile') }}" title="Kelola Akun Admin" class="flex items-center space-x-2.5 hover:opacity-90 transition group">
                     <div class="w-8 h-8 rounded-full bg-emerald-400 text-[#1F366A] flex items-center justify-center font-bold text-xs group-hover:scale-105 transition">
@@ -160,39 +167,65 @@
     <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
 
         <!-- Top Header Bar -->
-        <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+        <header class="bg-white border-b border-slate-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
             <div>
-                <h2 class="text-lg font-black font-serif text-[#1F366A]">@yield('header_title', 'Admin Dashboard')</h2>
-                <span class="text-xs text-slate-500">Panel Pengelolaan Bimbel Cemerlang Try Out</span>
+                <h2 class="text-base sm:text-lg font-black font-serif text-[#1F366A]">@yield('header_title', 'Admin Dashboard')</h2>
+                <span class="text-[10px] sm:text-xs text-slate-500">Panel Pengelolaan Bimbel Cemerlang Try Out</span>
             </div>
-            <div class="flex items-center space-x-4">
-                <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full">
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <span class="text-[10px] sm:text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full">
                     <i class="fa-regular fa-clock mr-1 text-[#FFBE2A]"></i> {{ date('d M Y') }}
                 </span>
             </div>
         </header>
 
         <!-- Flash Messages -->
-        <div class="px-6 pt-4">
+        <div class="px-4 sm:px-6 pt-3 sm:pt-4">
             @if(session('success'))
-                <div class="flex items-center p-3.5 mb-3 text-emerald-800 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-semibold">
-                    <i class="fa-solid fa-circle-check text-emerald-600 text-base mr-2.5"></i>
-                    {{ session('success') }}
+                <div class="flex items-center p-3 sm:p-3.5 mb-3 text-emerald-800 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-semibold">
+                    <i class="fa-solid fa-circle-check text-emerald-600 text-base mr-2.5 shrink-0"></i>
+                    <span>{{ session('success') }}</span>
                 </div>
             @endif
 
             @if(session('error'))
-                <div class="flex items-center p-3.5 mb-3 text-rose-800 rounded-xl bg-rose-50 border border-rose-200 text-xs font-semibold">
-                    <i class="fa-solid fa-circle-exclamation text-rose-600 text-base mr-2.5"></i>
-                    {{ session('error') }}
+                <div class="flex items-center p-3 sm:p-3.5 mb-3 text-rose-800 rounded-xl bg-rose-50 border border-rose-200 text-xs font-semibold">
+                    <i class="fa-solid fa-circle-exclamation text-rose-600 text-base mr-2.5 shrink-0"></i>
+                    <span>{{ session('error') }}</span>
                 </div>
             @endif
         </div>
 
-        <main class="flex-1 p-6">
+        <main class="flex-1 p-3.5 sm:p-6">
             @yield('content')
         </main>
     </div>
+
+    <script>
+        function toggleAdminNav() {
+            const nav = document.getElementById('admin-sidebar-nav');
+            const footer = document.getElementById('admin-sidebar-footer');
+            const icon = document.getElementById('admin-nav-icon');
+            if (!nav) return;
+
+            const isHidden = nav.classList.contains('hidden');
+            if (isHidden) {
+                nav.classList.remove('hidden');
+                if (footer) footer.classList.remove('hidden');
+                if (icon) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                }
+            } else {
+                nav.classList.add('hidden');
+                if (footer) footer.classList.add('hidden');
+                if (icon) {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        }
+    </script>
 
     @stack('scripts')
 

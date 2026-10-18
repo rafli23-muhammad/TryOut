@@ -30,16 +30,16 @@
             </p>
 
             <!-- Buttons matching reference -->
-            <div class="flex flex-wrap items-center gap-4 pt-2">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
                 <!-- Yellow primary button with rocket -->
-                <a href="{{ url('/student/catalog') }}" class="bg-[#FFBE2A] hover:bg-[#E5A817] text-[#1F366A] font-extrabold px-6 py-3.5 rounded-2xl text-xs sm:text-sm flex items-center shadow-lg transition transform hover:-translate-y-0.5">
+                <a href="{{ url('/student/catalog') }}" class="bg-[#FFBE2A] hover:bg-[#E5A817] text-[#1F366A] font-extrabold px-6 py-3.5 rounded-2xl text-xs sm:text-sm flex items-center justify-center shadow-lg transition transform hover:-translate-y-0.5">
                     <i class="fa-solid fa-rocket mr-2 text-sm text-[#1F366A]"></i>
                     <span>Jelajahi Paket Try Out</span>
                     <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
                 </a>
 
                 <!-- Navy outline button with user icon -->
-                <a href="{{ url('/register') }}" class="bg-[#122A5C]/70 hover:bg-[#122A5C] text-white border border-white/20 px-6 py-3.5 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center">
+                <a href="{{ url('/register') }}" class="bg-[#122A5C]/70 hover:bg-[#122A5C] text-white border border-white/20 px-6 py-3.5 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center justify-center">
                     <i class="fa-regular fa-user mr-2 text-xs"></i>
                     <span>Daftar Akun Siswa</span>
                 </a>
@@ -209,14 +209,16 @@
                 </div>
 
                 <!-- Floating Score Card at Bottom Left: Lulus Passing Grade 86 -->
-                <div class="absolute -bottom-6 -left-4 z-20 bg-white rounded-2xl p-3.5 shadow-2xl border border-slate-100 flex items-center space-x-3 animate-float">
+                <div class="absolute -bottom-5 sm:-bottom-6 left-2 sm:-left-4 z-20 bg-white rounded-2xl p-2.5 sm:p-3.5 shadow-2xl border border-slate-100 flex items-center space-x-2.5 sm:space-x-3 animate-float max-w-[calc(100%-1rem)]">
                     <!-- Circular percentage gauge -->
-                    <div class="relative w-12 h-12 flex items-center justify-center">
-                        <svg class="w-12 h-12 transform -rotate-90">
-                            <circle cx="24" cy="24" r="18" stroke="#E2E8F0" stroke-width="4" fill="transparent" />
-                            <circle cx="24" cy="24" r="18" stroke="#00C48C" stroke-width="4" stroke-dasharray="113" stroke-dashoffset="15" stroke-linecap="round" fill="transparent" />
+                    <div class="relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-10 h-10 sm:w-12 sm:h-12 transform -rotate-90">
+                            <circle cx="20" cy="20" r="15" stroke="#E2E8F0" stroke-width="3.5" fill="transparent" class="sm:hidden" />
+                            <circle cx="20" cy="20" r="15" stroke="#00C48C" stroke-width="3.5" stroke-dasharray="94" stroke-dashoffset="13" stroke-linecap="round" fill="transparent" class="sm:hidden" />
+                            <circle cx="24" cy="24" r="18" stroke="#E2E8F0" stroke-width="4" fill="transparent" class="hidden sm:block" />
+                            <circle cx="24" cy="24" r="18" stroke="#00C48C" stroke-width="4" stroke-dasharray="113" stroke-dashoffset="15" stroke-linecap="round" fill="transparent" class="hidden sm:block" />
                         </svg>
-                        <span class="absolute font-black text-xs text-slate-800">86</span>
+                        <span class="absolute font-black text-[11px] sm:text-xs text-slate-800">86</span>
                     </div>
                     <div>
                         <span class="block text-xs font-black text-[#00A86B]">Lulus Passing Grade</span>

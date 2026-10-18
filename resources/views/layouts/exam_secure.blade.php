@@ -114,7 +114,7 @@
     </style>
     @stack('styles')
 </head>
-<body class="h-full min-h-screen bg-[#FFF7E9] text-[#1F366A] flex flex-col antialiased select-none" oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;" ondragstart="return false;" onselectstart="return false;">
+<body class="h-full min-h-screen bg-[#FFF7E9] text-[#1F366A] flex flex-col antialiased select-none overflow-x-hidden" oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;" ondragstart="return false;" onselectstart="return false;">
 
     @yield('content')
 

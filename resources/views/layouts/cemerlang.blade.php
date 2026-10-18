@@ -121,22 +121,22 @@
     </style>
     @stack('styles')
 </head>
-<body class="min-h-screen flex flex-col bg-[#F4F8FD]">
+<body class="min-h-screen flex flex-col bg-[#F4F8FD] overflow-x-hidden">
 
-    <!-- Navbar matching reference image -->
+    <!-- Responsive Navbar -->
     <header class="bg-white text-slate-800 shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
+            <div class="flex items-center justify-between h-16 sm:h-20">
                 <!-- Brand / Logo -->
-                <a href="{{ url('/') }}" class="flex items-center space-x-3.5 group py-1">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo Bimbel Cemerlang" class="h-14 sm:h-16 w-auto object-contain transition duration-200 group-hover:scale-105 drop-shadow-sm">
-                    <div>
-                        <span class="block text-xl sm:text-2xl font-black tracking-tight text-[#1F366A] font-serif leading-none">BIMBEL CEMERLANG</span>
-                        <span class="block text-[10px] sm:text-[11px] font-bold text-slate-500 tracking-wider uppercase mt-1">Platform Try Out & Bimbingan Belajar</span>
+                <a href="{{ url('/') }}" class="flex items-center space-x-2.5 sm:space-x-3.5 group py-1 min-w-0">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo Bimbel Cemerlang" class="h-10 sm:h-14 md:h-16 w-auto object-contain transition duration-200 group-hover:scale-105 drop-shadow-sm flex-shrink-0">
+                    <div class="min-w-0">
+                        <span class="block text-base sm:text-xl lg:text-2xl font-black tracking-tight text-[#1F366A] font-serif leading-none truncate">BIMBEL CEMERLANG</span>
+                        <span class="hidden sm:block text-[9px] sm:text-[11px] font-bold text-slate-500 tracking-wider uppercase mt-1 truncate">Platform Try Out & Bimbingan Belajar</span>
                     </div>
                 </a>
 
-                <!-- Navigation Links in Center Pill Style -->
+                <!-- Desktop Navigation Links in Center Pill Style -->
                 <nav class="hidden lg:flex items-center space-x-2 text-xs font-bold">
                     <a href="{{ url('/') }}" class="px-4 py-2 rounded-full transition flex items-center {{ request()->is('/') ? 'bg-[#EEF5FF] text-[#1E75FF] font-extrabold' : 'text-slate-600 hover:text-[#1F366A] hover:bg-slate-100' }}">
                         <i class="fa-solid fa-house mr-1.5 text-xs"></i>Beranda
@@ -158,8 +158,8 @@
                     @endif
                 </nav>
 
-                <!-- Auth Buttons matching reference image (Pill with rounded-full border) -->
-                <div class="flex items-center space-x-2.5">
+                <!-- Desktop Auth Buttons -->
+                <div class="hidden lg:flex items-center space-x-2.5">
                     @if(session('student_id'))
                         <div class="flex items-center space-x-2 bg-slate-100 py-1.5 px-3 rounded-full border border-slate-200 shadow-sm">
                             <a href="{{ url('/student/profile') }}" title="Edit Profil Saya" class="flex items-center space-x-2.5 group">
@@ -207,9 +207,98 @@
                         </a>
                     @endif
                 </div>
+
+                <!-- Mobile Header Right Actions (Hamburger + Quick Button) -->
+                <div class="flex lg:hidden items-center space-x-2">
+                    @if(session('student_id'))
+                        <a href="{{ url('/student/profile') }}" class="flex items-center space-x-1.5 bg-slate-100 p-1.5 rounded-full border border-slate-200">
+                            @if(session('student_avatar'))
+                                <img src="{{ asset(session('student_avatar')) }}" alt="Foto Profil" class="w-7 h-7 rounded-full object-cover">
+                            @else
+                                <span class="w-7 h-7 rounded-full bg-[#1F366A] text-white font-bold flex items-center justify-center text-[10px]">
+                                    {{ strtoupper(substr(session('student_name', 'S'), 0, 1)) }}
+                                </span>
+                            @endif
+                        </a>
+                    @elseif(!session('admin_id'))
+                        <a href="{{ url('/login') }}" class="inline-flex items-center text-[11px] font-black text-[#1F366A] bg-[#FFBE2A] hover:bg-[#E5A817] px-3 py-1.5 rounded-full shadow-xs">
+                            Masuk
+                        </a>
+                    @endif
+
+                    <!-- Hamburger Button -->
+                    <button type="button" id="mobile-menu-btn" onclick="toggleMobileMenu()" class="w-9 h-9 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#1F366A] flex items-center justify-center text-base focus:outline-none transition" aria-label="Buka Menu">
+                        <i id="mobile-menu-icon" class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
             </div>
         </div>
+
+        <!-- Mobile Drawer Menu (Expandable on small screens) -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md px-4 pt-3 pb-6 space-y-2 shadow-lg animate-fadeIn">
+            <a href="{{ url('/') }}" class="flex items-center px-4 py-2.5 rounded-xl text-xs font-bold {{ request()->is('/') ? 'bg-[#EEF5FF] text-[#1E75FF] font-extrabold' : 'text-slate-700 hover:bg-slate-50' }}">
+                <i class="fa-solid fa-house w-6 text-xs text-[#FFBE2A]"></i>Beranda
+            </a>
+            <a href="{{ url('/student/catalog') }}" class="flex items-center px-4 py-2.5 rounded-xl text-xs font-bold {{ request()->is('student/catalog*') ? 'bg-[#EEF5FF] text-[#1E75FF] font-extrabold' : 'text-slate-700 hover:bg-slate-50' }}">
+                <i class="fa-solid fa-book-open w-6 text-xs text-[#FFBE2A]"></i>Katalog Try Out
+            </a>
+
+            @if(session('student_id'))
+                <a href="{{ url('/student/dashboard') }}" class="flex items-center px-4 py-2.5 rounded-xl text-xs font-bold {{ request()->is('student/dashboard*') ? 'bg-[#EEF5FF] text-[#1E75FF] font-extrabold' : 'text-slate-700 hover:bg-slate-50' }}">
+                    <i class="fa-solid fa-graduation-cap w-6 text-xs text-[#FFBE2A]"></i>Dashboard Siswa
+                </a>
+                <a href="{{ url('/student/profile') }}" class="flex items-center px-4 py-2.5 rounded-xl text-xs font-bold {{ request()->is('student/profile*') ? 'bg-[#EEF5FF] text-[#1E75FF] font-extrabold' : 'text-slate-700 hover:bg-slate-50' }}">
+                    <i class="fa-solid fa-user-pen w-6 text-xs text-sky-600"></i>Profil Saya
+                </a>
+                <div class="pt-2 border-t border-slate-100">
+                    <a href="{{ url('/logout') }}" class="flex items-center px-4 py-2.5 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50">
+                        <i class="fa-solid fa-right-from-bracket w-6 text-xs"></i>Keluar (Logout)
+                    </a>
+                </div>
+            @elseif(session('admin_id'))
+                <a href="{{ url('/admin/dashboard') }}" class="flex items-center px-4 py-2.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-800">
+                    <i class="fa-solid fa-gauge w-6 text-xs text-emerald-600"></i>Dashboard Admin
+                </a>
+                <div class="pt-2 border-t border-slate-100">
+                    <a href="{{ url('/logout') }}" class="flex items-center px-4 py-2.5 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50">
+                        <i class="fa-solid fa-right-from-bracket w-6 text-xs"></i>Keluar Admin
+                    </a>
+                </div>
+            @else
+                <div class="pt-3 border-t border-slate-100 space-y-2">
+                    <a href="{{ url('/register') }}" class="flex items-center justify-center space-x-2 w-full py-3 rounded-xl bg-[#FFBE2A] hover:bg-[#E5A817] text-[#1F366A] font-black text-xs shadow-sm">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Daftar Akun Siswa</span>
+                    </a>
+                    <a href="{{ url('/login') }}" class="flex items-center justify-center space-x-2 w-full py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50">
+                        <i class="fa-solid fa-arrow-right-to-bracket text-slate-500"></i>
+                        <span>Masuk Siswa</span>
+                    </a>
+                    <a href="{{ url('/admin/login') }}" class="flex items-center justify-center space-x-1.5 w-full py-2 rounded-xl text-[11px] font-bold text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-user-shield text-xs"></i>
+                        <span>Login Administrator</span>
+                    </a>
+                </div>
+            @endif
+        </div>
     </header>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                menu.classList.add('hidden');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        }
+    </script>
+
 
     <!-- Flash Messages -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 w-full">

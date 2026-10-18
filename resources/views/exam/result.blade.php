@@ -3,7 +3,7 @@
 @section('title', 'Hasil Evaluasi & Pembahasan Try Out - Bimbel Cemerlang')
 
 @section('content')
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+<div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
 
     <!-- 1. Score & Passing Grade Evaluation Banner -->
     @php
@@ -12,39 +12,39 @@
         $passingGrade = $session['passing_grade'] ?? ($package['passing_grade'] ?? 70);
     @endphp
 
-    <div class="rounded-3xl p-8 shadow-2xl text-white relative overflow-hidden border-4 {{ $isPassed ? 'bg-gradient-to-r from-emerald-800 via-teal-900 to-[#1F366A] border-[#FFBE2A]' : 'bg-gradient-to-r from-rose-900 via-slate-900 to-[#1F366A] border-rose-400' }}">
+    <div class="rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl text-white relative overflow-hidden border-2 sm:border-4 {{ $isPassed ? 'bg-gradient-to-r from-emerald-800 via-teal-900 to-[#1F366A] border-[#FFBE2A]' : 'bg-gradient-to-r from-rose-900 via-slate-900 to-[#1F366A] border-rose-400' }}">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
             <!-- Evaluation Status -->
-            <div class="space-y-3 text-center md:text-left">
-                <span class="inline-block px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider {{ $isPassed ? 'bg-[#FFBE2A] text-[#1F366A]' : 'bg-rose-500 text-white' }}">
+            <div class="space-y-2.5 sm:space-y-3 text-center md:text-left">
+                <span class="inline-block px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider {{ $isPassed ? 'bg-[#FFBE2A] text-[#1F366A]' : 'bg-rose-500 text-white' }}">
                     Hasil Evaluasi Instan
                 </span>
-                <h1 class="text-3xl sm:text-4xl font-black font-serif">
+                <h1 class="text-2xl sm:text-4xl font-black font-serif">
                     @if($isPassed)
-                        <i class="fa-solid fa-trophy mr-2 text-[#FFBE2A]"></i> SELAMAT, ANDA LULUS!
+                        <i class="fa-solid fa-trophy mr-1.5 sm:mr-2 text-[#FFBE2A]"></i> SELAMAT, ANDA LULUS!
                     @else
-                        <i class="fa-solid fa-circle-exclamation mr-2 text-rose-400"></i> BELUM LULUS
+                        <i class="fa-solid fa-circle-exclamation mr-1.5 sm:mr-2 text-rose-400"></i> BELUM LULUS
                     @endif
                 </h1>
-                <p class="text-sm text-slate-200 max-w-lg">
+                <p class="text-xs sm:text-sm text-slate-200 max-w-lg">
                     @if($isPassed)
                         Skor akhir Anda berhasil melampaui ambang batas Passing Grade untuk <b>{{ $package['title'] }}</b>. Pertahankan dan tingkatkan prestasimu!
                     @else
                         Skor akhir Anda belum mencapai target Passing Grade. Pelajari pembahasan soal di bawah ini untuk memperdalam pemahaman konsep materi.
                     @endif
                 </p>
-                <div class="text-xs text-slate-300 font-semibold pt-1">
+                <div class="text-[11px] sm:text-xs text-slate-300 font-semibold pt-1">
                     Peserta: <b>{{ $session['student_name'] }}</b> | Selesai: <b>{{ $session['finished_at'] ?? date('Y-m-d H:i') }}</b>
                 </div>
             </div>
 
             <!-- Score Display Badge -->
-            <div class="bg-white/10 backdrop-blur-md border-2 border-white/20 p-6 rounded-3xl text-center min-w-[200px] shadow-lg">
-                <span class="text-xs text-slate-200 font-bold uppercase tracking-wider block">Skor Akhir</span>
-                <div class="text-5xl font-black font-serif my-1 {{ $isPassed ? 'text-[#FFBE2A]' : 'text-white' }}">
+            <div class="w-full md:w-auto bg-white/10 backdrop-blur-md border-2 border-white/20 p-4 sm:p-6 rounded-2xl sm:rounded-3xl text-center min-w-[180px] sm:min-w-[200px] shadow-lg">
+                <span class="text-[10px] sm:text-xs text-slate-200 font-bold uppercase tracking-wider block">Skor Akhir</span>
+                <div class="text-4xl sm:text-5xl font-black font-serif my-1 {{ $isPassed ? 'text-[#FFBE2A]' : 'text-white' }}">
                     {{ $score }}
                 </div>
-                <div class="text-xs text-slate-300 font-semibold border-t border-white/20 pt-2 mt-2">
+                <div class="text-[11px] sm:text-xs text-slate-300 font-semibold border-t border-white/20 pt-2 mt-2">
                     Passing Grade: <b class="text-white">{{ $passingGrade }}%</b>
                 </div>
             </div>

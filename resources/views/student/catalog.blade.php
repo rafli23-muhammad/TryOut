@@ -3,20 +3,20 @@
 @section('title', 'Katalog Paket Try Out - Bimbel Cemerlang')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
     <!-- Header -->
-    <div class="bg-gradient-to-r from-[#1F366A] to-[#132347] text-white rounded-3xl p-8 mb-10 shadow-xl border-4 border-[#FFBE2A] flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="bg-gradient-to-r from-[#1F366A] to-[#132347] text-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 mb-6 sm:mb-10 shadow-xl border-2 sm:border-4 border-[#FFBE2A] flex flex-col md:flex-row items-start md:items-center justify-between gap-4 sm:gap-6">
         <div>
-            <div class="inline-block bg-[#FFBE2A] text-[#1F366A] text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+            <div class="inline-block bg-[#FFBE2A] text-[#1F366A] text-[10px] sm:text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider mb-2">
                 Katalog Resmi
             </div>
-            <h1 class="text-3xl font-black font-serif">Katalog Paket Try Out Online</h1>
-            <p class="text-slate-200 text-sm mt-1 max-w-xl">
+            <h1 class="text-2xl sm:text-3xl font-black font-serif">Katalog Paket Try Out Online</h1>
+            <p class="text-slate-200 text-xs sm:text-sm mt-1 max-w-xl">
                 Pilih paket simulasi try out sesuai jenjang dan target impianmu. Dilengkapi timer pengerjaan real-time dan evaluasi skor instan.
             </p>
         </div>
-        <div class="flex items-center space-x-3">
-            <a href="{{ url('/student/dashboard') }}" class="btn-cemerlang-yellow text-xs font-bold px-5 py-3 rounded-xl shadow">
+        <div class="w-full md:w-auto flex items-center">
+            <a href="{{ url('/student/dashboard') }}" class="btn-cemerlang-yellow text-xs font-bold px-5 py-3 rounded-xl shadow w-full md:w-auto text-center justify-center flex items-center">
                 <i class="fa-solid fa-graduation-cap mr-2"></i> Dashboard Saya
             </a>
         </div>
