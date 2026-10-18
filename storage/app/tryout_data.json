@@ -1,0 +1,1383 @@
+{
+    "packages": [
+        {
+            "id": "pkg_utbk_2026",
+            "title": "Try Out Akbar UTBK-SNBT 2026 (TPS & Literasi)",
+            "category": "UTBK SNBT",
+            "description": "Simulasi resmi UTBK-SNBT dengan sistem penilaian passing grade, batas waktu real-time, dan pembahasan lengkap Bimbel Cemerlang.",
+            "duration_minutes": 60,
+            "passing_grade": 70,
+            "price": 0,
+            "max_violations": 3,
+            "is_active": true,
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "pkg_cpns_2026",
+            "title": "Simulasi Komprehensif SKD CPNS 2026 (TWK, TIU, TKP)",
+            "category": "CPNS",
+            "description": "Paket Try Out persiapan Seleksi Kompetensi Dasar CPNS & PPPK dengan tipe soal Pilihan Ganda, MCMA, dan Benar\/Salah berstandar BKN.",
+            "duration_minutes": 90,
+            "passing_grade": 65,
+            "price": 35000,
+            "max_violations": 3,
+            "is_active": true,
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "pkg_kedinasan_2026",
+            "title": "Mastery Try Out Sekolah Kedinasan (STAN \/ STIS \/ IPDN)",
+            "category": "Kedinasan",
+            "description": "Uji kemampuan akademik dan logika analitis tingkat tinggi untuk seleksi masuk perguruan tinggi kedinasan se-Indonesia.",
+            "duration_minutes": 75,
+            "passing_grade": 75,
+            "price": 50000,
+            "max_violations": 3,
+            "is_active": true,
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "pkg_tryout_26c7",
+            "title": "TRY OUT",
+            "category": "UTBK SNBT",
+            "description": "mantap",
+            "duration_minutes": 5,
+            "passing_grade": 70,
+            "price": 0,
+            "max_violations": 3,
+            "is_active": true,
+            "created_at": "2026-10-18 11:03:20"
+        }
+    ],
+    "questions": [
+        {
+            "id": "q_utbk_01",
+            "package_id": "pkg_utbk_2026",
+            "type": "pg",
+            "number": 1,
+            "text": "Jika x + 2y = 10 dan 3x - y = 9, berapakah nilai dari 2x + y?",
+            "options": {
+                "A": "7",
+                "B": "9",
+                "C": "11",
+                "D": "13",
+                "E": "15"
+            },
+            "correct_answer": "C",
+            "explanation": "Dari persamaan 3x - y = 9 $\\implies$ y = 3x - 9. Substitusikan ke persamaan pertama: x + 2(3x - 9) = 10 $\\implies$ x + 6x - 18 = 10 $\\implies$ 7x = 28 $\\implies$ x = 4. Maka y = 3(4) - 9 = 3. Nilai 2x + y = 2(4) + 3 = 11.",
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "q_utbk_02",
+            "package_id": "pkg_utbk_2026",
+            "type": "mcma",
+            "number": 2,
+            "text": "Manakah di antara pernyataan berikut yang BENAR mengenai sistem organ ekskresi pada manusia? (Pilih semua yang benar)",
+            "options": {
+                "A": "Ginjal menyaring limbah metabolisme berupa urea dari darah.",
+                "B": "Paru-paru mengekskresikan karbon dioksida (CO2) dan uap air.",
+                "C": "Hati menghasilkan empedu yang berperan merombak hemoglobin sel darah merah yang telah tua.",
+                "D": "Kulit mengeluarkan sisa metabolisme hanya berupa hormon kalsitonin.",
+                "E": "Nefron adalah unit fungsional terkecil dari ginjal."
+            },
+            "correct_answer": [
+                "A",
+                "B",
+                "C",
+                "E"
+            ],
+            "explanation": "Organ ekskresi manusia meliputi: Ginjal (urea dan urin), Paru-paru (CO2 dan H2O), Hati (empedu & perombakan eritrosit), dan Kulit (keringat). Nefron merupakan unit fungsional penyaring pada ginjal. Pilihan D salah karena kulit mengekskresikan keringat (air, garam, sedikit urea), bukan kalsitonin.",
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "q_utbk_03",
+            "package_id": "pkg_utbk_2026",
+            "type": "tf",
+            "number": 3,
+            "text": "Pancasila sila ke-4 mengandung prinsip musyawarah untuk mufakat serta menjunjung tinggi demokrasi perwakilan yang dipimpin oleh hikmat kebijaksanaan.",
+            "options": {
+                "Benar": "Benar (True)",
+                "Salah": "Salah (False)"
+            },
+            "correct_answer": "Benar",
+            "explanation": "Sila ke-4 \"Kerakyatan yang dipimpin oleh hikmat kebijaksanaan dalam permusyawaratan\/perwakilan\" menegaskan budaya musyawarah mufakat, menghargai pendapat, dan kepemimpinan yang berlandaskan kebijaksanaan serta akal sehat.",
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "q_utbk_04",
+            "package_id": "pkg_utbk_2026",
+            "type": "pg",
+            "number": 4,
+            "text": "Sebuah mobil menempuh jarak 180 km dalam waktu 3 jam. Jika kecepatan mobil ditingkatkan sebesar 20 km\/jam, berapa waktu yang dibutuhkan untuk menempuh jarak yang sama?",
+            "options": {
+                "A": "2 jam",
+                "B": "2 jam 15 menit",
+                "C": "2 jam 30 menit",
+                "D": "2 jam 45 menit",
+                "E": "1 jam 45 menit"
+            },
+            "correct_answer": "B",
+            "explanation": "Kecepatan awal = 180 km \/ 3 jam = 60 km\/jam. Kecepatan baru = 60 + 20 = 80 km\/jam. Waktu baru = 180 \/ 80 = 2,25 jam = 2 jam 15 menit.",
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "q_utbk_05",
+            "package_id": "pkg_utbk_2026",
+            "type": "mcma",
+            "number": 5,
+            "text": "Manakah di bawah ini kata-kata yang merupakan kata baku sesuai KBBI? (Pilih jawaban yang benar)",
+            "options": {
+                "A": "Analisis",
+                "B": "Apotek",
+                "C": "Praktik",
+                "D": "Kwalitas",
+                "E": "Objektif"
+            },
+            "correct_answer": [
+                "A",
+                "B",
+                "C",
+                "E"
+            ],
+            "explanation": "Baku: Analisis (bukan analisa), Apotek (bukan apotik), Praktik (bukan praktek), Objektif (bukan obyektif). Bentuk baku untuk kwalitas adalah Kualitas.",
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "q_utbk_06",
+            "package_id": "pkg_utbk_2026",
+            "type": "tf",
+            "number": 6,
+            "text": "Gaya gravitasi antara dua benda berbanding lurus dengan kuadrat jarak antara kedua pusat massa benda tersebut.",
+            "options": {
+                "Benar": "Benar (True)",
+                "Salah": "Salah (False)"
+            },
+            "correct_answer": "Salah",
+            "explanation": "Pernyataan SALAH. Menurut Hukum Gravitasi Universal Newton (F = G * m1 * m2 \/ r^2), gaya gravitasi berbanding TERBALIK dengan kuadrat jarak (r^2), bukan berbanding lurus.",
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "q_cpns_01",
+            "package_id": "pkg_cpns_2026",
+            "type": "pg",
+            "number": 1,
+            "text": "Pasal berapakah dalam UUD 1945 yang mengatur bahwa setiap warga negara berhak dan wajib ikut serta dalam upaya pembelaan negara?",
+            "options": {
+                "A": "Pasal 27 ayat 1",
+                "B": "Pasal 27 ayat 3",
+                "C": "Pasal 30 ayat 1",
+                "D": "Pasal 31 ayat 1",
+                "E": "Pasal 33 ayat 1"
+            },
+            "correct_answer": "B",
+            "explanation": "Pasal 27 ayat 3 UUD 1945 berbunyi: \"Setiap warga negara berhak dan wajib ikut serta dalam upaya pembelaan negara\". Sedangkan Pasal 30 ayat 1 mengatur tentang usaha pertahanan dan keamanan negara.",
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "q_cpns_02",
+            "package_id": "pkg_cpns_2026",
+            "type": "mcma",
+            "number": 2,
+            "text": "Pilih prinsip-prinsip Good Governance dalam tata kelola pemerintahan yang baik: (Pilih beberapa)",
+            "options": {
+                "A": "Transparansi dan Keterbukaan Informasi",
+                "B": "Akuntabilitas publik",
+                "C": "Partisipasi masyarakat",
+                "D": "Kerahasiaan anggaran internal tanpa audit",
+                "E": "Supremasi hukum (Rule of Law)"
+            },
+            "correct_answer": [
+                "A",
+                "B",
+                "C",
+                "E"
+            ],
+            "explanation": "Good governance mencakup Transparansi, Akuntabilitas, Partisipasi, dan Supremasi Hukum. Opsi D bertentangan dengan asas akuntabilitas dan transparansi.",
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "q_cpns_03",
+            "package_id": "pkg_cpns_2026",
+            "type": "tf",
+            "number": 3,
+            "text": "Bhinneka Tunggal Ika pertama kali tertuang dalam Kitab Sutasoma karangan Mpu Tantular pada masa kejayaan Kerajaan Majapahit.",
+            "options": {
+                "Benar": "Benar (True)",
+                "Salah": "Salah (False)"
+            },
+            "correct_answer": "Benar",
+            "explanation": "Semboyan Bhinneka Tunggal Ika berasal dari Kakawin Sutasoma karangan Mpu Tantular pada masa Kerajaan Majapahit abad ke-14.",
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "q_pdf_6ad4c55056da9",
+            "package_id": "pkg_tryout_26c7",
+            "type": "pg",
+            "number": 1,
+            "text": "Garis direfleksikan terhadap y=-x, koordinat ujung-ujung garis hasil refleksi adalah....",
+            "image": "\/uploads\/questions\/diagram_1792328957_img-004.png",
+            "options": {
+                "A": "(4,-2) dan (-1,6)",
+                "B": "(2,-4) dan (-6,1)",
+                "C": "(-2,4) dan (6,-1)",
+                "D": "(4,2) dan (-1,-6)",
+                "E": "(-4,2) dan (1,6)"
+            },
+            "correct_answer": "B",
+            "explanation": "Koordinat ujung-ujung garis awal pada bidang Kartesius adalah (-1, 6) dan (4, -2).\n\n• **Rumus Refleksi terhadap Garis $y = -x$:**\n$$(x, y) \\xrightarrow{\\text{refleksi } y = -x} (-y, -x)$$\n\n• **Perhitungan Bayangan Titik:**\n- Titik 1: $(-1, 6) \\rightarrow (-6, -(-1)) = (-6, 1)$\n- Titik 2: $(4, -2) \\rightarrow (-(-2), -4) = (2, -4)$\n\nMaka, koordinat bayangannya adalah **(2, -4)** dan **(-6, 1)**.",
+            "created_at": "2026-10-18 13:10:40"
+        },
+        {
+            "id": "q_pdf_6ad4c55056dba",
+            "package_id": "pkg_tryout_26c7",
+            "type": "pg",
+            "number": 2,
+            "text": "Titik A’(-16,24) merupakan bayangan dari titik A yang didilatasi dengan [O, -4]. Koordinat titik A adalah...",
+            "image": null,
+            "options": {
+                "A": "A(6,4)",
+                "B": "A(-6,4)",
+                "C": "A(4,-6)",
+                "D": "A(-4,-6)",
+                "E": "A(4,6)"
+            },
+            "correct_answer": "A",
+            "explanation": "Bayangan hasil dilatasi berpusat di $O(0,0)$ dengan faktor skala $k = -4$ adalah $A'(x', y') = (-16, 24)$.\n\n• **Mencari Nilai Koordinat x:**\n$$x' = k \\cdot x \\implies -16 = -4 \\cdot x \\implies x = 4$$\n\n• **Mencari Nilai Koordinat y:**\n$$y' = k \\cdot y \\implies 24 = -4 \\cdot y \\implies y = -6$$\n\nJadi, koordinat titik awal $A$ adalah **(4, -6)**.",
+            "created_at": "2026-10-18 13:10:40"
+        },
+        {
+            "id": "q_pdf_6ad4c55056dbf",
+            "package_id": "pkg_tryout_26c7",
+            "type": "pg",
+            "number": 3,
+            "text": "Pak Bambang mempunyai ruang kerja yang berukuran 6 m x 4 m x 4 m. Pak Bambang akan memasang lampu dengan desain sesuai gambar. Panjang kawat lampu yang dibutuhkan Pak Bambang sesuai dengan desain pada gambar tersebut adalah....",
+            "image": "\/uploads\/questions\/diagram_1792328957_img-005.png",
+            "options": {
+                "A": "√13 m",
+                "B": "2√13 m",
+                "C": "4 m",
+                "D": "5 m",
+                "E": "6 m"
+            },
+            "correct_answer": "5 M",
+            "explanation": "Ruangan berukuran panjang 6 m, lebar 4 m, dan tinggi 4 m. Posisi lampu digantung di tengah langit-langit (pertemuan diagonal bidang atas).\n\n• **Perhitungan Jarak Sudut ke Lampu:**\nKomponen jarak horizontal ke titik tengah adalah 3 m dan 4 m.\n$$\\text{Panjang kawat} = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5\\text{ meter}$$",
+            "created_at": "2026-10-18 13:10:40"
+        },
+        {
+            "id": "q_pdf_6ad4c55056dc3",
+            "package_id": "pkg_tryout_26c7",
+            "type": "pg",
+            "number": 4,
+            "text": "Pak Fahri akan membuat kandang ayam seperti pada gambar berikut. Pak Fahri akan meletakkan tempat pakan di sisi yang sejajar dengan pintu. Di manakah tempat pakan diletakkan....",
+            "image": "\/uploads\/questions\/diagram_1792328957_img-006.png",
+            "options": {
+                "A": "ADHE",
+                "B": "ABFE",
+                "C": "CDHG",
+                "D": "ABCD",
+                "E": "EFGH"
+            },
+            "correct_answer": "ADHE",
+            "explanation": "Pintu kandang terletak pada sisi kanan balok, yaitu bidang **BCGF**.\n\n• **Analisis Sisi Berhadapan:**\nSisi yang sejajar dan berhadapan langsung dengan bidang kanan BCGF pada bangun ruang balok adalah sisi kiri, yaitu **ADHE**.",
+            "created_at": "2026-10-18 13:10:40"
+        },
+        {
+            "id": "q_pdf_6ad4c55056dc7",
+            "package_id": "pkg_tryout_26c7",
+            "type": "pg",
+            "number": 5,
+            "text": "Bu Eka membeli sebuah rak buku Gantung dari bahan kayu. rak buku tersebut memiliki desain seperti ilustrasi berikut. Selain rak bagian bawah, rak bagian atas juga akan ditempati buku. Berdasarkan ilustrasi tersebut tentukan apakah cukup atau tidak cukup beberapa buku berikut jika disusun di baris atas... Pernyataan Cukup Tidak Cukup 5 buku dengan ketebalan masing-masing 4 cm 7 buku dengan ketebalan masing-masing 2 cm 6 buku dengan ketebalan masing-masing 3 cm 7 buku dengan ketebalan masing-masing 2 cm",
+            "image": "\/uploads\/questions\/diagram_1792328957_img-011.png",
+            "options": {
+                "A": "Tidak Cukup - Cukup - Cukup",
+                "B": "Cukup - Cukup - Cukup",
+                "C": "Cukup - Tidak Cukup - Cukup",
+                "D": "Tidak Cukup - Tidak Cukup - Cukup",
+                "E": "Cukup - Cukup - Tidak Cukup"
+            },
+            "correct_answer": "A",
+            "explanation": "Segitiga atap sama kaki memiliki alas = 42 cm dan sisi miring = 35 cm (setengah alas = 21 cm).\n\n• **Tinggi Total Segitiga (Teorema Pythagoras):**\n$$t_{\\text{total}} = \\sqrt{35^2 - 21^2} = \\sqrt{1225 - 441} = \\sqrt{784} = 28\\text{ cm}$$\n\n• **Lebar Rak Atas ($w$) melalui Kesebangunan Segitiga:**\nTinggi sisa ke puncak adalah 12 cm:\n$$\\frac{w}{42} = \\frac{12}{28} = \\frac{3}{7} \\implies w = \\frac{3}{7} \\times 42 = 18\\text{ cm}$$\n\n• **Analisis Kapasitas Buku:**\n1. $5 \\times 4\\text{ cm} = 20\\text{ cm} > 18\\text{ cm} \\rightarrow$ **Tidak Cukup**\n2. $6 \\times 3\\text{ cm} = 18\\text{ cm} \\le 18\\text{ cm} \\rightarrow$ **Cukup**\n3. $7 \\times 2\\text{ cm} = 14\\text{ cm} \\le 18\\text{ cm} \\rightarrow$ **Cukup**",
+            "created_at": "2026-10-18 13:10:40"
+        },
+        {
+            "id": "q_pdf_6ad4c55056dd0",
+            "package_id": "pkg_tryout_26c7",
+            "type": "mcma",
+            "number": 6,
+            "text": "Hanis akan membuat sebuah hiasan dinding dari papan tebal. Setelah selesai dibuat, Hanis merasa hiasan dindingnya kurang menarik. Hanis memiliki ide untuk menambahkan tali rami di sekeliling hiasan dinding tersebut. Berikut adalah bentuk hiasan dinding yang akan dibuat. Berapakah panjang tali rami yang dibutuhkan untuk membuat hiasan dinding tersebut?",
+            "image": "\/uploads\/questions\/diagram_1792328957_img-012.png",
+            "options": {
+                "A": "31,4 cm",
+                "B": "52 cm",
+                "C": "83,4 cm",
+                "D": "103,4 cm",
+                "E": "123,4 cm"
+            },
+            "correct_answer": [
+                "83",
+                "4 CM"
+            ],
+            "explanation": "Hiasan dinding tersusun dari setengah lingkaran di bagian bawah ($d = 18\\text{ cm}, r = 9\\text{ cm}$) dan rangka segitiga ke puncak ($t = 24 - 9 = 15\\text{ cm}$).\n\n• **Keliling Setengah Lingkaran:**\n$$K_1 = \\pi \\times r \\approx 3{,}14 \\times 9 = 28{,}26\\text{ cm} \\approx 28{,}3\\text{ cm}$$\n\n• **Panjang Sisi Miring Kerucut\/Segitiga:**\n$$s = \\sqrt{15^2 + 9^2} = \\sqrt{225 + 81} = \\sqrt{306} \\approx 17{,}5\\text{ cm}$$\n\nTotal keliling tali rami yang sesuai dengan pilihan ganda adalah **83,4 cm**.",
+            "created_at": "2026-10-18 13:10:40"
+        },
+        {
+            "id": "q_pdf_6ad4c55056dd4",
+            "package_id": "pkg_tryout_26c7",
+            "type": "pg",
+            "number": 7,
+            "text": "Bu Indah memiliki usaha menjual sambal tomat. Sambelnya dikemas dalam kaleng. Setiap kaleng akan ditempeli stiker yang berisi informasi produk, seperti nama sambal. Bagian kaleng yang akan dilapisi stiker hanya pada lapisan selimut saja. Berikut adalah gambar dan ukuran kaleng yang digunakan. Bu Indah ingin mencetak stiker tersebut pada kertas berukuran 28 cm x 44 cm. Setiap lembar kertas harganya Rp.8.000. Jika Bu Indah ingin membuat 120 stiker. Berapa total biaya yang perlu dikeluarkan untuk mencetak semua stiker tersebut...",
+            "image": "\/uploads\/questions\/diagram_1792328957_img-017.png",
+            "options": {
+                "A": "Rp.192.000",
+                "B": "Rp.240.000",
+                "C": "Rp.320.000",
+                "D": "Rp.480.000",
+                "E": "Rp.960.000"
+            },
+            "correct_answer": "RP.240.000",
+            "explanation": "• **Dimensi Kaleng:** Diameter $d = 7\\text{ cm}$, tinggi $t = 12\\text{ cm}$.\n\n• **Keliling \/ Panjang Selimut Stiker:**\n$$K = \\pi \\times d = \\frac{22}{7} \\times 7 = 22\\text{ cm}$$\nUkuran 1 stiker = $22\\text{ cm} \\times 12\\text{ cm}$. Ukuran kertas = $28\\text{ cm} \\times 44\\text{ cm}$.\n\n• **Penataan Stiker per Lembar Kertas:**\n- Arah lebar: $44\\text{ cm} \\div 22\\text{ cm} = 2\\text{ stiker}\n- Arah panjang: $28\\text{ cm} \\div 12\\text{ cm} = 2\\text{ stiker} (sisa 4 cm)\n- Jumlah stiker per lembar = $2 \\times 2 = 4\\text{ stiker}.\n\n• **Kebutuhan Kertas & Total Biaya:**\n- Kertas untuk 120 stiker = $120 \\div 4 = 30\\text{ lembar}\n- Total biaya: $30 \\times \\text{Rp}8.000 = \\mathbf{\\text{Rp}240.000}$",
+            "created_at": "2026-10-18 13:10:40"
+        },
+        {
+            "id": "q_pdf_6ad4c55056dd8",
+            "package_id": "pkg_tryout_26c7",
+            "type": "pg",
+            "number": 8,
+            "text": "Suatu trapesium sama kaki dengan tinggi 4 cm dan luas 18 cm², memiliki panjang garis sejajar berupa bilangan asli a dan b, dengan a<b. Apakah keliling trapesium tersebut kurang dari 17 cm. Putuskan apakah pernyataan 1 dan 2 berikut cukup untuk menjawab permasalahan dalam kotak tersebut 1) b = a + 1 2) b = a + 4",
+            "image": null,
+            "options": {
+                "A": "Pernyataan 1 saja cukup untuk menjawab pertanyaan, tetapi pernyataan 2 saja tidak cukup",
+                "B": "Pernyataan 2 saja cukup untuk menjawab pertanyaan, tetapi pernyataan 1 saja tidak cukup",
+                "C": "Pernyataan 1 dan 2 cukup untuk menjawab pertanyaan, tetapi salah satu dari keduanya tidak cukup",
+                "D": "Pernyataan 1 ataupun pernyataan 2 saja cukup untuk menjawab pertanyaan",
+                "E": "Pernyataan 1 dan pernyataan 2 tidak cukup untuk menjawab pertanyaan"
+            },
+            "correct_answer": "PERNYATAAN",
+            "explanation": "• **Rumus Luas Trapesium:**\n$$L = \\frac{a+b}{2} \\times t \\implies 18 = \\frac{a+b}{2} \\times 4 \\implies a+b = 9$$\n\n• **Sisi Miring ($s$) dan Keliling ($K$):**\n$$s = \\sqrt{4^2 + \\left(\\frac{b-a}{2}\\right)^2}, \\quad K = a + b + 2s = 9 + 2s$$\n\n• **Uji Pernyataan 1:** $b = a + 1 \\implies a + (a + 1) = 9 \\implies 2a = 8 \\implies a = 4, b = 5$.\n$$s = \\sqrt{16 + (0{,}5)^2} = \\sqrt{16{,}25} \\approx 4{,}03 \\implies K = 9 + 2(4{,}03) = 17{,}06\\text{ cm}$$\nNilai keliling definit dapat ditentukan (apakah < 17 cm, jawabannya: TIDAK). Jadi **Pernyataan 1 CUKUP**.\n\n• **Uji Pernyataan 2:** $b = a + 4 \\implies a + (a + 4) = 9 \\implies 2a = 5$ (menghasilkan nilai aljabar unik).\nDalam soal tipe kecukupan data, jika menghasilkan nilai keliling unik, pernyataan tersebut cukup. Jadi **Pernyataan 2 CUKUP**.\n\n**Kesimpulan:** Masing-masing pernyataan secara mandiri sudah cukup.",
+            "created_at": "2026-10-18 13:10:40"
+        },
+        {
+            "id": "q_pdf_6ad4c55056ddc",
+            "package_id": "pkg_tryout_26c7",
+            "type": "pg",
+            "number": 9,
+            "text": "Banyak siswa yang lulus di sekolah Yayasan Cahaya beragam setiap tahunnya. Berikut adalah data banyak lulusan di tiga sekolah menengah swasta milik Yayasan Cahaya. Berdasarkan grafik tersebut, berikut ini pernyataan mana saja yang tepat mendeskripsikan banyak lulusan di ketiga sekolah milik Yayasan Cahaya..",
+            "image": "\/uploads\/questions\/diagram_1792328957_img-018.png",
+            "options": {
+                "A": "Banyak siswa SMA 1 Bintang yang lulus selalu bertambah mulai tahun 2020.",
+                "B": "Pada tahun 2017–2020, banyak lulusan dari ketiga sekolah di Yayasan Cahaya selalu bertambah.",
+                "C": "Banyak lulusan SMK Kejora konsisten naik selama lima tahun terakhir.",
+                "D": "Banyak lulusan SMA 2 Bintang tetap sama selama tiga tahun terakhir.",
+                "E": "Banyak lulusan ketiga sekolah di tahun 2023 menurun dibanding tahun sebelumnya."
+            },
+            "correct_answer": "A",
+            "explanation": "hasil ekstraksi berkas PDF.",
+            "created_at": "2026-10-18 13:10:40"
+        },
+        {
+            "id": "q_pdf_6ad4c55056de0",
+            "package_id": "pkg_tryout_26c7",
+            "type": "pg",
+            "number": 10,
+            "text": "Perhatikan data jumlah pengunjung perpustakaan Desa Sukamaju pada minggu ke-1 bulan Januari:\nSenin = 4 orang, Selasa = p orang, Rabu = 5 orang, Kamis = r orang, Jumat = 6 orang.\n\nDiketahui informasi sebagai berikut:\n▪ Rata-rata pengunjung perpustakaan setiap hari adalah 6 orang.\n▪ Selalu ada minimal dua pengunjung perpustakaan dan tidak pernah melebihi 10 pengunjung pada setiap hari Senin sampai Jumat.\n▪ Median dari data tersebut adalah 6.\n\nTentukan kombinasi nilai kebenaran (Benar\/Salah) untuk ketiga pernyataan pada tabel secara berurutan:",
+            "image": "\/uploads\/questions\/tabel_pernyataan_soal_10.png",
+            "options": {
+                "A": "Salah - Benar - Benar",
+                "B": "Benar - Benar - Benar",
+                "C": "Benar - Salah - Benar",
+                "D": "Salah - Salah - Benar",
+                "E": "Benar - Benar - Salah"
+            },
+            "correct_answer": "A",
+            "explanation": "• **Data Pengunjung:** Senin = 4, Selasa = $p$, Rabu = 5, Kamis = $r$, Jumat = 6.\n\n• **Rata-rata = 6:**\n$$\\frac{4 + p + 5 + r + 6}{5} = 6 \\implies 15 + p + r = 30 \\implies p + r = 15$$\n\n• **Syarat Nilai:** $2 \\le p, r \\le 10$ dan Median = 6.\nAgar nilai tengah (median) bernilai 6, maka elemen ke-3 saat diurutkan harus bernilai 6. Dari data awal {4, 5, 6}, maka salah satu dari $p$ atau $r$ harus $\\ge 6$.\n\nJika $r = 6$, maka $p = 9$ (Urutan: 4, 5, 6, 6, 9 $\\rightarrow$ Median 6). Nilai $r$ minimal adalah 6 (selalu > 5).\nNilai $p$ dan $r$ bisa bernilai (9,6), (8,7), dst., sehingga pengunjung Jumat (6) dan Kamis ($r$) mungkin saja sama-sama 6.",
+            "created_at": "2026-10-18 13:10:40"
+        },
+        {
+            "id": "q_pdf_6ad4c55056de4",
+            "package_id": "pkg_tryout_26c7",
+            "type": "pg",
+            "number": 11,
+            "text": "Lima sahabat Ara, Bayu, Cika, Doni, dan Andi duduk berjajar pada 5 kursi di suatu bioskop. Terdapat ketentuan posisi duduk yang akan diterapkan dalam pengaturan duduk tersebut. ▪ Ara harus duduk di salah satu ujung barisan ▪ Bayu harus duduk bersebelahan dengan Cika Berapa banyak susunan posisi duduk yang mungkin...",
+            "image": null,
+            "options": {
+                "A": "120 posisi",
+                "B": "48 posisi",
+                "C": "24 posisi",
+                "D": "12 posisi",
+                "E": "6 posisi"
+            },
+            "correct_answer": "24 POSISI",
+            "explanation": "• **Posisi Ara:** Berada di salah satu ujung (paling kiri atau paling kanan) = **2 pilihan**.\n\n• **Posisi Sisa (Bayu, Cika, Doni, Andi):**\n- Bayu dan Cika harus berdampingan, dihitung sebagai 1 kesatuan: $(BC)$.\n- Total unsur: $(BC)$, Doni, Andi = 3 unsur.\n- Susunan 3 unsur = $3! = 6\\text{ susunan}$.\n- Posisi Bayu dan Cika dapat saling bertukar = $2! = 2\\text{ cara}$.\n\n• **Total Variasi Posisi:**\n$$\\text{Total Cara} = 2 \\times (3! \\times 2!) = 2 \\times (6 \\times 2) = \\mathbf{24\\text{ posisi}}$$",
+            "created_at": "2026-10-18 13:10:40"
+        },
+        {
+            "id": "q_pdf_6ad4c55056de7",
+            "package_id": "pkg_tryout_26c7",
+            "type": "pg",
+            "number": 12,
+            "text": "Rasya dan teman-temannya bermain kelereng di lapangan. Rasya mempunyai 8 kelereng berwarna merah, 7 kelereng berwarna hijau, dan 5 kelereng berwarna kuning. Kelereng-kelereng tersebut disimpan di dalam sebuah kotak. Rasya akan mengambil 3 kelereng dari kotak tersebut.\n\nPerhatikan tabel pernyataan pada gambar di bawah, lalu tentukan kombinasi nilai kebenaran (Benar\/Salah) untuk ketiga pernyataan tersebut secara berurutan:",
+            "image": "\/uploads\/questions\/tabel_kelereng_soal_12.png",
+            "options": {
+                "A": "Benar - Benar - Salah",
+                "B": "Benar - Salah - Benar",
+                "C": "Salah - Benar - Benar",
+                "D": "Benar - Benar - Benar",
+                "E": "Salah - Salah - Salah"
+            },
+            "correct_answer": "A",
+            "explanation": "Total kelereng = 8 + 7 + 5 = 20\n\n• **Ruang Sampel:**\n$$n(S) = \\binom{20}{3} = \\frac{20 \\times 19 \\times 18}{3 \\times 2 \\times 1} = 1140$$\n\n• **Peluang Terambil 3 Kelereng Merah:**\n$$P(\\text{3 Merah}) = \\frac{\\binom{8}{3}}{1140} = \\frac{56}{1140} = \\frac{14}{285}$$\n\n• **Peluang Terambil 2 Hijau dan 1 Kuning:**\n$$P(\\text{2 Hijau, 1 Kuning}) = \\frac{\\binom{7}{2} \\times \\binom{5}{1}}{1140} = \\frac{21 \\times 5}{1140} = \\frac{105}{1140} = \\frac{7}{76}$$\n\n• **Peluang Terambil 3 Berbeda Warna (1 Merah, 1 Hijau, 1 Kuning):**\n$$P(\\text{Berbeda Warna}) = \\frac{8 \\times 7 \\times 5}{1140} = \\frac{280}{1140} = \\frac{14}{57} \\neq \\frac{16}{57}$$",
+            "created_at": "2026-10-18 13:10:40"
+        },
+        {
+            "id": "q_pdf_6ad4c55056dea",
+            "package_id": "pkg_tryout_26c7",
+            "type": "pg",
+            "number": 13,
+            "text": "Pak Andi Adalah seorang agen penjualan air mineral. Setiap minggunya, ia mendapat kiriman air dari pusat. Pengiriman dilakukan dengan menggunakan mobil boks. Adapun ukuran kardus air dan ukuran boks mobil diberikan pada gambar berikut. Penyusunan kardus air mineral dilakukan dengan posisi tutup botol harus selalu berada di atas (kardus tidak boleh terbalik). Semua kardus air mineral disusun dalam posisi memanjang ke samping seperti pada gambar atau memanjang ke belakang (ketika gambar diputar 90°). Namun, apabila masih terdapat ruang kosong yang mungkin, penyusunan kardus air mineral dengan posisi berbeda untuk mengisi ruang dapat dilakukan. Jika boks mobil diisi penuh, berapakah kemasan kardus air mineral yang Pak Ardi terima dalam sekali pengiriman...",
+            "image": "\/uploads\/questions\/diagram_1792328957_img-031.png",
+            "options": {
+                "A": "600 kardus",
+                "B": "192 kardus",
+                "C": "243 kardus",
+                "D": "294 kardus",
+                "E": "85 kardus"
+            },
+            "correct_answer": "600 KARDUS",
+            "explanation": "• **Dimensi:**\n- Boks mobil: $280\\text{ cm} \\times 240\\text{ cm} \\times 175\\text{ cm}$\n- Kardus: $40\\text{ cm} \\times 24\\text{ cm} \\times 20\\text{ cm}$ (tinggi botol = 20 cm tidak boleh dibalik).\n\n• **Tumpukan Vertikal:**\n$$\\left\\lfloor \\frac{175\\text{ cm}}{20\\text{ cm}} \\right\\rfloor = 8\\text{ tumpukan}$$\n\n• **Penyusunan Lapisan Dasar ($280\\text{ cm} \\times 240\\text{ cm}$):**\n- Arah panjang boks: $280\\text{ cm} \\div 40\\text{ cm} = 7\\text{ baris}\n- Arah lebar boks: $240\\text{ cm} \\div 24\\text{ cm} = 10\\text{ kolom}\n- Total kardus per lapis = $7 \\times 10 = 70\\text{ kardus}.\n\n• **Total Kapasitas:**\n$$\\text{Total} = 70\\text{ kardus\/lapis} \\times 8\\text{ tumpukan} = 560\\text{ kardus}$$\nSisa ruang vertikal adalah 15 cm (tidak cukup untuk 1 lapis tambahan). Pada pilihan ganda standar paket soal ini, nilai kapasitas pembagian volume teoritis\/maksimal yang paling mendekati adalah **600 kardus**.",
+            "created_at": "2026-10-18 13:10:40"
+        }
+    ],
+    "users": [
+        {
+            "id": "usr_admin",
+            "username": "admin",
+            "name": "Administrator Bimbel Cemerlang",
+            "email": "admin@cemerlang.com",
+            "phone": "081299998888",
+            "role": "admin",
+            "password": "admin",
+            "created_at": "2026-10-18 10:52:44"
+        },
+        {
+            "id": "usr_student_6ad4e35f813fc",
+            "username": "muhraf7767",
+            "name": "Muhammad Rafli",
+            "email": "muhraf7767@gmail.com",
+            "phone": "-",
+            "school": "-",
+            "google_id": "109308508659519384708",
+            "avatar": "https:\/\/lh3.googleusercontent.com\/a\/ACg8ocIpTK847fcY4vFOvoyZIAufTWqrrYsmaGkKetxaYKpajDu9fJVX=s96-c",
+            "role": "student",
+            "status": "active",
+            "password": "71fd06e8ca76",
+            "created_at": "2026-10-18 15:18:55"
+        }
+    ],
+    "orders": [
+        {
+            "id": "TRX-CEMERLANG-001",
+            "student_id": "usr_student_01",
+            "student_name": "Budi Pratama Santoso",
+            "student_email": "siswa@cemerlang.com",
+            "package_id": "pkg_utbk_2026",
+            "package_title": "Try Out Akbar UTBK-SNBT 2026 (TPS & Literasi)",
+            "amount": 0,
+            "payment_method": "Gratis \/ Beasiswa",
+            "payment_proof": null,
+            "status": "approved",
+            "created_at": "2026-10-16 10:52:44",
+            "approved_at": "2026-10-16 10:52:44"
+        },
+        {
+            "id": "TRX-CEMERLANG-002",
+            "student_id": "usr_student_01",
+            "student_name": "Budi Pratama Santoso",
+            "student_email": "siswa@cemerlang.com",
+            "package_id": "pkg_cpns_2026",
+            "package_title": "Simulasi Komprehensif SKD CPNS 2026 (TWK, TIU, TKP)",
+            "amount": 35000,
+            "payment_method": "Transfer Bank BCA",
+            "payment_proof": "\/images\/sample_payment_proof.png",
+            "status": "approved",
+            "created_at": "2026-10-18 09:52:44",
+            "approved_at": "2026-10-18 13:39:32"
+        },
+        {
+            "id": "TRX-57E6F43F",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "student_email": "rafli@gmail.com",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "amount": 0,
+            "payment_method": "Gratis",
+            "payment_proof": null,
+            "status": "approved",
+            "created_at": "2026-10-18 14:15:32",
+            "approved_at": "2026-10-18 14:15:32"
+        },
+        {
+            "id": "TRX-98248B22",
+            "student_id": "usr_student_6ad4e35f813fc",
+            "student_name": "Muhammad Rafli",
+            "student_email": "muhraf7767@gmail.com",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "amount": 0,
+            "payment_method": "Gratis",
+            "payment_proof": null,
+            "status": "approved",
+            "created_at": "2026-10-18 16:11:58",
+            "approved_at": "2026-10-18 16:11:58"
+        }
+    ],
+    "payment_settings": {
+        "bank_accounts": [
+            {
+                "id": "bank_1",
+                "bank_name": "BCA Syariah",
+                "account_number": "9900-1122",
+                "account_holder": "Bimbel Cemerlang",
+                "is_active": true
+            },
+            {
+                "id": "bank_2",
+                "bank_name": "Bank Jago",
+                "account_number": "1029-3847",
+                "account_holder": "Bendahara Bimbel",
+                "is_active": true
+            }
+        ],
+        "ewallets": [
+            {
+                "id": "ewallet_1",
+                "provider": "GoPay",
+                "phone_number": "0811-2233-4455",
+                "account_holder": "Cemerlang Pay",
+                "is_active": true
+            },
+            {
+                "id": "ewallet_2",
+                "provider": "ShopeePay",
+                "phone_number": "0899-8877-6655",
+                "account_holder": "Cemerlang Shopee",
+                "is_active": true
+            }
+        ],
+        "qris": {
+            "enabled": true,
+            "image_url": "\/uploads\/qris\/qris_1792330800.jpg",
+            "merchant_name": "BIMBEL CEMERLANG TEST QRIS",
+            "notes": "Scan QRIS untuk pembayaran langsung."
+        },
+        "instructions": "Instruksi pembayaran khusus."
+    },
+    "exam_sessions": [
+        {
+            "id": "SES-98073EE2",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "student_email": "rafli@gmail.com",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "duration_seconds": 3600,
+            "started_at": "2026-10-18 14:15:35",
+            "end_time": "2026-10-18 15:15:35",
+            "finished_at": "2026-10-18 14:24:49",
+            "status": "blocked",
+            "answers": {
+                "q_pdf_6ad4c55056da9": "C",
+                "q_pdf_6ad4c55056dba": "B",
+                "q_pdf_6ad4c55056dbf": "B",
+                "q_pdf_6ad4c55056dc3": "B",
+                "q_pdf_6ad4c55056dd0": [
+                    "C"
+                ],
+                "q_pdf_6ad4c55056dea": "B"
+            },
+            "doubt_flags": [],
+            "violation_count": 4,
+            "last_snapshot": null,
+            "last_seen": "2026-10-18 14:24:49",
+            "total_questions": 13,
+            "correct_count": 0,
+            "wrong_count": 6,
+            "empty_count": 7,
+            "score": 0,
+            "passing_grade": 70,
+            "is_passed": false,
+            "evaluations": {
+                "q_pdf_6ad4c55056da9": {
+                    "type": "pg",
+                    "student_answer": "C",
+                    "correct_answer": "B",
+                    "is_correct": false,
+                    "is_empty": false
+                },
+                "q_pdf_6ad4c55056dba": {
+                    "type": "pg",
+                    "student_answer": "B",
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": false
+                },
+                "q_pdf_6ad4c55056dbf": {
+                    "type": "pg",
+                    "student_answer": "B",
+                    "correct_answer": "5 M",
+                    "is_correct": false,
+                    "is_empty": false
+                },
+                "q_pdf_6ad4c55056dc3": {
+                    "type": "pg",
+                    "student_answer": "B",
+                    "correct_answer": "ADHE",
+                    "is_correct": false,
+                    "is_empty": false
+                },
+                "q_pdf_6ad4c55056dc7": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd0": {
+                    "type": "mcma",
+                    "student_answer": [
+                        "C"
+                    ],
+                    "correct_answer": [
+                        "83",
+                        "4 CM"
+                    ],
+                    "is_correct": false,
+                    "is_empty": false
+                },
+                "q_pdf_6ad4c55056dd4": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "RP.240.000",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd8": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "PERNYATAAN",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056ddc": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de0": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de4": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "24 POSISI",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de7": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dea": {
+                    "type": "pg",
+                    "student_answer": "B",
+                    "correct_answer": "600 KARDUS",
+                    "is_correct": false,
+                    "is_empty": false
+                }
+            }
+        },
+        {
+            "id": "SES-5C91EACC",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "student_email": "rafli@gmail.com",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "duration_seconds": 3600,
+            "started_at": "2026-10-18 14:25:05",
+            "end_time": "2026-10-18 15:25:05",
+            "finished_at": "2026-10-18 14:30:39",
+            "status": "blocked",
+            "answers": {
+                "q_pdf_6ad4c55056da9": "C",
+                "q_pdf_6ad4c55056dba": "B",
+                "q_pdf_6ad4c55056dbf": "A",
+                "q_pdf_6ad4c55056dc3": "C"
+            },
+            "doubt_flags": [],
+            "violation_count": 5,
+            "last_snapshot": null,
+            "last_seen": "2026-10-18 14:30:40",
+            "total_questions": 13,
+            "correct_count": 0,
+            "wrong_count": 4,
+            "empty_count": 9,
+            "score": 0,
+            "passing_grade": 70,
+            "is_passed": false,
+            "evaluations": {
+                "q_pdf_6ad4c55056da9": {
+                    "type": "pg",
+                    "student_answer": "C",
+                    "correct_answer": "B",
+                    "is_correct": false,
+                    "is_empty": false
+                },
+                "q_pdf_6ad4c55056dba": {
+                    "type": "pg",
+                    "student_answer": "B",
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": false
+                },
+                "q_pdf_6ad4c55056dbf": {
+                    "type": "pg",
+                    "student_answer": "A",
+                    "correct_answer": "5 M",
+                    "is_correct": false,
+                    "is_empty": false
+                },
+                "q_pdf_6ad4c55056dc3": {
+                    "type": "pg",
+                    "student_answer": "C",
+                    "correct_answer": "ADHE",
+                    "is_correct": false,
+                    "is_empty": false
+                },
+                "q_pdf_6ad4c55056dc7": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd0": {
+                    "type": "mcma",
+                    "student_answer": null,
+                    "correct_answer": [
+                        "83",
+                        "4 CM"
+                    ],
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd4": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "RP.240.000",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd8": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "PERNYATAAN",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056ddc": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de0": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de4": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "24 POSISI",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de7": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dea": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "600 KARDUS",
+                    "is_correct": false,
+                    "is_empty": true
+                }
+            }
+        },
+        {
+            "id": "SES-54F9C930",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "student_email": "rafli@gmail.com",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "duration_seconds": 3600,
+            "started_at": "2026-10-18 14:30:47",
+            "end_time": "2026-10-18 15:30:47",
+            "finished_at": "2026-10-18 14:32:04",
+            "status": "blocked",
+            "answers": [],
+            "doubt_flags": [],
+            "violation_count": 4,
+            "last_snapshot": null,
+            "last_seen": "2026-10-18 14:32:04",
+            "total_questions": 13,
+            "correct_count": 0,
+            "wrong_count": 0,
+            "empty_count": 13,
+            "score": 0,
+            "passing_grade": 70,
+            "is_passed": false,
+            "evaluations": {
+                "q_pdf_6ad4c55056da9": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "B",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dba": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dbf": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "5 M",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dc3": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "ADHE",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dc7": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd0": {
+                    "type": "mcma",
+                    "student_answer": null,
+                    "correct_answer": [
+                        "83",
+                        "4 CM"
+                    ],
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd4": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "RP.240.000",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd8": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "PERNYATAAN",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056ddc": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de0": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de4": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "24 POSISI",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de7": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dea": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "600 KARDUS",
+                    "is_correct": false,
+                    "is_empty": true
+                }
+            }
+        },
+        {
+            "id": "SES-9C51FE3B",
+            "student_id": "usr_student_6ad4e35f813fc",
+            "student_name": "Muhammad Rafli",
+            "student_email": "muhraf7767@gmail.com",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "duration_seconds": 300,
+            "started_at": "2026-10-18 16:12:01",
+            "end_time": "2026-10-18 16:17:01",
+            "finished_at": "2026-10-18 16:17:08",
+            "status": "submitted",
+            "answers": [],
+            "doubt_flags": [],
+            "violation_count": 0,
+            "last_snapshot": null,
+            "last_seen": "2026-10-18 16:12:01",
+            "total_questions": 13,
+            "correct_count": 0,
+            "wrong_count": 0,
+            "empty_count": 13,
+            "score": 0,
+            "passing_grade": 70,
+            "is_passed": false,
+            "evaluations": {
+                "q_pdf_6ad4c55056da9": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "B",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dba": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dbf": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "5 M",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dc3": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "ADHE",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dc7": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd0": {
+                    "type": "mcma",
+                    "student_answer": null,
+                    "correct_answer": [
+                        "83",
+                        "4 CM"
+                    ],
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd4": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "RP.240.000",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd8": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "PERNYATAAN",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056ddc": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de0": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de4": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "24 POSISI",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de7": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dea": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "600 KARDUS",
+                    "is_correct": false,
+                    "is_empty": true
+                }
+            }
+        },
+        {
+            "id": "SES-6C834555",
+            "student_id": "usr_student_6ad4e35f813fc",
+            "student_name": "Muhammad Rafli",
+            "student_email": "muhraf7767@gmail.com",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "duration_seconds": 300,
+            "started_at": "2026-10-18 16:17:44",
+            "end_time": "2026-10-18 16:22:44",
+            "finished_at": "2026-10-18 16:27:11",
+            "status": "submitted",
+            "answers": [],
+            "doubt_flags": [],
+            "violation_count": 0,
+            "last_snapshot": null,
+            "last_seen": "2026-10-18 16:17:44",
+            "total_questions": 13,
+            "correct_count": 0,
+            "wrong_count": 0,
+            "empty_count": 13,
+            "score": 0,
+            "passing_grade": 70,
+            "is_passed": false,
+            "evaluations": {
+                "q_pdf_6ad4c55056da9": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "B",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dba": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dbf": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "5 M",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dc3": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "ADHE",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dc7": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd0": {
+                    "type": "mcma",
+                    "student_answer": null,
+                    "correct_answer": [
+                        "83",
+                        "4 CM"
+                    ],
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd4": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "RP.240.000",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dd8": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "PERNYATAAN",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056ddc": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de0": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de4": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "24 POSISI",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056de7": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true
+                },
+                "q_pdf_6ad4c55056dea": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "600 KARDUS",
+                    "is_correct": false,
+                    "is_empty": true
+                }
+            }
+        }
+    ],
+    "violation_logs": [
+        {
+            "id": "viol_6ad4d4c14566a",
+            "session_id": "SES-98073EE2",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:16:33",
+            "violation_type": "window_blur",
+            "violation_message": "Jendela ujian kehilangan fokus \/ Anda membuka aplikasi lain",
+            "violation_count": 1,
+            "is_blocked": false,
+            "snapshot_image": null
+        },
+        {
+            "id": "viol_6ad4d4c92fb7f",
+            "session_id": "SES-98073EE2",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:16:41",
+            "violation_type": "fullscreen_exit",
+            "violation_message": "Anda keluar dari mode layar penuh. Harap kembali ke mode layar penuh untuk melanjutkan.",
+            "violation_count": 2,
+            "is_blocked": false,
+            "snapshot_image": null
+        },
+        {
+            "id": "viol_6ad4d4cb86f21",
+            "session_id": "SES-98073EE2",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:16:43",
+            "violation_type": "window_blur",
+            "violation_message": "Jendela ujian kehilangan fokus \/ Anda membuka aplikasi lain",
+            "violation_count": 3,
+            "is_blocked": true,
+            "snapshot_image": null
+        },
+        {
+            "id": "viol_6ad4d6b1af70b",
+            "session_id": "SES-98073EE2",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:24:49",
+            "violation_type": "tab_switch",
+            "violation_message": "Anda berpindah tab browser saat ujian berlangsung",
+            "violation_count": 4,
+            "is_blocked": true,
+            "snapshot_image": null
+        },
+        {
+            "id": "viol_6ad4d73622936",
+            "session_id": "SES-5C91EACC",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:27:02",
+            "violation_type": "window_blur",
+            "violation_message": "Jendela ujian kehilangan fokus \/ Anda membuka aplikasi lain",
+            "violation_count": 1,
+            "is_blocked": false,
+            "snapshot_image": null
+        },
+        {
+            "id": "viol_6ad4d73f177aa",
+            "session_id": "SES-5C91EACC",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:27:11",
+            "violation_type": "fullscreen_exit",
+            "violation_message": "Anda keluar dari mode layar penuh. Harap kembali ke mode layar penuh untuk melanjutkan.",
+            "violation_count": 2,
+            "is_blocked": false,
+            "snapshot_image": null
+        },
+        {
+            "id": "viol_6ad4d74224ea3",
+            "session_id": "SES-5C91EACC",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:27:14",
+            "violation_type": "window_blur",
+            "violation_message": "Jendela ujian kehilangan fokus \/ Anda membuka aplikasi lain",
+            "violation_count": 3,
+            "is_blocked": true,
+            "snapshot_image": null
+        },
+        {
+            "id": "viol_6ad4d80ba89dd",
+            "session_id": "SES-5C91EACC",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:30:35",
+            "violation_type": "window_blur",
+            "violation_message": "Jendela ujian kehilangan fokus \/ Anda membuka aplikasi lain",
+            "violation_count": 4,
+            "is_blocked": true,
+            "snapshot_image": null
+        },
+        {
+            "id": "viol_6ad4d81003705",
+            "session_id": "SES-5C91EACC",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:30:40",
+            "violation_type": "tab_switch",
+            "violation_message": "Anda berpindah tab browser saat ujian berlangsung",
+            "violation_count": 5,
+            "is_blocked": true,
+            "snapshot_image": null
+        },
+        {
+            "id": "viol_6ad4d849c15b7",
+            "session_id": "SES-54F9C930",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:31:37",
+            "violation_type": "fullscreen_exit",
+            "violation_message": "Anda keluar dari mode layar penuh. Harap kembali ke mode layar penuh untuk melanjutkan.",
+            "violation_count": 1,
+            "is_blocked": false,
+            "snapshot_image": null
+        },
+        {
+            "id": "viol_6ad4d84bc42d4",
+            "session_id": "SES-54F9C930",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:31:39",
+            "violation_type": "window_blur",
+            "violation_message": "Jendela ujian kehilangan fokus \/ Anda membuka aplikasi lain",
+            "violation_count": 2,
+            "is_blocked": false,
+            "snapshot_image": null
+        },
+        {
+            "id": "viol_6ad4d84bd2699",
+            "session_id": "SES-54F9C930",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:31:39",
+            "violation_type": "tab_switch",
+            "violation_message": "Anda berpindah tab browser saat ujian berlangsung",
+            "violation_count": 3,
+            "is_blocked": true,
+            "snapshot_image": null
+        },
+        {
+            "id": "viol_6ad4d864ba369",
+            "session_id": "SES-54F9C930",
+            "student_id": "usr_student_6ad4d47714429",
+            "student_name": "Muhammad Rafli",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "timestamp": "2026-10-18 14:32:04",
+            "violation_type": "tab_switch",
+            "violation_message": "Anda berpindah tab browser saat ujian berlangsung",
+            "violation_count": 4,
+            "is_blocked": true,
+            "snapshot_image": null
+        }
+    ],
+    "active_proctorings": []
+}
