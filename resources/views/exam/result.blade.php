@@ -16,9 +16,14 @@
         <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
             <!-- Evaluation Status -->
             <div class="space-y-2.5 sm:space-y-3 text-center md:text-left">
-                <span class="inline-block px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider {{ $isPassed ? 'bg-[#FFBE2A] text-[#1F366A]' : 'bg-rose-500 text-white' }}">
-                    Hasil Evaluasi Instan
-                </span>
+                <div class="inline-flex items-center space-x-2">
+                    <span class="px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider {{ $isPassed ? 'bg-[#FFBE2A] text-[#1F366A]' : 'bg-rose-500 text-white' }}">
+                        Hasil Evaluasi Instan
+                    </span>
+                    <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider bg-white/20 text-[#FFBE2A] backdrop-blur-sm border border-white/20">
+                        <i class="fa-solid fa-chart-line mr-1"></i> Penilaian IRT (Item Response Theory)
+                    </span>
+                </div>
                 <h1 class="text-2xl sm:text-4xl font-black font-serif">
                     @if($isPassed)
                         <i class="fa-solid fa-trophy mr-1.5 sm:mr-2 text-[#FFBE2A]"></i> SELAMAT, ANDA LULUS!
@@ -28,9 +33,9 @@
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-200 max-w-lg">
                     @if($isPassed)
-                        Skor akhir Anda berhasil melampaui ambang batas Passing Grade untuk <b>{{ $package['title'] }}</b>. Pertahankan dan tingkatkan prestasimu!
+                        Skor IRT Anda berhasil melampaui ambang batas Passing Grade untuk <b>{{ $package['title'] }}</b>. Pertahankan dan tingkatkan prestasimu!
                     @else
-                        Skor akhir Anda belum mencapai target Passing Grade. Pelajari pembahasan soal di bawah ini untuk memperdalam pemahaman konsep materi.
+                        Skor IRT Anda belum mencapai target Passing Grade. Pelajari pembahasan soal di bawah ini untuk memperdalam pemahaman konsep materi.
                     @endif
                 </p>
                 <div class="text-[11px] sm:text-xs text-slate-300 font-semibold pt-1">
@@ -39,13 +44,16 @@
             </div>
 
             <!-- Score Display Badge -->
-            <div class="w-full md:w-auto bg-white/10 backdrop-blur-md border-2 border-white/20 p-4 sm:p-6 rounded-2xl sm:rounded-3xl text-center min-w-[180px] sm:min-w-[200px] shadow-lg">
-                <span class="text-[10px] sm:text-xs text-slate-200 font-bold uppercase tracking-wider block">Skor Akhir</span>
+            <div class="w-full md:w-auto bg-white/10 backdrop-blur-md border-2 border-white/20 p-4 sm:p-6 rounded-2xl sm:rounded-3xl text-center min-w-[180px] sm:min-w-[210px] shadow-lg">
+                <span class="text-[10px] sm:text-xs text-slate-200 font-bold uppercase tracking-wider block">Skor IRT Akhir</span>
                 <div class="text-4xl sm:text-5xl font-black font-serif my-1 {{ $isPassed ? 'text-[#FFBE2A]' : 'text-white' }}">
                     {{ $score }}
                 </div>
-                <div class="text-[11px] sm:text-xs text-slate-300 font-semibold border-t border-white/20 pt-2 mt-2">
-                    Passing Grade: <b class="text-white">{{ $passingGrade }}%</b>
+                <div class="text-[10px] sm:text-[11px] text-[#FFBE2A] font-extrabold uppercase tracking-wide">
+                    Skala 200 - 1000 UTBK/TKA
+                </div>
+                <div class="text-[11px] sm:text-xs text-slate-200 font-semibold border-t border-white/20 pt-2 mt-2">
+                    Passing Grade: <b class="text-white">{{ $passingGrade }} Poin</b>
                 </div>
             </div>
         </div>
@@ -106,6 +114,78 @@
         </div>
     </div>
 
+    <!-- IRT Item Response Theory Deep-Dive Breakdown -->
+    @php
+        $breakdown = $session['difficulty_breakdown'] ?? [];
+        $mudah = $breakdown['mudah'] ?? ['total' => 0, 'correct' => 0];
+        $sedang = $breakdown['sedang'] ?? ['total' => 0, 'correct' => 0];
+        $sukar = $breakdown['sukar'] ?? ['total' => 0, 'correct' => 0];
+        $theta = $session['theta'] ?? 0.0;
+    @endphp
+    <div class="bg-gradient-to-br from-white to-blue-50/50 rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-md border-2 border-blue-200">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-blue-100 gap-2 mb-4">
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span class="bg-[#1F366A] text-[#FFBE2A] text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                        Sistem Penilaian IRT Resmi
+                    </span>
+                    <span class="text-xs text-slate-500 font-semibold">Item Response Theory (Standar UTBK SNBT & TKA)</span>
+                </div>
+                <h3 class="text-base sm:text-lg font-black font-serif text-[#1F366A] mt-1">
+                    Analisis Karakteristik Butir & Parameter Kemampuan (&theta;)
+                </h3>
+            </div>
+            <div class="inline-flex items-center space-x-2 bg-blue-100/70 text-[#1F366A] px-3.5 py-1.5 rounded-xl text-xs font-black self-start sm:self-auto border border-blue-200">
+                <i class="fa-solid fa-chart-simple text-[#FFBE2A]"></i>
+                <span>Estimasi &theta;: {{ $theta >= 0 ? '+' : '' }}{{ number_format((float)$theta, 2) }}</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- Soal Mudah -->
+            <div class="bg-white p-4 rounded-xl border border-emerald-200 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] font-black uppercase text-emerald-700 tracking-wider block">Soal Mudah (Bobot 1.0)</span>
+                    <div class="text-lg font-black text-slate-800 mt-0.5">
+                        {{ $mudah['correct'] ?? 0 }} <span class="text-xs font-semibold text-slate-400">/ {{ $mudah['total'] ?? 0 }} Benar</span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 font-medium">Daya serap dasar</span>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-sm">
+                    {{ ($mudah['total'] ?? 0) > 0 ? round((($mudah['correct'] ?? 0)/$mudah['total'])*100) : 0 }}%
+                </div>
+            </div>
+
+            <!-- Soal Sedang -->
+            <div class="bg-white p-4 rounded-xl border border-blue-200 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] font-black uppercase text-blue-700 tracking-wider block">Soal Sedang (Bobot 1.6)</span>
+                    <div class="text-lg font-black text-slate-800 mt-0.5">
+                        {{ $sedang['correct'] ?? 0 }} <span class="text-xs font-semibold text-slate-400">/ {{ $sedang['total'] ?? 0 }} Benar</span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 font-medium">Daya pembeda standar</span>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">
+                    {{ ($sedang['total'] ?? 0) > 0 ? round((($sedang['correct'] ?? 0)/$sedang['total'])*100) : 0 }}%
+                </div>
+            </div>
+
+            <!-- Soal Sukar -->
+            <div class="bg-white p-4 rounded-xl border border-amber-300 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] font-black uppercase text-amber-700 tracking-wider block">Soal Sukar (Bobot 2.4)</span>
+                    <div class="text-lg font-black text-slate-800 mt-0.5">
+                        {{ $sukar['correct'] ?? 0 }} <span class="text-xs font-semibold text-slate-400">/ {{ $sukar['total'] ?? 0 }} Benar</span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 font-medium">Pengungkit skor utama</span>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-sm">
+                    {{ ($sukar['total'] ?? 0) > 0 ? round((($sukar['correct'] ?? 0)/$sukar['total'])*100) : 0 }}%
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Quick Navigation & Filter for Discussion -->
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
         <div class="flex items-center space-x-2">
@@ -148,28 +228,35 @@
 
             <div class="question-card bg-white rounded-3xl p-6 sm:p-8 shadow-md border-2 {{ $isCorrect ? 'border-emerald-300 status-correct' : 'border-rose-300 status-wrong' }} transition hover:shadow-lg" data-status="{{ $isCorrect ? 'correct' : 'wrong' }}">
                 <!-- Card Header -->
-                <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
-                    <div class="flex items-center space-x-3">
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-100 mb-4">
+                    <div class="flex flex-wrap items-center gap-2">
                         <span class="bg-[#1F366A] text-[#FFBE2A] text-xs font-black px-3.5 py-1 rounded-full shadow-sm">
                             Nomor {{ $index + 1 }}
                         </span>
                         <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-700">
                             {{ $q['type'] === 'pg' ? 'Pilihan Ganda' : ($q['type'] === 'mcma' ? 'MCMA (Multi-Select)' : 'Benar / Salah') }}
                         </span>
+                        @php
+                            $diff = $eval['difficulty'] ?? 'Sedang';
+                            $diffColor = $diff === 'Sukar' ? 'bg-amber-50 text-amber-900 border-amber-300' : ($diff === 'Mudah' ? 'bg-emerald-50 text-emerald-900 border-emerald-300' : 'bg-blue-50 text-blue-900 border-blue-300');
+                        @endphp
+                        <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md border {{ $diffColor }}">
+                            <i class="fa-solid fa-layer-group mr-1"></i> Soal {{ $diff }} (Bobot {{ $eval['irt_weight'] ?? 1.6 }})
+                        </span>
                     </div>
 
                     <!-- Result Status Badge -->
                     @if($isCorrect)
                         <span class="px-3 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 flex items-center">
-                            <i class="fa-solid fa-circle-check mr-1.5 text-emerald-600"></i> Jawaban Benar
+                            <i class="fa-solid fa-circle-check mr-1.5 text-emerald-600"></i> Benar (+{{ $eval['irt_weight'] ?? 1.6 }} Poin IRT)
                         </span>
                     @elseif($isEmpty)
                         <span class="px-3 py-1 rounded-full text-xs font-black bg-slate-100 text-slate-600 flex items-center">
-                            <i class="fa-solid fa-circle-minus mr-1.5 text-slate-400"></i> Tidak Dijawab
+                            <i class="fa-solid fa-circle-minus mr-1.5 text-slate-400"></i> Kosong (0.0 Poin)
                         </span>
                     @else
                         <span class="px-3 py-1 rounded-full text-xs font-black bg-rose-100 text-rose-800 flex items-center">
-                            <i class="fa-solid fa-circle-xmark mr-1.5 text-rose-600"></i> Jawaban Salah
+                            <i class="fa-solid fa-circle-xmark mr-1.5 text-rose-600"></i> Salah (0.0 Poin)
                         </span>
                     @endif
                 </div>

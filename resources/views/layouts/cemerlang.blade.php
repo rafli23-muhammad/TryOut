@@ -354,7 +354,7 @@
                         <span class="text-xl sm:text-2xl font-black tracking-wider text-white font-serif leading-none">BIMBEL CEMERLANG</span>
                     </div>
                     <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pr-6 max-w-md">
-                        Pusat Bimbingan Belajar dan Try Out Online terdepan dengan simulasi ujian real-time, evaluasi skor instan, dan pembahasan komprehensif untuk persiapan UTBK-SNBT, CPNS, dan Sekolah Kedinasan.
+                        Pusat Bimbingan Belajar dan Try Out Online terdepan dengan simulasi ujian real-time, sistem pembobotan IRT (Item Response Theory), dan pembahasan komprehensif untuk persiapan SNBT dan TKA.
                     </p>
                     <!-- Social Media Icons (Instagram, YouTube, Telegram, Globe) -->
                     <div class="flex items-center space-x-3 pt-2">
@@ -375,31 +375,31 @@
 
                 <!-- Kategori Ujian -->
                 <div class="md:col-span-3">
-                    <h4 class="text-xs font-black text-white uppercase tracking-wider mb-2">KATEGORI UJIAN</h4>
+                    <h4 class="text-xs font-black text-white uppercase tracking-wider mb-2">FOKUS PROGRAM</h4>
                     <div class="w-8 h-1 bg-[#FFBE2A] rounded-full mb-4"></div>
                     <ul class="text-xs space-y-3 text-slate-300">
                         <li>
                             <a href="{{ url('/student/catalog') }}" class="hover:text-white transition flex items-center">
-                                <i class="fa-solid fa-book-open w-5 text-slate-400"></i>
-                                <span>UTBK - SNBT 2026</span>
+                                <i class="fa-solid fa-graduation-cap w-5 text-[#FFBE2A]"></i>
+                                <span>UTBK - SNBT (TPS & Literasi)</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ url('/student/catalog') }}" class="hover:text-white transition flex items-center">
-                                <i class="fa-solid fa-user-tie w-5 text-slate-400"></i>
-                                <span>SKD CPNS & PPPK</span>
+                                <i class="fa-solid fa-atom w-5 text-[#FFBE2A]"></i>
+                                <span>TKA Saintek (Kemampuan Akademik)</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ url('/student/catalog') }}" class="hover:text-white transition flex items-center">
-                                <i class="fa-solid fa-building-columns w-5 text-slate-400"></i>
-                                <span>Sekolah Kedinasan</span>
+                                <i class="fa-solid fa-landmark w-5 text-[#FFBE2A]"></i>
+                                <span>TKA Soshum (Kemampuan Akademik)</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ url('/student/catalog') }}" class="hover:text-white transition flex items-center">
-                                <i class="fa-solid fa-laptop-code w-5 text-slate-400"></i>
-                                <span>Simulasi Mandiri</span>
+                                <i class="fa-solid fa-chart-line w-5 text-[#FFBE2A]"></i>
+                                <span>Penilaian IRT (Item Response Theory)</span>
                             </a>
                         </li>
                     </ul>

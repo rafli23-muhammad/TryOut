@@ -116,10 +116,8 @@
                 <div>
                     <label class="block text-xs font-bold text-[#1F366A] uppercase tracking-wider mb-1">Kategori Ujian</label>
                     <select name="category" id="form-pkg-category" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]">
-                        <option value="UTBK SNBT">UTBK SNBT</option>
-                        <option value="CPNS">CPNS / PPPK</option>
-                        <option value="Kedinasan">Sekolah Kedinasan</option>
-                        <option value="Mandiri">Ujian Mandiri / SMA</option>
+                        <option value="SNBT">SNBT (Seleksi Nasional Berdasarkan Tes)</option>
+                        <option value="TKA">TKA (Tes Kemampuan Akademik)</option>
                     </select>
                 </div>
                 <div>
@@ -134,8 +132,8 @@
                     <input type="number" name="duration_minutes" id="form-pkg-duration" required min="5" max="360" value="60" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-[#1F366A] uppercase tracking-wider mb-1">Passing Grade (%)</label>
-                    <input type="number" name="passing_grade" id="form-pkg-passing" required min="1" max="100" value="70" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]">
+                    <label class="block text-xs font-bold text-[#1F366A] uppercase tracking-wider mb-1">Passing Grade IRT</label>
+                    <input type="number" name="passing_grade" id="form-pkg-passing" required min="1" max="1000" value="650" placeholder="Skala IRT 200 - 1000" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-[#1F366A] uppercase tracking-wider mb-1">Max Pelanggaran</label>
@@ -168,15 +166,15 @@
 @push('scripts')
 <script>
     function openCreatePackageModal() {
-        document.getElementById('modal-pkg-heading').innerText = 'Buat Paket Try Out Baru';
+        document.getElementById('modal-pkg-heading').innerText = 'Buat Paket Try Out Baru (Fokus SNBT & TKA)';
         const form = document.getElementById('pkg-form');
         form.action = '/admin/packages';
 
         document.getElementById('form-pkg-title').value = '';
-        document.getElementById('form-pkg-category').value = 'UTBK SNBT';
+        document.getElementById('form-pkg-category').value = 'SNBT';
         document.getElementById('form-pkg-price').value = 0;
         document.getElementById('form-pkg-duration').value = 60;
-        document.getElementById('form-pkg-passing').value = 70;
+        document.getElementById('form-pkg-passing').value = 650;
         document.getElementById('form-pkg-violations').value = 3;
         document.getElementById('form-pkg-desc').value = '';
         document.getElementById('form-pkg-active').checked = true;
@@ -190,7 +188,13 @@
         form.action = '/admin/packages/' + pkg.id + '/update';
 
         document.getElementById('form-pkg-title').value = pkg.title;
-        document.getElementById('form-pkg-category').value = pkg.category;
+        let cat = pkg.category;
+        if (cat === 'UTBK SNBT' || cat === 'SNBT') {
+            cat = 'SNBT';
+        } else if (cat === 'TKA' || cat === 'CPNS' || cat === 'Kedinasan') {
+            cat = 'TKA';
+        }
+        document.getElementById('form-pkg-category').value = cat;
         document.getElementById('form-pkg-price').value = pkg.price;
         document.getElementById('form-pkg-duration').value = pkg.duration_minutes;
         document.getElementById('form-pkg-passing').value = pkg.passing_grade;

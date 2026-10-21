@@ -15,7 +15,7 @@
             <!-- Badge pill -->
             <div class="inline-flex items-center space-x-2.5 bg-white/15 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-xs font-semibold text-white shadow-sm">
                 <span class="w-2.5 h-2.5 rounded-full bg-[#FFBE2A]"></span>
-                <span>Standar Ujian Resmi UTBK-SNBT & CPNS 2026</span>
+                <span>Standar Resmi Ujian SNBT & TKA 2026 &bull; Penilaian IRT</span>
             </div>
 
             <!-- Hero Heading -->
@@ -26,7 +26,7 @@
 
             <!-- Subtitle -->
             <p class="text-sm sm:text-base text-blue-100/90 leading-relaxed max-w-xl font-normal">
-                Simulasi ujian berstandar nasional dengan timer real-time auto-submit, evaluasi Passing Grade instan, dan pembahasan lengkap per butir soal untuk 3 tipe soal (Pilihan Ganda, MCMA, dan Benar/Salah).
+                Simulasi ujian berstandar nasional untuk persiapan SNBT dan TKA dengan pembobotan Item Response Theory (IRT), timer real-time auto-submit, evaluasi Passing Grade akurat, dan pembahasan komprehensif.
             </p>
 
             <!-- Buttons matching reference -->
@@ -52,8 +52,8 @@
                     <span>Timer & Auto-Submit</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-list-ul text-lg text-white"></i>
-                    <span>3 Tipe Soal Lengkap</span>
+                    <i class="fa-solid fa-chart-line text-lg text-[#FFBE2A]"></i>
+                    <span>Metode Penilaian IRT</span>
                 </div>
                 <div class="flex items-center space-x-2">
                     <i class="fa-regular fa-circle-check text-lg text-white"></i>

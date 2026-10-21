@@ -73,7 +73,7 @@ class AdminController extends Controller
             'category' => 'required|string|max:80',
             'description' => 'required|string',
             'duration_minutes' => 'required|integer|min:5|max:360',
-            'passing_grade' => 'required|numeric|min:0|max:100',
+            'passing_grade' => 'required|numeric|min:0|max:1000',
             'price' => 'required|integer|min:0',
             'max_violations' => 'required|integer|min:1|max:10',
         ]);
@@ -107,7 +107,7 @@ class AdminController extends Controller
             'category' => 'required|string|max:80',
             'description' => 'required|string',
             'duration_minutes' => 'required|integer|min:5|max:360',
-            'passing_grade' => 'required|numeric|min:0|max:100',
+            'passing_grade' => 'required|numeric|min:0|max:1000',
             'price' => 'required|integer|min:0',
             'max_violations' => 'required|integer|min:1|max:10',
         ]);
@@ -216,6 +216,11 @@ class AdminController extends Controller
             $correctAnswer = $request->input('correct_tf', 'Benar');
         }
 
+        $difficulty = strtolower($request->input('difficulty', 'sedang'));
+        if (!in_array($difficulty, ['mudah', 'sedang', 'sukar'])) {
+            $difficulty = 'sedang';
+        }
+
         $existingCount = collect($data['questions'] ?? [])->where('package_id', $packageId)->count();
 
         $newQ = [
@@ -223,6 +228,7 @@ class AdminController extends Controller
             'package_id' => $packageId,
             'type' => $type,
             'number' => $existingCount + 1,
+            'difficulty' => $difficulty,
             'text' => trim($request->input('text')),
             'options' => $options,
             'correct_answer' => $correctAnswer,

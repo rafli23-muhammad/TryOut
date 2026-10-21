@@ -22,6 +22,19 @@
         </div>
     </div>
 
+    <!-- Category Filter Tabs (Fokus SNBT & TKA) -->
+    <div class="flex flex-wrap items-center gap-2 mb-6 sm:mb-8">
+        <button onclick="filterCatalog('all')" id="tab-all" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-black bg-[#1F366A] text-white shadow-sm transition">
+            Semua Program ({{ count($packages) }})
+        </button>
+        <button onclick="filterCatalog('SNBT')" id="tab-snbt" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">
+            <i class="fa-solid fa-graduation-cap text-[#FFBE2A] mr-1.5"></i> UTBK - SNBT (TPS & Literasi)
+        </button>
+        <button onclick="filterCatalog('TKA')" id="tab-tka" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">
+            <i class="fa-solid fa-book-bookmark text-emerald-600 mr-1.5"></i> TKA (Kemampuan Akademik)
+        </button>
+    </div>
+
     <!-- Package Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         @forelse($packages as $pkg)
@@ -30,13 +43,15 @@
                 $isApproved = $order && $order['status'] === 'approved';
                 $isPending = $order && $order['status'] === 'pending';
                 $qCount = $questionsCount->get($pkg['id'], 0);
+                $isSnbt = (stripos($pkg['category'], 'SNBT') !== false || stripos($pkg['title'], 'SNBT') !== false || stripos($pkg['title'], 'UTBK') !== false);
+                $cardCategory = $isSnbt ? 'SNBT' : 'TKA';
             @endphp
-            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200/80 hover:border-[#FFBE2A] transition duration-300 flex flex-col justify-between overflow-hidden group hover:shadow-2xl">
+            <div data-category="{{ $cardCategory }}" class="pkg-card bg-white rounded-3xl shadow-md border-2 border-slate-200/80 hover:border-[#FFBE2A] transition duration-300 flex flex-col justify-between overflow-hidden group hover:shadow-2xl">
                 <div>
                     <!-- Header Card -->
                     <div class="bg-[#FFF7E9] p-6 border-b border-amber-200/60 relative">
                         <span class="inline-block bg-[#1F366A] text-[#FFBE2A] text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
-                            {{ $pkg['category'] }}
+                            {{ $cardCategory === 'SNBT' ? 'UTBK - SNBT' : 'TKA AKADEMIK' }}
                         </span>
                         <h3 class="text-xl font-black font-serif text-[#1F366A] group-hover:text-[#2A4B8D] transition line-clamp-2">
                             {{ $pkg['title'] }}
@@ -51,6 +66,13 @@
 
                         <!-- Stats Pills -->
                         <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="bg-blue-50/70 p-2.5 rounded-xl border border-blue-200/60 flex items-center space-x-2 col-span-2">
+                                <i class="fa-solid fa-chart-line text-[#1F366A] text-sm"></i>
+                                <div>
+                                    <span class="block text-[10px] text-slate-500 font-bold uppercase">Sistem Penilaian</span>
+                                    <span class="font-extrabold text-[#1F366A] text-xs">IRT (Item Response Theory Standar Resmi)</span>
+                                </div>
+                            </div>
                             <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 flex items-center space-x-2">
                                 <i class="fa-solid fa-clock text-[#FFBE2A] text-sm"></i>
                                 <div>
@@ -69,7 +91,7 @@
                                 <i class="fa-solid fa-bullseye text-[#FFBE2A] text-sm"></i>
                                 <div>
                                     <span class="block text-[10px] text-slate-500 font-bold uppercase">Passing Grade</span>
-                                    <span class="font-extrabold text-emerald-700">{{ $pkg['passing_grade'] }}%</span>
+                                    <span class="font-extrabold text-emerald-700">{{ $pkg['passing_grade'] > 100 ? $pkg['passing_grade'] . ' Poin' : $pkg['passing_grade'] . '%' }}</span>
                                 </div>
                             </div>
                             <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 flex items-center space-x-2">
@@ -361,6 +383,36 @@
         } else {
             prompt('Salin nomor berikut:', str);
         }
+    }
+
+    function filterCatalog(cat) {
+        const cards = document.querySelectorAll('.pkg-card');
+        const buttons = document.querySelectorAll('.cat-filter-btn');
+
+        buttons.forEach(btn => {
+            btn.classList.remove('bg-[#1F366A]', 'text-white');
+            btn.classList.add('bg-white', 'text-slate-700');
+        });
+
+        if (cat === 'all') {
+            document.getElementById('tab-all')?.classList.add('bg-[#1F366A]', 'text-white');
+            document.getElementById('tab-all')?.classList.remove('bg-white', 'text-slate-700');
+        } else if (cat === 'SNBT') {
+            document.getElementById('tab-snbt')?.classList.add('bg-[#1F366A]', 'text-white');
+            document.getElementById('tab-snbt')?.classList.remove('bg-white', 'text-slate-700');
+        } else if (cat === 'TKA') {
+            document.getElementById('tab-tka')?.classList.add('bg-[#1F366A]', 'text-white');
+            document.getElementById('tab-tka')?.classList.remove('bg-white', 'text-slate-700');
+        }
+
+        cards.forEach(card => {
+            const itemCat = card.getAttribute('data-category');
+            if (cat === 'all' || itemCat === cat) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
     }
 </script>
 @endpush

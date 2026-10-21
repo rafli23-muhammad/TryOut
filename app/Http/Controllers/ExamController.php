@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\TryoutDataStore;
+use App\Services\IrtScoringService;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -298,74 +299,33 @@ class ExamController extends Controller
             ->sortBy('number')
             ->values();
 
-        $totalQuestions = $questions->count();
-        $correctCount = 0;
-        $wrongCount = 0;
-        $emptyCount = 0;
-        $evaluations = [];
-
-        foreach ($questions as $q) {
-            $qId = $q['id'];
-            $qType = $q['type'] ?? 'pg';
-            $correctKey = $q['correct_answer'];
-            $studentAns = $answers[$qId] ?? null;
-
-            $isCorrect = false;
-            $isEmpty = ($studentAns === null || $studentAns === '' || $studentAns === []);
-
-            if ($isEmpty) {
-                $emptyCount++;
-            } else {
-                if ($qType === 'pg') {
-                    // Pilihan Ganda (Single Choice)
-                    $isCorrect = (strtoupper(trim((string) $studentAns)) === strtoupper(trim((string) $correctKey)));
-                } elseif ($qType === 'mcma') {
-                    // Multiple Choice Multiple Answer (Checkbox)
-                    $studentArray = is_array($studentAns) ? $studentAns : explode(',', (string) $studentAns);
-                    $correctArray = is_array($correctKey) ? $correctKey : explode(',', (string) $correctKey);
-
-                    $studentArray = array_values(array_filter(array_map(fn($v) => strtoupper(trim((string) $v)), $studentArray)));
-                    $correctArray = array_values(array_filter(array_map(fn($v) => strtoupper(trim((string) $v)), $correctArray)));
-                    sort($studentArray);
-                    sort($correctArray);
-
-                    $isCorrect = ($studentArray === $correctArray);
-                } elseif ($qType === 'tf') {
-                    // True / False (Benar / Salah)
-                    $isCorrect = (strcasecmp(trim((string) $studentAns), trim((string) $correctKey)) === 0);
-                }
-
-                if ($isCorrect) {
-                    $correctCount++;
-                } else {
-                    $wrongCount++;
-                }
-            }
-
-            $evaluations[$qId] = [
-                'type' => $qType,
-                'student_answer' => $studentAns,
-                'correct_answer' => $correctKey,
-                'is_correct' => $isCorrect,
-                'is_empty' => $isEmpty,
-            ];
-        }
-
-        $score = $totalQuestions > 0 ? round(($correctCount / $totalQuestions) * 100, 1) : 0;
-        $isPassed = ($score >= $passingGrade);
+        $package = collect($data['packages'] ?? [])->firstWhere('id', $packageId) ?? [];
+        $evaluation = IrtScoringService::evaluateExam(
+            $package,
+            $questions->all(),
+            $answers,
+            $data['exam_sessions'] ?? []
+        );
 
         $now = date('Y-m-d H:i:s');
         $session['status'] = 'submitted';
         $session['finished_at'] = $now;
         $session['answers'] = $answers;
-        $session['total_questions'] = $totalQuestions;
-        $session['correct_count'] = $correctCount;
-        $session['wrong_count'] = $wrongCount;
-        $session['empty_count'] = $emptyCount;
-        $session['score'] = $score;
-        $session['passing_grade'] = $passingGrade;
-        $session['is_passed'] = $isPassed;
-        $session['evaluations'] = $evaluations;
+        $session['total_questions'] = $evaluation['total_questions'];
+        $session['correct_count'] = $evaluation['correct_count'];
+        $session['wrong_count'] = $evaluation['wrong_count'];
+        $session['empty_count'] = $evaluation['empty_count'];
+        $session['score'] = $evaluation['score'];
+        $session['irt_score'] = $evaluation['irt_score'];
+        $session['raw_accuracy'] = $evaluation['raw_accuracy'];
+        $session['theta'] = $evaluation['theta'];
+        $session['total_weight'] = $evaluation['total_weight'];
+        $session['earned_weight'] = $evaluation['earned_weight'];
+        $session['scoring_system'] = $evaluation['scoring_system'];
+        $session['difficulty_breakdown'] = $evaluation['breakdown'];
+        $session['passing_grade'] = $evaluation['passing_grade'];
+        $session['is_passed'] = $evaluation['is_passed'];
+        $session['evaluations'] = $evaluation['evaluations'];
 
         $data['exam_sessions'][$sessionIndex] = $session;
         unset($data['active_proctorings'][$studentId]);

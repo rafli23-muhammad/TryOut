@@ -634,6 +634,56 @@ class CemerlangTryoutTest extends TestCase
         $loginResponse->assertJson(['success' => true]);
         $this->assertStringContainsString('dashboard', $loginResponse->json('redirect_url'));
     }
+
+    public function test_irt_scoring_service_and_evaluation()
+    {
+        $package = [
+            'id' => 'pkg_snbt_test',
+            'title' => 'Simulasi SNBT IRT',
+            'category' => 'SNBT',
+            'passing_grade' => 650,
+        ];
+
+        $questions = [
+            [
+                'id' => 'q1',
+                'type' => 'pg',
+                'correct_answer' => 'A',
+                'difficulty' => 'mudah',
+            ],
+            [
+                'id' => 'q2',
+                'type' => 'pg',
+                'correct_answer' => 'B',
+                'difficulty' => 'sedang',
+            ],
+            [
+                'id' => 'q3',
+                'type' => 'pg',
+                'correct_answer' => 'C',
+                'difficulty' => 'sukar',
+            ],
+        ];
+
+        // 1. All correct: score 1000
+        $allCorrect = \App\Services\IrtScoringService::evaluateExam($package, $questions, ['q1' => 'A', 'q2' => 'B', 'q3' => 'C']);
+        $this->assertEquals(1000.0, $allCorrect['score']);
+        $this->assertEquals(1000.0, $allCorrect['irt_score']);
+        $this->assertTrue($allCorrect['is_passed']);
+        $this->assertEquals(3, $allCorrect['correct_count']);
+
+        // 2. All wrong: score 200
+        $allWrong = \App\Services\IrtScoringService::evaluateExam($package, $questions, ['q1' => 'D', 'q2' => 'D', 'q3' => 'D']);
+        $this->assertEquals(200.0, $allWrong['score']);
+        $this->assertFalse($allWrong['is_passed']);
+        $this->assertEquals(0, $allWrong['correct_count']);
+
+        // 3. Answering only hard question yields higher score than only easy question
+        $onlyHard = \App\Services\IrtScoringService::evaluateExam($package, $questions, ['q3' => 'C']);
+        $onlyEasy = \App\Services\IrtScoringService::evaluateExam($package, $questions, ['q1' => 'A']);
+        $this->assertGreaterThan($onlyEasy['score'], $onlyHard['score']);
+    }
 }
+
 
 
