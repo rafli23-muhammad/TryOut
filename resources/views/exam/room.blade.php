@@ -470,6 +470,9 @@
         } else if (q.type === 'mcma') {
             typeBadge.innerText = 'MCMA (Pilih > 1 Jawaban)';
             typeBadge.className = 'bg-purple-100 text-purple-900 border border-purple-300 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider';
+        } else if (q.type === 'matrix_tf' || (q.type === 'tf' && (q.statements || (q.options && Object.keys(q.options).length > 2)))) {
+            typeBadge.innerText = 'Tabel Benar / Salah';
+            typeBadge.className = 'bg-teal-100 text-teal-900 border border-teal-300 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider';
         } else if (q.type === 'tf') {
             typeBadge.innerText = 'Benar / Salah';
             typeBadge.className = 'bg-amber-100 text-amber-900 border border-amber-300 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider';
@@ -491,7 +494,77 @@
 
         const currentAns = answers[q.id];
 
-        if (q.type === 'pg') {
+        if (q.type === 'matrix_tf' || (q.type === 'tf' && (q.statements || (q.options && Object.keys(q.options).length > 2)))) {
+            // Interactive UTBK Statement Table
+            const rawStmts = q.statements || (Array.isArray(q.options) ? q.options : Object.values(q.options || {}));
+            const statements = rawStmts.filter(s => typeof s === 'string' && s.trim() !== '');
+
+            let currentMatrix = {};
+            if (typeof currentAns === 'object' && currentAns !== null && !Array.isArray(currentAns)) {
+                currentMatrix = currentAns;
+            } else if (typeof currentAns === 'string' && currentAns.startsWith('{')) {
+                try { currentMatrix = JSON.parse(currentAns); } catch (e) {}
+            }
+
+            const tableCard = document.createElement('div');
+            tableCard.className = 'w-full bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden';
+
+            let tableHtml = `
+                <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-700 flex items-center">
+                        <i class="fa-solid fa-table-list mr-2 text-[#1F366A]"></i>
+                        Tentukan pilihan <b>Benar</b> atau <b>Salah</b> untuk setiap pernyataan berikut:
+                    </span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100/90 text-slate-700 uppercase text-[11px] font-black border-b border-slate-200">
+                                <th class="py-3 px-4 sm:px-6">Pernyataan</th>
+                                <th class="py-3 px-2 sm:px-4 text-center w-28 sm:w-36 text-emerald-800">Benar</th>
+                                <th class="py-3 px-2 sm:px-4 text-center w-28 sm:w-36 text-rose-800">Salah</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+            `;
+
+            statements.forEach((stmt, idx) => {
+                const rowAns = currentMatrix[idx] || currentMatrix[String(idx)];
+                const isBenar = (rowAns === 'Benar');
+                const isSalah = (rowAns === 'Salah');
+
+                tableHtml += `
+                    <tr class="hover:bg-blue-50/20 transition">
+                        <td class="py-3.5 sm:py-4 px-4 sm:px-6 text-slate-800 font-medium leading-relaxed">
+                            <div class="flex items-start space-x-2.5">
+                                <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">${idx + 1}</span>
+                                <span>${stmt}</span>
+                            </div>
+                        </td>
+                        <td class="py-3.5 sm:py-4 px-2 sm:px-4 text-center align-middle">
+                            <button type="button" onclick="selectMatrixAnswer('${q.id}', ${idx}, 'Benar')" class="w-full py-2.5 px-3 rounded-xl font-black text-xs transition flex items-center justify-center space-x-1.5 ${isBenar ? 'bg-emerald-600 text-white shadow-md ring-2 ring-emerald-300' : 'bg-slate-100 hover:bg-emerald-50 text-slate-600 hover:text-emerald-700 border border-slate-200'}">
+                                <i class="fa-solid fa-check ${isBenar ? 'text-white' : 'text-slate-400'}"></i>
+                                <span>Benar</span>
+                            </button>
+                        </td>
+                        <td class="py-3.5 sm:py-4 px-2 sm:px-4 text-center align-middle">
+                            <button type="button" onclick="selectMatrixAnswer('${q.id}', ${idx}, 'Salah')" class="w-full py-2.5 px-3 rounded-xl font-black text-xs transition flex items-center justify-center space-x-1.5 ${isSalah ? 'bg-rose-600 text-white shadow-md ring-2 ring-rose-300' : 'bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-700 border border-slate-200'}">
+                                <i class="fa-solid fa-xmark ${isSalah ? 'text-white' : 'text-slate-400'}"></i>
+                                <span>Salah</span>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tableHtml += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            tableCard.innerHTML = tableHtml;
+            container.appendChild(tableCard);
+        } else if (q.type === 'pg') {
             // Radio options
             for (const [key, val] of Object.entries(q.options)) {
                 const isChecked = (currentAns === key);
@@ -576,9 +649,25 @@
     }
 
     // 3. ANSWERS HANDLERS
+    function hasAnswerValue(ans) {
+        if (ans === undefined || ans === null || ans === '') return false;
+        if (Array.isArray(ans)) return ans.length > 0;
+        if (typeof ans === 'object') return Object.keys(ans).length > 0;
+        return true;
+    }
+
     function selectSingleAnswer(questionId, value) {
         answers[questionId] = value;
         persistAnswer(questionId, value);
+        renderQuestion(currentIndex);
+    }
+
+    function selectMatrixAnswer(questionId, rowIndex, choice) {
+        if (!answers[questionId] || typeof answers[questionId] !== 'object' || Array.isArray(answers[questionId])) {
+            answers[questionId] = {};
+        }
+        answers[questionId][rowIndex] = choice;
+        persistAnswer(questionId, answers[questionId]);
         renderQuestion(currentIndex);
     }
 
@@ -638,7 +727,7 @@
         questions.forEach((q, idx) => {
             const isCurrent = (idx === currentIndex);
             const ans = answers[q.id];
-            const hasAns = (ans !== undefined && ans !== null && ans !== '' && (!Array.isArray(ans) || ans.length > 0));
+            const hasAns = hasAnswerValue(ans);
             const isDoubt = doubts.has(q.id);
 
             let bgClass = 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50';
@@ -664,7 +753,7 @@
 
         questions.forEach(q => {
             const ans = answers[q.id];
-            if (ans !== undefined && ans !== null && ans !== '' && (!Array.isArray(ans) || ans.length > 0)) {
+            if (hasAnswerValue(ans)) {
                 answered++;
             }
         });
@@ -683,7 +772,7 @@
 
         questions.forEach(q => {
             const ans = answers[q.id];
-            if (ans !== undefined && ans !== null && ans !== '' && (!Array.isArray(ans) || ans.length > 0)) {
+            if (hasAnswerValue(ans)) {
                 answered++;
             }
         });

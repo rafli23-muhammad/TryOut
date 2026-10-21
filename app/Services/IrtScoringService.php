@@ -80,7 +80,13 @@ class IrtScoringService
                 if ($qType === 'pg') {
                     $isCorrect = (strtoupper(trim((string)$studentAns)) === strtoupper(trim((string)$correctKey)));
                 } elseif ($qType === 'tf') {
-                    $isCorrect = (strtolower(trim((string)$studentAns)) === strtolower(trim((string)$correctKey)));
+                    if (is_array($studentAns) || is_array($correctKey) || !empty($q['statements'])) {
+                        $isCorrect = self::evaluateMatrixAnswers($studentAns, $correctKey);
+                    } else {
+                        $isCorrect = (strtolower(trim((string)$studentAns)) === strtolower(trim((string)$correctKey)));
+                    }
+                } elseif ($qType === 'matrix_tf') {
+                    $isCorrect = self::evaluateMatrixAnswers($studentAns, $correctKey);
                 } elseif ($qType === 'mcma') {
                     $stArr = is_array($studentAns) ? $studentAns : [$studentAns];
                     $crArr = is_array($correctKey) ? $correctKey : [$correctKey];
@@ -203,5 +209,80 @@ class IrtScoringService
         if ($mod === 0) return 'mudah';
         if ($mod === 1) return 'sedang';
         return 'sukar';
+    }
+
+    /**
+     * Evaluasi jawaban soal tabel pernyataan benar/salah majemuk (Matrix TF).
+     */
+    public static function evaluateMatrixAnswers($studentAns, $correctKey): bool
+    {
+        if (empty($studentAns) || empty($correctKey)) {
+            return false;
+        }
+
+        $stdMap = self::normalizeMatrixAnswer($studentAns);
+        $crMap = self::normalizeMatrixAnswer($correctKey);
+
+        if (empty($stdMap) || empty($crMap)) {
+            return false;
+        }
+
+        if (count($stdMap) !== count($crMap)) {
+            return false;
+        }
+
+        foreach ($crMap as $key => $correctVal) {
+            if (!isset($stdMap[$key])) {
+                return false;
+            }
+            if (strcasecmp(trim((string)$stdMap[$key]), trim((string)$correctVal)) !== 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Standarisasi format jawaban matrix menjadi array terurut [0 => 'Benar', 1 => 'Salah', ...]
+     */
+    public static function normalizeMatrixAnswer($ans): array
+    {
+        if (is_array($ans)) {
+            $normalized = [];
+            $i = 0;
+            foreach ($ans as $k => $v) {
+                $idx = is_numeric($k) ? (int)$k : $i;
+                $val = trim((string)$v);
+                $normalized[$idx] = (strcasecmp($val, 'salah') === 0 || $val === 'S' || $val === '0') ? 'Salah' : 'Benar';
+                $i++;
+            }
+            ksort($normalized);
+            return array_values($normalized);
+        }
+
+        if (is_string($ans)) {
+            $decoded = json_decode($ans, true);
+            if (is_array($decoded)) {
+                return self::normalizeMatrixAnswer($decoded);
+            }
+
+            if (strpos($ans, '-') !== false || strpos($ans, ',') !== false) {
+                $parts = preg_split('/[\-,]/', $ans);
+                $clean = [];
+                foreach ($parts as $p) {
+                    $val = trim((string)$p);
+                    if ($val !== '') {
+                        $clean[] = (strcasecmp($val, 'salah') === 0 || $val === 'S' || $val === '0') ? 'Salah' : 'Benar';
+                    }
+                }
+                return $clean;
+            }
+
+            $val = trim((string)$ans);
+            return [(strcasecmp($val, 'salah') === 0 || $val === 'S' || $val === '0') ? 'Salah' : 'Benar'];
+        }
+
+        return [];
     }
 }

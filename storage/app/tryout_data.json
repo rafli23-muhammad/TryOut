@@ -377,20 +377,27 @@
         {
             "id": "q_pdf_6ad4c55056de0",
             "package_id": "pkg_tryout_26c7",
-            "type": "pg",
+            "type": "matrix_tf",
             "number": 10,
-            "text": "Perhatikan data jumlah pengunjung perpustakaan Desa Sukamaju pada minggu ke-1 bulan Januari:\nSenin = 4 orang, Selasa = p orang, Rabu = 5 orang, Kamis = r orang, Jumat = 6 orang.\n\nDiketahui informasi sebagai berikut:\n▪ Rata-rata pengunjung perpustakaan setiap hari adalah 6 orang.\n▪ Selalu ada minimal dua pengunjung perpustakaan dan tidak pernah melebihi 10 pengunjung pada setiap hari Senin sampai Jumat.\n▪ Median dari data tersebut adalah 6.\n\nTentukan kombinasi nilai kebenaran (Benar\/Salah) untuk ketiga pernyataan pada tabel secara berurutan:",
-            "image": "\/uploads\/questions\/tabel_pernyataan_soal_10.png",
-            "options": {
-                "A": "Salah - Benar - Benar",
-                "B": "Benar - Benar - Benar",
-                "C": "Benar - Salah - Benar",
-                "D": "Salah - Salah - Benar",
-                "E": "Benar - Benar - Salah"
-            },
-            "correct_answer": "A",
+            "text": "Perhatikan data jumlah pengunjung perpustakaan Desa Sukamaju pada minggu ke-1 bulan Januari:\nSenin = 4 orang, Selasa = p orang, Rabu = 5 orang, Kamis = r orang, Jumat = 6 orang.\n\nDiketahui informasi sebagai berikut:\n▪ Rata-rata pengunjung perpustakaan setiap hari adalah 6 orang.\n▪ Selalu ada minimal dua pengunjung perpustakaan dan tidak pernah melebihi 10 pengunjung pada setiap hari Senin sampai Jumat.\n▪ Median dari data tersebut adalah 6.\n\nTentukan nilai kebenaran (Benar atau Salah) untuk setiap pernyataan pada tabel berikut:",
+            "image": null,
+            "options": [
+                "Banyak pengunjung pada hari Selasa pasti selalu lebih banyak dibandingkan hari lain.",
+                "Banyak pengunjung pada hari Kamis pasti lebih dari 5 orang.",
+                "Banyak pengunjung pada hari Jumat dan Kamis mungkin saja sama."
+            ],
+            "correct_answer": [
+                "Salah",
+                "Benar",
+                "Benar"
+            ],
             "explanation": "• **Data Pengunjung:** Senin = 4, Selasa = $p$, Rabu = 5, Kamis = $r$, Jumat = 6.\n\n• **Rata-rata = 6:**\n$$\\frac{4 + p + 5 + r + 6}{5} = 6 \\implies 15 + p + r = 30 \\implies p + r = 15$$\n\n• **Syarat Nilai:** $2 \\le p, r \\le 10$ dan Median = 6.\nAgar nilai tengah (median) bernilai 6, maka elemen ke-3 saat diurutkan harus bernilai 6. Dari data awal {4, 5, 6}, maka salah satu dari $p$ atau $r$ harus $\\ge 6$.\n\nJika $r = 6$, maka $p = 9$ (Urutan: 4, 5, 6, 6, 9 $\\rightarrow$ Median 6). Nilai $r$ minimal adalah 6 (selalu > 5).\nNilai $p$ dan $r$ bisa bernilai (9,6), (8,7), dst., sehingga pengunjung Jumat (6) dan Kamis ($r$) mungkin saja sama-sama 6.",
-            "created_at": "2026-10-18 13:10:40"
+            "created_at": "2026-10-18 13:10:40",
+            "statements": [
+                "Banyak pengunjung pada hari Selasa pasti selalu lebih banyak dibandingkan hari lain.",
+                "Banyak pengunjung pada hari Kamis pasti lebih dari 5 orang.",
+                "Banyak pengunjung pada hari Jumat dan Kamis mungkin saja sama."
+            ]
         },
         {
             "id": "q_pdf_6ad4c55056de4",
@@ -413,20 +420,27 @@
         {
             "id": "q_pdf_6ad4c55056de7",
             "package_id": "pkg_tryout_26c7",
-            "type": "pg",
+            "type": "matrix_tf",
             "number": 12,
-            "text": "Rasya dan teman-temannya bermain kelereng di lapangan. Rasya mempunyai 8 kelereng berwarna merah, 7 kelereng berwarna hijau, dan 5 kelereng berwarna kuning. Kelereng-kelereng tersebut disimpan di dalam sebuah kotak. Rasya akan mengambil 3 kelereng dari kotak tersebut.\n\nPerhatikan tabel pernyataan pada gambar di bawah, lalu tentukan kombinasi nilai kebenaran (Benar\/Salah) untuk ketiga pernyataan tersebut secara berurutan:",
-            "image": "\/uploads\/questions\/tabel_kelereng_soal_12.png",
-            "options": {
-                "A": "Benar - Benar - Salah",
-                "B": "Benar - Salah - Benar",
-                "C": "Salah - Benar - Benar",
-                "D": "Benar - Benar - Benar",
-                "E": "Salah - Salah - Salah"
-            },
-            "correct_answer": "A",
+            "text": "Rasya dan teman-temannya bermain kelereng di lapangan. Rasya mempunyai 8 kelereng berwarna merah, 7 kelereng berwarna hijau, dan 5 kelereng berwarna kuning. Kelereng-kelereng tersebut disimpan di dalam sebuah kotak. Rasya akan mengambil 3 kelereng dari kotak tersebut.\n\nTentukan nilai kebenaran (Benar atau Salah) untuk setiap pernyataan pada tabel berikut:",
+            "image": null,
+            "options": [
+                "Peluang terambil 3 kelereng merah adalah 14\/285.",
+                "Peluang terambil 2 hijau dan 1 kuning adalah 7\/76.",
+                "Peluang terambil 3 berbeda warna (1 merah, 1 hijau, 1 kuning) adalah 16\/57."
+            ],
+            "correct_answer": [
+                "Benar",
+                "Benar",
+                "Salah"
+            ],
             "explanation": "Total kelereng = 8 + 7 + 5 = 20\n\n• **Ruang Sampel:**\n$$n(S) = \\binom{20}{3} = \\frac{20 \\times 19 \\times 18}{3 \\times 2 \\times 1} = 1140$$\n\n• **Peluang Terambil 3 Kelereng Merah:**\n$$P(\\text{3 Merah}) = \\frac{\\binom{8}{3}}{1140} = \\frac{56}{1140} = \\frac{14}{285}$$\n\n• **Peluang Terambil 2 Hijau dan 1 Kuning:**\n$$P(\\text{2 Hijau, 1 Kuning}) = \\frac{\\binom{7}{2} \\times \\binom{5}{1}}{1140} = \\frac{21 \\times 5}{1140} = \\frac{105}{1140} = \\frac{7}{76}$$\n\n• **Peluang Terambil 3 Berbeda Warna (1 Merah, 1 Hijau, 1 Kuning):**\n$$P(\\text{Berbeda Warna}) = \\frac{8 \\times 7 \\times 5}{1140} = \\frac{280}{1140} = \\frac{14}{57} \\neq \\frac{16}{57}$$",
-            "created_at": "2026-10-18 13:10:40"
+            "created_at": "2026-10-18 13:10:40",
+            "statements": [
+                "Peluang terambil 3 kelereng merah adalah 14\/285.",
+                "Peluang terambil 2 hijau dan 1 kuning adalah 7\/76.",
+                "Peluang terambil 3 berbeda warna (1 merah, 1 hijau, 1 kuning) adalah 16\/57."
+            ]
         },
         {
             "id": "q_pdf_6ad4c55056dea",

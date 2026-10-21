@@ -335,14 +335,15 @@
                 <select name="type" id="manual-type-select" onchange="toggleManualTypeFields(this.value)" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]">
                     <option value="pg">Pilihan Ganda (Single Choice: A, B, C, D, E)</option>
                     <option value="mcma">Pilihan Ganda Kompleks / MCMA (Checkbox >1 Jawaban)</option>
-                    <option value="tf">Benar / Salah (True / False)</option>
+                    <option value="tf">Benar / Salah (Pernyataan Tunggal)</option>
+                    <option value="matrix_tf">Tabel Benar / Salah Majemuk (Matrix TF UTBK)</option>
                 </select>
             </div>
 
             <!-- Question Text -->
             <div>
                 <label class="block text-xs font-bold text-[#1F366A] uppercase tracking-wider mb-1">Teks Pertanyaan</label>
-                <textarea name="text" rows="3" required placeholder="Tuliskan pertanyaan atau deskripsi soal..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]"></textarea>
+                <textarea name="text" rows="3" required placeholder="Tuliskan pertanyaan atau stimulus soal..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]"></textarea>
             </div>
 
             <!-- Field 1: PG -->
@@ -394,13 +395,49 @@
                 </div>
             </div>
 
-            <!-- Field 3: TF -->
+            <!-- Field 3: TF Single -->
             <div id="section-tf" class="hidden space-y-3">
                 <label class="block text-xs font-bold text-amber-800 uppercase tracking-wider mb-1">Kunci Jawaban Benar / Salah</label>
                 <select name="correct_tf" class="w-full px-3 py-2 rounded-xl border border-amber-400 bg-amber-50 text-xs font-bold">
                     <option value="Benar">Benar (True)</option>
                     <option value="Salah">Salah (False)</option>
                 </select>
+            </div>
+
+            <!-- Field 4: Matrix TF Table -->
+            <div id="section-matrix-tf" class="hidden space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="block text-xs font-bold text-teal-800 uppercase">Daftar Baris Pernyataan & Kunci Jawaban:</span>
+                    <button type="button" onclick="addMatrixStatementRow()" class="text-[11px] font-bold text-teal-700 bg-teal-50 hover:bg-teal-100 border border-teal-200 px-2.5 py-1 rounded-lg transition">
+                        <i class="fa-solid fa-plus mr-1"></i> Tambah Baris
+                    </button>
+                </div>
+                <div id="matrix-statements-container" class="space-y-2">
+                    <div class="flex items-center space-x-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
+                        <span class="text-xs font-bold text-slate-500 w-5">1.</span>
+                        <input type="text" name="matrix_statements[]" placeholder="Tuliskan pernyataan ke-1..." class="flex-1 px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium">
+                        <select name="correct_matrix[]" class="px-2.5 py-1.5 rounded-lg border border-teal-400 bg-teal-50 text-xs font-bold">
+                            <option value="Benar">Benar</option>
+                            <option value="Salah">Salah</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
+                        <span class="text-xs font-bold text-slate-500 w-5">2.</span>
+                        <input type="text" name="matrix_statements[]" placeholder="Tuliskan pernyataan ke-2..." class="flex-1 px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium">
+                        <select name="correct_matrix[]" class="px-2.5 py-1.5 rounded-lg border border-teal-400 bg-teal-50 text-xs font-bold">
+                            <option value="Benar">Benar</option>
+                            <option value="Salah" selected>Salah</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
+                        <span class="text-xs font-bold text-slate-500 w-5">3.</span>
+                        <input type="text" name="matrix_statements[]" placeholder="Tuliskan pernyataan ke-3..." class="flex-1 px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium">
+                        <select name="correct_matrix[]" class="px-2.5 py-1.5 rounded-lg border border-teal-400 bg-teal-50 text-xs font-bold">
+                            <option value="Benar">Benar</option>
+                            <option value="Salah">Salah</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <!-- Explanation -->
@@ -465,6 +502,24 @@
         document.getElementById('section-pg').classList.toggle('hidden', type !== 'pg');
         document.getElementById('section-mcma').classList.toggle('hidden', type !== 'mcma');
         document.getElementById('section-tf').classList.toggle('hidden', type !== 'tf');
+        document.getElementById('section-matrix-tf').classList.toggle('hidden', type !== 'matrix_tf');
+    }
+
+    function addMatrixStatementRow() {
+        const container = document.getElementById('matrix-statements-container');
+        const count = container.children.length + 1;
+        const div = document.createElement('div');
+        div.className = 'flex items-center space-x-2 bg-slate-50 p-2 rounded-xl border border-slate-200';
+        div.innerHTML = `
+            <span class="text-xs font-bold text-slate-500 w-5">${count}.</span>
+            <input type="text" name="matrix_statements[]" placeholder="Tuliskan pernyataan ke-${count}..." class="flex-1 px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium">
+            <select name="correct_matrix[]" class="px-2.5 py-1.5 rounded-lg border border-teal-400 bg-teal-50 text-xs font-bold">
+                <option value="Benar">Benar</option>
+                <option value="Salah">Salah</option>
+            </select>
+            <button type="button" onclick="this.parentElement.remove()" class="text-rose-500 hover:text-rose-700 p-1"><i class="fa-solid fa-trash"></i></button>
+        `;
+        container.appendChild(div);
     }
 </script>
 @endpush

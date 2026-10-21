@@ -177,7 +177,7 @@ class AdminController extends Controller
         if ($redirect = $this->checkAdminAuth()) return $redirect;
 
         $request->validate([
-            'type' => 'required|in:pg,mcma,tf',
+            'type' => 'required|in:pg,mcma,tf,matrix_tf',
             'text' => 'required|string',
             'explanation' => 'nullable|string',
         ]);
@@ -187,6 +187,7 @@ class AdminController extends Controller
 
         $options = [];
         $correctAnswer = null;
+        $statements = null;
 
         if ($type === 'pg') {
             $options = [
@@ -214,6 +215,21 @@ class AdminController extends Controller
                 'Salah' => 'Salah (False)',
             ];
             $correctAnswer = $request->input('correct_tf', 'Benar');
+        } elseif ($type === 'matrix_tf') {
+            $rawStatements = (array) $request->input('matrix_statements', []);
+            $statements = [];
+            foreach ($rawStatements as $stmt) {
+                if (trim((string)$stmt) !== '') {
+                    $statements[] = trim((string)$stmt);
+                }
+            }
+            $options = $statements;
+            $correctMatrix = (array) $request->input('correct_matrix', []);
+            $correctAnswer = [];
+            foreach ($statements as $idx => $st) {
+                $ansVal = $correctMatrix[$idx] ?? 'Benar';
+                $correctAnswer[(string)$idx] = (strcasecmp($ansVal, 'Salah') === 0) ? 'Salah' : 'Benar';
+            }
         }
 
         $difficulty = strtolower($request->input('difficulty', 'sedang'));
@@ -231,6 +247,7 @@ class AdminController extends Controller
             'difficulty' => $difficulty,
             'text' => trim($request->input('text')),
             'options' => $options,
+            'statements' => $statements,
             'correct_answer' => $correctAnswer,
             'explanation' => trim($request->input('explanation') ?: 'Tidak ada pembahasan khusus.'),
             'created_at' => date('Y-m-d H:i:s'),

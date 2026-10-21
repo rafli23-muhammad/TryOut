@@ -682,6 +682,34 @@ class CemerlangTryoutTest extends TestCase
         $onlyHard = \App\Services\IrtScoringService::evaluateExam($package, $questions, ['q3' => 'C']);
         $onlyEasy = \App\Services\IrtScoringService::evaluateExam($package, $questions, ['q1' => 'A']);
         $this->assertGreaterThan($onlyEasy['score'], $onlyHard['score']);
+
+        // 4. Test Matrix TF (Tabel Pernyataan Benar/Salah)
+        $matrixQuestion = [
+            'id' => 'q_matrix',
+            'type' => 'matrix_tf',
+            'statements' => [
+                'Pernyataan 1',
+                'Pernyataan 2',
+                'Pernyataan 3',
+            ],
+            'correct_answer' => [
+                '0' => 'Salah',
+                '1' => 'Benar',
+                '2' => 'Benar',
+            ],
+            'difficulty' => 'sedang',
+        ];
+
+        $matrixPass = \App\Services\IrtScoringService::evaluateExam($package, [$matrixQuestion], [
+            'q_matrix' => ['0' => 'Salah', '1' => 'Benar', '2' => 'Benar'],
+        ]);
+        $this->assertEquals(1000.0, $matrixPass['score']);
+        $this->assertTrue($matrixPass['is_passed']);
+
+        $matrixFail = \App\Services\IrtScoringService::evaluateExam($package, [$matrixQuestion], [
+            'q_matrix' => ['0' => 'Benar', '1' => 'Benar', '2' => 'Benar'],
+        ]);
+        $this->assertEquals(200.0, $matrixFail['score']);
     }
 }
 

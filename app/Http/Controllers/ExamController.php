@@ -95,6 +95,7 @@ class ExamController extends Controller
                 'text' => $q['text'],
                 'image' => $q['image'] ?? null,
                 'options' => $q['options'] ?? [],
+                'statements' => $q['statements'] ?? null,
             ];
         })->values();
 

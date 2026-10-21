@@ -234,7 +234,7 @@
                             Nomor {{ $index + 1 }}
                         </span>
                         <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-700">
-                            {{ $q['type'] === 'pg' ? 'Pilihan Ganda' : ($q['type'] === 'mcma' ? 'MCMA (Multi-Select)' : 'Benar / Salah') }}
+                            {{ $q['type'] === 'pg' ? 'Pilihan Ganda' : ($q['type'] === 'mcma' ? 'MCMA (Multi-Select)' : ($q['type'] === 'matrix_tf' || (!empty($q['statements']) && $q['type'] === 'tf') ? 'Tabel Benar/Salah (Matrix)' : 'Benar / Salah')) }}
                         </span>
                         @php
                             $diff = $eval['difficulty'] ?? 'Sedang';
@@ -311,6 +311,58 @@
                                 @endif
                             </div>
                         @endforeach
+                    @elseif($q['type'] === 'matrix_tf' || (!empty($q['statements']) && $q['type'] === 'tf'))
+                        @php
+                            $statements = $q['statements'] ?? (is_array($q['options']) ? $q['options'] : []);
+                            $stdMatrix = \App\Services\IrtScoringService::normalizeMatrixAnswer($studentAnswer);
+                            $crMatrix = \App\Services\IrtScoringService::normalizeMatrixAnswer($correctAnswer);
+                        @endphp
+                        <div class="overflow-x-auto rounded-2xl border-2 border-slate-200 shadow-sm">
+                            <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-100 text-slate-700 uppercase text-[11px] font-black border-b border-slate-200">
+                                        <th class="py-3 px-4 sm:px-6">Pernyataan</th>
+                                        <th class="py-3 px-3 text-center w-28 sm:w-32">Pilihan Anda</th>
+                                        <th class="py-3 px-3 text-center w-28 sm:w-32 text-emerald-800">Kunci Benar</th>
+                                        <th class="py-3 px-3 text-center w-24">Evaluasi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    @foreach($statements as $sIdx => $sText)
+                                        @php
+                                            $userAns = $stdMatrix[$sIdx] ?? '-';
+                                            $crAns = $crMatrix[$sIdx] ?? '-';
+                                            $isRowMatch = (strcasecmp($userAns, $crAns) === 0 && $userAns !== '-');
+                                        @endphp
+                                        <tr class="hover:bg-slate-50 transition {{ $isRowMatch ? 'bg-emerald-50/20' : 'bg-rose-50/20' }}">
+                                            <td class="py-3.5 px-4 sm:px-6 font-medium text-slate-800">
+                                                <div class="flex items-start space-x-2.5">
+                                                    <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">{{ $sIdx + 1 }}</span>
+                                                    <span>{{ $sText }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3.5 px-3 text-center font-bold">
+                                                <span class="px-2.5 py-1 rounded-lg text-xs font-black {{ $userAns === 'Benar' ? 'bg-emerald-100 text-emerald-800' : ($userAns === 'Salah' ? 'bg-rose-100 text-rose-800' : 'bg-slate-100 text-slate-500') }}">
+                                                    {{ $userAns }}
+                                                </span>
+                                            </td>
+                                            <td class="py-3.5 px-3 text-center font-bold">
+                                                <span class="px-2.5 py-1 rounded-lg text-xs font-black {{ $crAns === 'Benar' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800' }}">
+                                                    {{ $crAns }}
+                                                </span>
+                                            </td>
+                                            <td class="py-3.5 px-3 text-center">
+                                                @if($isRowMatch)
+                                                    <span class="text-emerald-600 font-black text-xs"><i class="fa-solid fa-check"></i> Tepat</span>
+                                                @else
+                                                    <span class="text-rose-600 font-black text-xs"><i class="fa-solid fa-xmark"></i> Salah</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     @elseif($q['type'] === 'tf')
                         <div class="grid grid-cols-2 gap-3 text-xs sm:text-sm">
                             @foreach(['Benar', 'Salah'] as $tfChoice)
