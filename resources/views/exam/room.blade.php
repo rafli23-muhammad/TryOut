@@ -478,7 +478,7 @@
         const currentAns = answers[q.id];
 
         if (q.type === 'matrix_tf' || (q.type === 'tf' && (q.statements || (q.options && Object.keys(q.options).length > 2)))) {
-            // Interactive UTBK Statement Table
+            // Interactive Benar / Salah Statement Cards (matching mockup)
             const rawStmts = q.statements || (Array.isArray(q.options) ? q.options : Object.values(q.options || {}));
             const statements = rawStmts.filter(s => typeof s === 'string' && s.trim() !== '');
 
@@ -489,64 +489,41 @@
                 try { currentMatrix = JSON.parse(currentAns); } catch (e) {}
             }
 
-            const tableCard = document.createElement('div');
-            tableCard.className = 'w-full bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden';
-
-            let tableHtml = `
-                <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                    <span class="text-xs font-bold text-slate-700 flex items-center">
-                        <i class="fa-solid fa-table-list mr-2 text-[#1F366A]"></i>
-                        Tentukan pilihan <b>Benar</b> atau <b>Salah</b> untuk setiap pernyataan berikut:
-                    </span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs sm:text-sm border-collapse">
-                        <thead>
-                            <tr class="bg-slate-100/90 text-slate-700 uppercase text-[11px] font-black border-b border-slate-200">
-                                <th class="py-3 px-4 sm:px-6">Pernyataan</th>
-                                <th class="py-3 px-2 sm:px-4 text-center w-28 sm:w-36 text-emerald-800">Benar</th>
-                                <th class="py-3 px-2 sm:px-4 text-center w-28 sm:w-36 text-rose-800">Salah</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100">
-            `;
+            const wrapper = document.createElement('div');
+            wrapper.className = 'w-full space-y-3';
 
             statements.forEach((stmt, idx) => {
                 const rowAns = currentMatrix[idx] || currentMatrix[String(idx)];
                 const isBenar = (rowAns === 'Benar');
                 const isSalah = (rowAns === 'Salah');
+                const hasAns = isBenar || isSalah;
 
-                tableHtml += `
-                    <tr class="hover:bg-blue-50/20 transition">
-                        <td class="py-3.5 sm:py-4 px-4 sm:px-6 text-slate-800 font-medium leading-relaxed">
-                            <div class="flex items-start space-x-2.5">
-                                <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">${idx + 1}</span>
-                                <span>${stmt}</span>
-                            </div>
-                        </td>
-                        <td class="py-3.5 sm:py-4 px-2 sm:px-4 text-center align-middle">
-                            <button type="button" onclick="selectMatrixAnswer('${q.id}', ${idx}, 'Benar')" class="w-full py-2.5 px-3 rounded-xl font-black text-xs transition flex items-center justify-center space-x-1.5 ${isBenar ? 'bg-emerald-600 text-white shadow-md ring-2 ring-emerald-300' : 'bg-slate-100 hover:bg-emerald-50 text-slate-600 hover:text-emerald-700 border border-slate-200'}">
-                                <i class="fa-solid fa-check ${isBenar ? 'text-white' : 'text-slate-400'}"></i>
-                                <span>Benar</span>
-                            </button>
-                        </td>
-                        <td class="py-3.5 sm:py-4 px-2 sm:px-4 text-center align-middle">
-                            <button type="button" onclick="selectMatrixAnswer('${q.id}', ${idx}, 'Salah')" class="w-full py-2.5 px-3 rounded-xl font-black text-xs transition flex items-center justify-center space-x-1.5 ${isSalah ? 'bg-rose-600 text-white shadow-md ring-2 ring-rose-300' : 'bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-700 border border-slate-200'}">
-                                <i class="fa-solid fa-xmark ${isSalah ? 'text-white' : 'text-slate-400'}"></i>
-                                <span>Salah</span>
-                            </button>
-                        </td>
-                    </tr>
+                const rowCard = document.createElement('div');
+                rowCard.className = `flex flex-col sm:flex-row sm:items-center justify-between p-3.5 sm:p-4 rounded-2xl border-2 transition gap-3 ${hasAns ? 'border-slate-300 bg-[#FAFCFD]' : 'border-slate-200 bg-white hover:border-slate-300'}`;
+
+                rowCard.innerHTML = `
+                    <div class="flex items-start space-x-3 text-slate-800 font-medium text-xs sm:text-sm leading-relaxed flex-1">
+                        <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-700 font-bold text-[10px] flex items-center justify-center shrink-0 border border-slate-200 mt-0.5">${idx + 1}</span>
+                        <span class="flex-1">${stmt}</span>
+                    </div>
+                    <div class="flex items-center space-x-2 shrink-0 self-end sm:self-center">
+                        <button type="button" onclick="selectMatrixAnswer('${q.id}', ${idx}, 'Benar')" class="px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition flex items-center space-x-1.5 ${isBenar ? 'bg-[#132A5A] text-white shadow-sm ring-2 ring-[#132A5A]/20' : 'bg-white hover:bg-slate-50 text-slate-600 border border-slate-200'}">
+                            <span>Benar</span>
+                        </button>
+                        <button type="button" onclick="selectMatrixAnswer('${q.id}', ${idx}, 'Salah')" class="px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition flex items-center space-x-1.5 ${isSalah ? 'bg-[#BF6A02] text-white shadow-sm ring-2 ring-[#BF6A02]/20' : 'bg-white hover:bg-slate-50 text-slate-600 border border-slate-200'}">
+                            <span>Salah</span>
+                        </button>
+                    </div>
                 `;
+                wrapper.appendChild(rowCard);
             });
 
-            tableHtml += `
-                        </tbody>
-                    </table>
-                </div>
-            `;
-            tableCard.innerHTML = tableHtml;
-            container.appendChild(tableCard);
+            const caption = document.createElement('p');
+            caption.className = 'text-[11px] sm:text-xs text-slate-500 font-medium pt-1';
+            caption.innerText = 'Tentukan setiap pernyataan benar atau salah.';
+            wrapper.appendChild(caption);
+
+            container.appendChild(wrapper);
         } else if (q.type === 'pg') {
             // Radio options
             for (const [key, val] of Object.entries(q.options)) {
@@ -567,19 +544,19 @@
                 container.appendChild(optEl);
             }
         } else if (q.type === 'mcma') {
-            // Checkbox options
+            // Checkbox options without A B C (matching mockup)
             const currentArr = Array.isArray(currentAns) ? currentAns : (currentAns ? String(currentAns).split(',') : []);
             for (const [key, val] of Object.entries(q.options)) {
                 const isChecked = currentArr.includes(key);
                 const optEl = document.createElement('label');
-                optEl.className = 'flex items-center space-x-3.5 p-4 rounded-2xl border-2 cursor-pointer transition ' +
-                    (isChecked ? 'border-[#1F366A] bg-[#FFF7E9]' : 'border-slate-200 hover:border-slate-300 bg-white');
+                optEl.className = 'flex items-center space-x-3.5 p-3.5 sm:p-4 rounded-2xl border-2 cursor-pointer transition ' +
+                    (isChecked ? 'border-[#D98200] bg-[#FFF8EC] shadow-sm' : 'border-slate-200 hover:border-slate-300 bg-white');
 
                 optEl.innerHTML = `
-                    <div class="w-7 h-7 rounded-lg border-2 flex items-center justify-center font-bold text-xs ${isChecked ? 'bg-[#1F366A] text-[#FFBE2A] border-[#1F366A]' : 'border-slate-300 text-slate-600'}">
-                        ${isChecked ? '✓' : key}
+                    <div class="w-6 h-6 rounded-md flex items-center justify-center text-xs transition flex-shrink-0 ${isChecked ? 'bg-[#BF6A02] text-white shadow-xs' : 'border-2 border-slate-300 bg-white'}">
+                        ${isChecked ? '<i class="fa-solid fa-check text-[11px]"></i>' : ''}
                     </div>
-                    <span class="text-sm sm:text-base font-medium text-slate-800 flex-1">${val}</span>
+                    <span class="text-sm sm:text-base font-medium text-slate-800 flex-1 leading-relaxed">${val}</span>
                 `;
 
                 optEl.onclick = (e) => {
@@ -588,25 +565,44 @@
                 };
                 container.appendChild(optEl);
             }
+
+            const caption = document.createElement('p');
+            caption.className = 'text-[11px] sm:text-xs text-slate-500 font-medium pt-1';
+            caption.innerText = 'Pilih lebih dari satu jawaban yang tepat (multi-select).';
+            container.appendChild(caption);
         } else if (q.type === 'tf') {
-            // True / False options
-            const choices = ['Benar', 'Salah'];
-            choices.forEach(choice => {
-                const isChecked = (currentAns === choice);
-                const optEl = document.createElement('div');
-                optEl.className = 'p-4 rounded-2xl border-2 cursor-pointer flex items-center space-x-3 transition ' +
-                    (isChecked ? 'border-[#1F366A] bg-[#FFF7E9]' : 'border-slate-200 hover:border-slate-300 bg-white');
+            // Single True / False options (matching mockup)
+            const isBenar = (currentAns === 'Benar');
+            const isSalah = (currentAns === 'Salah');
+            const hasAns = isBenar || isSalah;
 
-                optEl.innerHTML = `
-                    <div class="w-8 h-8 rounded-full border-2 flex items-center justify-center font-bold text-xs ${isChecked ? 'bg-[#1F366A] text-[#FFBE2A] border-[#1F366A]' : 'border-slate-300 text-slate-600'}">
-                        ${choice === 'Benar' ? 'B' : 'S'}
-                    </div>
-                    <span class="text-sm sm:text-base font-extrabold ${choice === 'Benar' ? 'text-emerald-700' : 'text-rose-700'}">${choice}</span>
-                `;
+            const wrapper = document.createElement('div');
+            wrapper.className = 'w-full space-y-3';
 
-                optEl.onclick = () => selectSingleAnswer(q.id, choice);
-                container.appendChild(optEl);
-            });
+            const card = document.createElement('div');
+            card.className = `flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl border-2 transition gap-4 ${hasAns ? 'border-slate-300 bg-[#FAFCFD]' : 'border-slate-200 bg-white hover:border-slate-300'}`;
+
+            card.innerHTML = `
+                <div class="text-slate-800 font-medium text-xs sm:text-sm leading-relaxed flex-1">
+                    Tentukan kebenaran pernyataan pada soal di atas:
+                </div>
+                <div class="flex items-center space-x-2 shrink-0 self-end sm:self-center">
+                    <button type="button" onclick="selectSingleAnswer('${q.id}', 'Benar')" class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center space-x-1.5 ${isBenar ? 'bg-[#132A5A] text-white shadow-sm ring-2 ring-[#132A5A]/20' : 'bg-white hover:bg-slate-50 text-slate-600 border border-slate-200'}">
+                        <span>Benar</span>
+                    </button>
+                    <button type="button" onclick="selectSingleAnswer('${q.id}', 'Salah')" class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center space-x-1.5 ${isSalah ? 'bg-[#BF6A02] text-white shadow-sm ring-2 ring-[#BF6A02]/20' : 'bg-white hover:bg-slate-50 text-slate-600 border border-slate-200'}">
+                        <span>Salah</span>
+                    </button>
+                </div>
+            `;
+            wrapper.appendChild(card);
+
+            const caption = document.createElement('p');
+            caption.className = 'text-[11px] sm:text-xs text-slate-500 font-medium pt-1';
+            caption.innerText = 'Tentukan setiap pernyataan benar atau salah.';
+            wrapper.appendChild(caption);
+
+            container.appendChild(wrapper);
         }
 
         // Doubt button state

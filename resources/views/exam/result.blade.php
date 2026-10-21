@@ -290,10 +290,17 @@
 
                             <div class="flex items-center space-x-3 p-3 rounded-xl border text-xs sm:text-sm font-medium
                                 {{ $isThisCorrectKey ? 'bg-emerald-50 border-emerald-400 text-emerald-950 font-bold' : ($isThisStudentAns ? 'bg-rose-50 border-rose-300 text-rose-950' : 'bg-slate-50/60 border-slate-200 text-slate-700') }}">
-                                <span class="w-6 h-6 rounded-md flex items-center justify-center font-bold text-xs
-                                    {{ $isThisCorrectKey ? 'bg-emerald-600 text-white' : ($isThisStudentAns ? 'bg-rose-600 text-white' : 'bg-slate-200 text-slate-700') }}">
-                                    {{ $optKey }}
-                                </span>
+                                @if($q['type'] === 'mcma')
+                                    <span class="w-6 h-6 rounded-md flex items-center justify-center text-xs flex-shrink-0
+                                        {{ $isThisCorrectKey ? 'bg-emerald-600 text-white' : ($isThisStudentAns ? 'bg-rose-600 text-white' : 'border-2 border-slate-300 bg-white text-transparent') }}">
+                                        <i class="fa-solid fa-check text-[10px]"></i>
+                                    </span>
+                                @else
+                                    <span class="w-6 h-6 rounded-md flex items-center justify-center font-bold text-xs flex-shrink-0
+                                        {{ $isThisCorrectKey ? 'bg-emerald-600 text-white' : ($isThisStudentAns ? 'bg-rose-600 text-white' : 'bg-slate-200 text-slate-700') }}">
+                                        {{ $optKey }}
+                                    </span>
+                                @endif
                                 <span class="flex-1">{{ $optVal }}</span>
 
                                 @if($isThisCorrectKey)
