@@ -161,9 +161,6 @@
                     <span id="current-question-badge" class="bg-[#1F366A] text-[#FFBE2A] text-xs sm:text-sm font-black px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow">
                         Soal No. 1
                     </span>
-                    <span id="question-type-badge" class="bg-amber-100 text-amber-900 border border-amber-300 text-[10px] sm:text-[11px] font-extrabold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full uppercase tracking-wider">
-                        Pilihan Ganda
-                    </span>
                 </div>
                 <div class="text-[11px] sm:text-xs text-slate-500 font-semibold">
                     Total: <b>{{ count($safeQuestions) }}</b> Soal
@@ -463,20 +460,6 @@
 
         // Header info
         document.getElementById('current-question-badge').innerText = 'Soal No. ' + (currentIndex + 1);
-        const typeBadge = document.getElementById('question-type-badge');
-        if (q.type === 'pg') {
-            typeBadge.innerText = 'Pilihan Ganda';
-            typeBadge.className = 'bg-blue-100 text-blue-900 border border-blue-300 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider';
-        } else if (q.type === 'mcma') {
-            typeBadge.innerText = 'MCMA (Pilih > 1 Jawaban)';
-            typeBadge.className = 'bg-purple-100 text-purple-900 border border-purple-300 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider';
-        } else if (q.type === 'matrix_tf' || (q.type === 'tf' && (q.statements || (q.options && Object.keys(q.options).length > 2)))) {
-            typeBadge.innerText = 'Tabel Benar / Salah';
-            typeBadge.className = 'bg-teal-100 text-teal-900 border border-teal-300 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider';
-        } else if (q.type === 'tf') {
-            typeBadge.innerText = 'Benar / Salah';
-            typeBadge.className = 'bg-amber-100 text-amber-900 border border-amber-300 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider';
-        }
 
         // Text & Image
         let questionHtml = '';

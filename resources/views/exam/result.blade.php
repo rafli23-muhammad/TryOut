@@ -233,9 +233,6 @@
                         <span class="bg-[#1F366A] text-[#FFBE2A] text-xs font-black px-3.5 py-1 rounded-full shadow-sm">
                             Nomor {{ $index + 1 }}
                         </span>
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-700">
-                            {{ $q['type'] === 'pg' ? 'Pilihan Ganda' : ($q['type'] === 'mcma' ? 'MCMA (Multi-Select)' : ($q['type'] === 'matrix_tf' || (!empty($q['statements']) && $q['type'] === 'tf') ? 'Tabel Benar/Salah (Matrix)' : 'Benar / Salah')) }}
-                        </span>
                         @php
                             $diff = $eval['difficulty'] ?? 'Sedang';
                             $diffColor = $diff === 'Sukar' ? 'bg-amber-50 text-amber-900 border-amber-300' : ($diff === 'Mudah' ? 'bg-emerald-50 text-emerald-900 border-emerald-300' : 'bg-blue-50 text-blue-900 border-blue-300');
