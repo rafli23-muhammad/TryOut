@@ -485,6 +485,17 @@
             "status": "active",
             "password": "71fd06e8ca76",
             "created_at": "2026-10-18 15:18:55"
+        },
+        {
+            "id": "usr_student_6ad907db99b0f",
+            "username": "muhraf7766",
+            "name": "Muhammad Rafl",
+            "email": "muhraf7766@gmail.com",
+            "phone": "085198651428",
+            "school": "-",
+            "role": "student",
+            "password": "pass",
+            "created_at": "2026-10-21 18:43:39"
         }
     ],
     "orders": [
@@ -543,6 +554,34 @@
             "status": "approved",
             "created_at": "2026-10-18 16:11:58",
             "approved_at": "2026-10-18 16:11:58"
+        },
+        {
+            "id": "TRX-5881BA85",
+            "student_id": "usr_student_6ad907db99b0f",
+            "student_name": "Muhammad Rafl",
+            "student_email": "muhraf7766@gmail.com",
+            "package_id": "pkg_utbk_2026",
+            "package_title": "Try Out Akbar UTBK-SNBT 2026 (TPS & Literasi)",
+            "amount": 0,
+            "payment_method": "Gratis",
+            "payment_proof": null,
+            "status": "approved",
+            "created_at": "2026-10-21 18:43:55",
+            "approved_at": "2026-10-21 18:43:55"
+        },
+        {
+            "id": "TRX-1FA4EB9E",
+            "student_id": "usr_student_6ad907db99b0f",
+            "student_name": "Muhammad Rafl",
+            "student_email": "muhraf7766@gmail.com",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "amount": 0,
+            "payment_method": "Gratis",
+            "payment_proof": null,
+            "status": "approved",
+            "created_at": "2026-10-21 18:44:54",
+            "approved_at": "2026-10-21 18:44:54"
         }
     ],
     "payment_settings": {
@@ -1205,6 +1244,323 @@
                     "correct_answer": "600 KARDUS",
                     "is_correct": false,
                     "is_empty": true
+                }
+            }
+        },
+        {
+            "id": "SES-69168ECA",
+            "student_id": "usr_student_6ad907db99b0f",
+            "student_name": "Muhammad Rafl",
+            "student_email": "muhraf7766@gmail.com",
+            "package_id": "pkg_utbk_2026",
+            "package_title": "Try Out Akbar UTBK-SNBT 2026 (TPS & Literasi)",
+            "duration_seconds": 3600,
+            "started_at": "2026-10-21 18:43:59",
+            "end_time": "2026-10-21 19:43:59",
+            "finished_at": "2026-10-21 18:44:29",
+            "status": "submitted",
+            "answers": [],
+            "doubt_flags": [],
+            "violation_count": 0,
+            "last_snapshot": null,
+            "last_seen": "2026-10-21 18:44:16",
+            "total_questions": 6,
+            "correct_count": 0,
+            "wrong_count": 0,
+            "empty_count": 6,
+            "score": 200,
+            "irt_score": 200,
+            "raw_accuracy": 0,
+            "theta": -3,
+            "total_weight": 10,
+            "earned_weight": 0,
+            "scoring_system": "IRT (Item Response Theory)",
+            "difficulty_breakdown": {
+                "mudah": {
+                    "total": 2,
+                    "correct": 0,
+                    "earned_weight": 0,
+                    "max_weight": 2
+                },
+                "sedang": {
+                    "total": 2,
+                    "correct": 0,
+                    "earned_weight": 0,
+                    "max_weight": 3.2
+                },
+                "sukar": {
+                    "total": 2,
+                    "correct": 0,
+                    "earned_weight": 0,
+                    "max_weight": 4.8
+                }
+            },
+            "passing_grade": 650,
+            "is_passed": false,
+            "evaluations": {
+                "q_utbk_01": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "C",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Mudah",
+                    "irt_weight": 1,
+                    "earned_weight": 0
+                },
+                "q_utbk_02": {
+                    "type": "mcma",
+                    "student_answer": null,
+                    "correct_answer": [
+                        "A",
+                        "B",
+                        "C",
+                        "E"
+                    ],
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sedang",
+                    "irt_weight": 1.6,
+                    "earned_weight": 0
+                },
+                "q_utbk_03": {
+                    "type": "tf",
+                    "student_answer": null,
+                    "correct_answer": "Benar",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_utbk_04": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "B",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Mudah",
+                    "irt_weight": 1,
+                    "earned_weight": 0
+                },
+                "q_utbk_05": {
+                    "type": "mcma",
+                    "student_answer": null,
+                    "correct_answer": [
+                        "A",
+                        "B",
+                        "C",
+                        "E"
+                    ],
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sedang",
+                    "irt_weight": 1.6,
+                    "earned_weight": 0
+                },
+                "q_utbk_06": {
+                    "type": "tf",
+                    "student_answer": null,
+                    "correct_answer": "Salah",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                }
+            }
+        },
+        {
+            "id": "SES-017D3BED",
+            "student_id": "usr_student_6ad907db99b0f",
+            "student_name": "Muhammad Rafl",
+            "student_email": "muhraf7766@gmail.com",
+            "package_id": "pkg_tryout_26c7",
+            "package_title": "TRY OUT",
+            "duration_seconds": 300,
+            "started_at": "2026-10-21 18:45:00",
+            "end_time": "2026-10-21 18:50:00",
+            "finished_at": "2026-10-21 18:47:36",
+            "status": "submitted",
+            "answers": [],
+            "doubt_flags": [],
+            "violation_count": 0,
+            "last_snapshot": null,
+            "last_seen": "2026-10-21 18:47:33",
+            "total_questions": 13,
+            "correct_count": 0,
+            "wrong_count": 0,
+            "empty_count": 13,
+            "score": 200,
+            "irt_score": 200,
+            "raw_accuracy": 0,
+            "theta": -3,
+            "total_weight": 31.2,
+            "earned_weight": 0,
+            "scoring_system": "IRT (Item Response Theory)",
+            "difficulty_breakdown": {
+                "mudah": {
+                    "total": 0,
+                    "correct": 0,
+                    "earned_weight": 0,
+                    "max_weight": 0
+                },
+                "sedang": {
+                    "total": 0,
+                    "correct": 0,
+                    "earned_weight": 0,
+                    "max_weight": 0
+                },
+                "sukar": {
+                    "total": 13,
+                    "correct": 0,
+                    "earned_weight": 0,
+                    "max_weight": 31.199999999999992
+                }
+            },
+            "passing_grade": 650,
+            "is_passed": false,
+            "evaluations": {
+                "q_pdf_6ad4c55056da9": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "B",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_pdf_6ad4c55056dba": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_pdf_6ad4c55056dbf": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "5 M",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_pdf_6ad4c55056dc3": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "ADHE",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_pdf_6ad4c55056dc7": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_pdf_6ad4c55056dd0": {
+                    "type": "mcma",
+                    "student_answer": null,
+                    "correct_answer": [
+                        "83",
+                        "4 CM"
+                    ],
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_pdf_6ad4c55056dd4": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "RP.240.000",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_pdf_6ad4c55056dd8": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "PERNYATAAN",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_pdf_6ad4c55056ddc": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "A",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_pdf_6ad4c55056de0": {
+                    "type": "matrix_tf",
+                    "student_answer": null,
+                    "correct_answer": [
+                        "Salah",
+                        "Benar",
+                        "Benar"
+                    ],
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_pdf_6ad4c55056de4": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "24 POSISI",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_pdf_6ad4c55056de7": {
+                    "type": "matrix_tf",
+                    "student_answer": null,
+                    "correct_answer": [
+                        "Benar",
+                        "Benar",
+                        "Salah"
+                    ],
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
+                },
+                "q_pdf_6ad4c55056dea": {
+                    "type": "pg",
+                    "student_answer": null,
+                    "correct_answer": "600 KARDUS",
+                    "is_correct": false,
+                    "is_empty": true,
+                    "difficulty": "Sukar",
+                    "irt_weight": 2.4,
+                    "earned_weight": 0
                 }
             }
         }
