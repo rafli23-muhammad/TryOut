@@ -115,23 +115,18 @@
                 </div>
 
                 <div class="relative z-10 space-y-3">
-                    <div class="flex items-center justify-between gap-3">
-                        <div class="flex items-center space-x-2.5 min-w-0">
-                            <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FFBE2A] to-[#E5A817] text-[#1F366A] flex items-center justify-center shadow-xs flex-shrink-0">
-                                <i class="fa-solid fa-key text-xs"></i>
-                            </div>
-                            <div class="min-w-0">
-                                <label for="bimbel_token_input" class="block text-xs font-black text-[#1F366A] uppercase tracking-wide cursor-pointer">
-                                    Punya Token Siswa Bimbel?
-                                </label>
-                                <span class="block text-[11px] text-amber-900/70 font-medium truncate">
-                                    Aktivasi gratis untuk siswa cabang resmi
-                                </span>
-                            </div>
+                    <div class="flex items-center space-x-2.5 min-w-0">
+                        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FFBE2A] to-[#E5A817] text-[#1F366A] flex items-center justify-center shadow-xs flex-shrink-0">
+                            <i class="fa-solid fa-key text-xs"></i>
                         </div>
-                        <span class="inline-flex items-center text-[10px] font-extrabold uppercase tracking-wider text-amber-800 bg-amber-200/70 border border-amber-300/80 px-2.5 py-0.5 rounded-full shadow-xs flex-shrink-0">
-                            Opsional
-                        </span>
+                        <div class="min-w-0">
+                            <label for="bimbel_token_input" class="block text-xs font-black text-[#1F366A] uppercase tracking-wide cursor-pointer">
+                                Punya Token Siswa Bimbel?
+                            </label>
+                            <span class="block text-[11px] text-amber-900/70 font-medium truncate">
+                                Aktivasi gratis untuk siswa cabang resmi
+                            </span>
+                        </div>
                     </div>
 
                     <div class="relative">
@@ -144,13 +139,6 @@
                                value="{{ old('bimbel_token') }}"
                                placeholder="CONTOH: BIMBEL-2026 / KELAS-12"
                                class="w-full pl-10 pr-4 py-2.5 sm:py-3 rounded-xl border border-amber-300 bg-white/95 focus:bg-white text-xs sm:text-sm font-mono font-bold tracking-wider uppercase placeholder:font-sans placeholder:normal-case placeholder:font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FFBE2A] focus:border-amber-400 shadow-xs transition">
-                    </div>
-
-                    <div class="flex items-start gap-2 text-[11px] text-slate-600 leading-relaxed">
-                        <span class="inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 font-extrabold text-[10px] px-2 py-0.5 rounded-md flex-shrink-0 mt-0.5 shadow-xs">
-                            <i class="fa-solid fa-shield-halved"></i> 100% GRATIS
-                        </span>
-                        <span>Khusus siswa bimbingan belajar resmi Cemerlang. Kosongkan jika Anda mendaftar sebagai siswa umum.</span>
                     </div>
 
                     @error('bimbel_token')
