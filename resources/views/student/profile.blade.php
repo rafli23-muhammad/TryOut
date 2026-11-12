@@ -85,25 +85,43 @@
 
             <!-- Token Siswa Bimbel Activation Box -->
             @if(!$isBimbel)
-                <div class="bg-gradient-to-br from-[#FFF7E9] to-amber-50 border-2 border-amber-300 rounded-2xl p-5 shadow-sm text-xs space-y-3">
-                    <div class="flex items-center space-x-2 text-[#1F366A] font-extrabold text-sm">
-                        <div class="w-7 h-7 rounded-lg bg-[#1F366A] text-[#FFBE2A] flex items-center justify-center text-xs">
-                            <i class="fa-solid fa-key"></i>
-                        </div>
-                        <span>Klaim Token Siswa Bimbel</span>
+                <div id="token-card" class="relative overflow-hidden rounded-2xl border border-amber-300/80 bg-gradient-to-br from-[#FFFDF7] via-[#FFF8EB] to-[#FFF0D4] p-4 sm:p-5 shadow-sm transition hover:shadow-md text-xs space-y-3">
+                    <div class="absolute -right-3 -bottom-4 text-amber-400/15 pointer-events-none select-none text-7xl">
+                        <i class="fa-solid fa-ticket"></i>
                     </div>
-                    <p class="text-slate-600 text-[11px] leading-relaxed">
-                        Jika Anda adalah siswa bimbingan belajar resmi Bimbel Cemerlang, masukkan kode token dari pembina/admin untuk membuka <strong>semua try out gratis</strong>.
-                    </p>
-                    <form method="POST" action="{{ url('/student/claim-token') }}" class="space-y-2">
-                        @csrf
-                        <div class="flex items-center space-x-2">
-                            <input type="text" name="token" required placeholder="KODE TOKEN" class="flex-1 px-3.5 py-2.5 rounded-xl border border-amber-300 focus:outline-none focus:ring-2 focus:ring-[#FFBE2A] text-xs font-mono font-bold uppercase bg-white">
-                            <button type="submit" class="btn-cemerlang-yellow px-4 py-2.5 rounded-xl font-black text-xs shadow">
-                                Klaim
-                            </button>
+                    <div class="relative z-10 space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2.5 text-[#1F366A] font-extrabold text-sm">
+                                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FFBE2A] to-[#E5A817] text-[#1F366A] flex items-center justify-center text-xs shadow-xs flex-shrink-0">
+                                    <i class="fa-solid fa-key"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-black text-xs uppercase tracking-wide">Klaim Token Siswa Bimbel</span>
+                                    <span class="block text-[11px] font-medium text-amber-900/70">Tingkatkan status akun jadi Siswa Bimbel</span>
+                                </div>
+                            </div>
+                            <span class="inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 font-black text-[10px] px-2 py-0.5 rounded-md shadow-xs">
+                                <i class="fa-solid fa-gift"></i> Akses Gratis
+                            </span>
                         </div>
-                    </form>
+                        <p class="text-slate-600 text-[11px] leading-relaxed">
+                            Masukkan kode token dari pembina/admin untuk membuka seluruh paket Try Out menjadi <strong>100% GRATIS</strong>.
+                        </p>
+                        <form method="POST" action="{{ url('/student/claim-token') }}" class="space-y-2">
+                            @csrf
+                            <div class="flex items-center space-x-2">
+                                <div class="relative flex-1">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-amber-600">
+                                        <i class="fa-solid fa-ticket text-xs"></i>
+                                    </div>
+                                    <input type="text" name="token" required placeholder="MASUKKAN KODE TOKEN" class="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-amber-300 bg-white focus:outline-none focus:ring-2 focus:ring-[#FFBE2A] text-xs font-mono font-bold uppercase shadow-xs">
+                                </div>
+                                <button type="submit" class="btn-cemerlang-yellow px-4 py-2.5 rounded-xl font-black text-xs shadow-sm hover:shadow transition flex items-center gap-1.5 flex-shrink-0">
+                                    <i class="fa-solid fa-check"></i> Klaim
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             @else
                 <div class="bg-emerald-50 border border-emerald-300 rounded-2xl p-4 text-xs text-emerald-900 space-y-1">
