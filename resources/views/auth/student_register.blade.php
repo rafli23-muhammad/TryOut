@@ -137,7 +137,7 @@
                                id="bimbel_token_input"
                                name="bimbel_token"
                                value="{{ old('bimbel_token') }}"
-                               placeholder="Masukkan kode token di sini"
+                               placeholder="Masukkan kode"
                                class="w-full pl-10 pr-4 py-2.5 sm:py-3 rounded-xl border border-amber-300 bg-white/95 focus:bg-white text-xs sm:text-sm font-mono font-bold tracking-wider uppercase placeholder:font-sans placeholder:normal-case placeholder:font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FFBE2A] focus:border-amber-400 shadow-xs transition">
                     </div>
 
