@@ -194,16 +194,28 @@
                                 </div>
                             </td>
 
-                            <!-- Peran / Role -->
+                            <!-- Peran / Role & Tipe Siswa -->
                             <td class="py-4 px-4 text-center">
                                 @if($isAdmin)
                                     <span class="inline-flex items-center gap-1.5 bg-[#1F366A] text-[#FFBE2A] text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
                                         <i class="fa-solid fa-shield-halved"></i> Admin
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center gap-1.5 bg-blue-50 text-[#1F366A] border border-blue-200 text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider">
-                                        <i class="fa-solid fa-user-graduate"></i> Siswa
-                                    </span>
+                                    @php $isBimbel = ($u['student_type'] ?? 'umum') === 'bimbel'; @endphp
+                                    <div class="flex flex-col items-center gap-1">
+                                        @if($isBimbel)
+                                            <span class="inline-flex items-center gap-1 bg-[#1F366A] text-[#FFBE2A] border border-amber-300 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-xs" title="Siswa Bimbel Resmi (Semua Try Out Gratis)">
+                                                <i class="fa-solid fa-graduation-cap"></i> Siswa Bimbel (Gratis)
+                                            </span>
+                                            @if(!empty($u['bimbel_token']))
+                                                <span class="text-[9px] font-mono text-slate-400">Token: {{ $u['bimbel_token'] }}</span>
+                                            @endif
+                                        @else
+                                            <span class="inline-flex items-center gap-1 bg-slate-100 text-slate-700 border border-slate-200 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider" title="Siswa Umum (Mengikuti harga paket)">
+                                                <i class="fa-solid fa-user"></i> Siswa Umum
+                                            </span>
+                                        @endif
+                                    </div>
                                 @endif
                             </td>
 
@@ -328,12 +340,19 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                     <label class="block text-xs font-bold text-[#1F366A] uppercase tracking-wider mb-1">Peran Akun <span class="text-rose-500">*</span></label>
-                    <select name="role" required class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]">
-                        <option value="student" selected>Siswa (Peserta Ujian)</option>
-                        <option value="admin">Administrator (Pengelola)</option>
+                    <select name="role" id="create-user-role" required class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]" onchange="toggleStudentTypeBox(this.value, 'create-student-type-col')">
+                        <option value="student" selected>Siswa (Peserta)</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+                <div id="create-student-type-col">
+                    <label class="block text-xs font-bold text-[#1F366A] uppercase tracking-wider mb-1">Tipe Siswa</label>
+                    <select name="student_type" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]">
+                        <option value="umum" selected>Siswa Umum (Berbayar)</option>
+                        <option value="bimbel">Siswa Bimbel (Gratis)</option>
                     </select>
                 </div>
                 <div>
@@ -396,19 +415,26 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                     <label class="block text-xs font-bold text-[#1F366A] uppercase tracking-wider mb-1">Peran Akun <span class="text-rose-500">*</span></label>
-                    <select name="role" id="edit-user-role" required class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]">
-                        <option value="student">Siswa (Peserta Ujian)</option>
-                        <option value="admin">Administrator (Pengelola)</option>
+                    <select name="role" id="edit-user-role" required class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]" onchange="toggleStudentTypeBox(this.value, 'edit-student-type-col')">
+                        <option value="student">Siswa (Peserta)</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+                <div id="edit-student-type-col">
+                    <label class="block text-xs font-bold text-[#1F366A] uppercase tracking-wider mb-1">Tipe Siswa</label>
+                    <select name="student_type" id="edit-user-student-type" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]">
+                        <option value="umum">Siswa Umum (Berbayar)</option>
+                        <option value="bimbel">Siswa Bimbel (Gratis)</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-[#1F366A] uppercase tracking-wider mb-1">Status Akun <span class="text-rose-500">*</span></label>
                     <select name="status" id="edit-user-status" required class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFBE2A]">
-                        <option value="active">Aktif (Bisa Login & Ujian)</option>
-                        <option value="suspended">Ditangguhkan (Diblokir Sementara)</option>
+                        <option value="active">Aktif</option>
+                        <option value="suspended">Ditangguhkan</option>
                     </select>
                 </div>
             </div>
@@ -480,8 +506,16 @@
 
 @push('scripts')
 <script>
+    function toggleStudentTypeBox(roleVal, colId) {
+        const col = document.getElementById(colId);
+        if (col) {
+            col.style.display = (roleVal === 'student') ? 'block' : 'none';
+        }
+    }
+
     function openCreateUserModal() {
         document.getElementById('modal-create-user').classList.remove('hidden');
+        toggleStudentTypeBox(document.getElementById('create-user-role').value, 'create-student-type-col');
     }
 
     function closeCreateUserModal() {
@@ -496,8 +530,11 @@
         document.getElementById('edit-user-email').value = u.email || '';
         document.getElementById('edit-user-phone').value = u.phone || '';
         document.getElementById('edit-user-role').value = u.role || 'student';
+        document.getElementById('edit-user-student-type').value = u.student_type || 'umum';
         document.getElementById('edit-user-status').value = u.status || 'active';
         document.getElementById('edit-user-school').value = (u.school && u.school !== '-') ? u.school : '';
+
+        toggleStudentTypeBox(u.role || 'student', 'edit-student-type-col');
 
         document.getElementById('modal-edit-user').classList.remove('hidden');
     }

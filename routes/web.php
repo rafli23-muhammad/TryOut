@@ -39,6 +39,7 @@ Route::prefix('student')->group(function () {
     Route::get('/catalog', [StudentController::class, 'catalog']);
     Route::get('/profile', [StudentController::class, 'showProfile']);
     Route::post('/profile', [StudentController::class, 'updateProfile']);
+    Route::post('/claim-token', [StudentController::class, 'claimBimbelToken']);
     Route::post('/checkout/{packageId}', [StudentController::class, 'checkout']);
     Route::get('/camera-check/{packageId}', [StudentController::class, 'cameraCheck']);
 });
@@ -101,6 +102,12 @@ Route::prefix('admin')->group(function () {
     Route::post('/users/{id}/toggle-status', [AdminController::class, 'toggleUserStatus']);
     Route::post('/users/{id}/reset-password', [AdminController::class, 'resetUserPassword']);
     Route::post('/users/{id}/delete', [AdminController::class, 'deleteUser']);
+
+    // Bimbel Tokens Management
+    Route::get('/tokens', [AdminController::class, 'tokens']);
+    Route::post('/tokens', [AdminController::class, 'storeToken']);
+    Route::post('/tokens/{id}/toggle', [AdminController::class, 'toggleTokenStatus']);
+    Route::post('/tokens/{id}/delete', [AdminController::class, 'deleteToken']);
 
     // Admin Profile & Security Settings (Ubah Akun Gmail & Password)
     Route::get('/profile', [AdminController::class, 'profile']);

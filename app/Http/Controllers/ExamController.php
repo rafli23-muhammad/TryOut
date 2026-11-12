@@ -28,8 +28,9 @@ class ExamController extends Controller
             return redirect('/student/dashboard')->with('error', 'Paket ujian tidak ditemukan.');
         }
 
-        // Verify approved order
-        $hasAccess = collect($data['orders'] ?? [])->contains(function ($o) use ($studentId, $packageId) {
+        // Verify approved order or Siswa Bimbel access
+        $isBimbel = \App\Services\BimbelTokenService::isBimbelStudent($studentId);
+        $hasAccess = $isBimbel || collect($data['orders'] ?? [])->contains(function ($o) use ($studentId, $packageId) {
             return $o['student_id'] === $studentId && $o['package_id'] === $packageId && $o['status'] === 'approved';
         });
 

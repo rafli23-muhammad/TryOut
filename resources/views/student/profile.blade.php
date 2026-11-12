@@ -53,9 +53,17 @@
                 </div>
 
                 <h3 class="text-lg font-extrabold text-[#1F366A] font-serif leading-tight mt-1">{{ $student['name'] ?? 'Siswa' }}</h3>
-                <span class="inline-block bg-[#FFF7E9] text-[#1F366A] border border-amber-300 text-[10px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider mt-1.5">
-                    Peserta Try Out Aktif
-                </span>
+                
+                @php $isBimbel = ($student['student_type'] ?? 'umum') === 'bimbel'; @endphp
+                @if($isBimbel)
+                    <div class="mt-2 inline-flex items-center gap-1.5 bg-[#1F366A] text-[#FFBE2A] border border-amber-300 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                        <i class="fa-solid fa-graduation-cap"></i> Siswa Bimbel Resmi (Semua Try Out Gratis)
+                    </div>
+                @else
+                    <div class="mt-2 inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 border border-slate-200 text-[10px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider">
+                        <i class="fa-solid fa-user"></i> Siswa Umum
+                    </div>
+                @endif
 
                 <div class="mt-6 pt-5 border-t border-slate-100 text-left space-y-3 text-xs">
                     <div>
@@ -74,6 +82,40 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Token Siswa Bimbel Activation Box -->
+            @if(!$isBimbel)
+                <div class="bg-gradient-to-br from-[#FFF7E9] to-amber-50 border-2 border-amber-300 rounded-2xl p-5 shadow-sm text-xs space-y-3">
+                    <div class="flex items-center space-x-2 text-[#1F366A] font-extrabold text-sm">
+                        <div class="w-7 h-7 rounded-lg bg-[#1F366A] text-[#FFBE2A] flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-key"></i>
+                        </div>
+                        <span>Klaim Token Siswa Bimbel</span>
+                    </div>
+                    <p class="text-slate-600 text-[11px] leading-relaxed">
+                        Jika Anda adalah siswa bimbingan belajar resmi Bimbel Cemerlang, masukkan kode token dari pembina/admin untuk membuka <strong>semua try out gratis</strong>.
+                    </p>
+                    <form method="POST" action="{{ url('/student/claim-token') }}" class="space-y-2">
+                        @csrf
+                        <div class="flex items-center space-x-2">
+                            <input type="text" name="token" required placeholder="KODE TOKEN" class="flex-1 px-3.5 py-2.5 rounded-xl border border-amber-300 focus:outline-none focus:ring-2 focus:ring-[#FFBE2A] text-xs font-mono font-bold uppercase bg-white">
+                            <button type="submit" class="btn-cemerlang-yellow px-4 py-2.5 rounded-xl font-black text-xs shadow">
+                                Klaim
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            @else
+                <div class="bg-emerald-50 border border-emerald-300 rounded-2xl p-4 text-xs text-emerald-900 space-y-1">
+                    <div class="flex items-center space-x-2 font-bold text-emerald-800">
+                        <i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>
+                        <span>Status: Siswa Bimbel Resmi</span>
+                    </div>
+                    <p class="text-[11px] text-emerald-700 leading-relaxed">
+                        Akun Anda memiliki hak akses istimewa. Seluruh paket Try Out UTBK-SNBT & TKA dapat Anda ikuti secara gratis tanpa dipungut biaya.
+                    </p>
+                </div>
+            @endif
 
             <!-- Info Box -->
             <div class="bg-[#FFF7E9] border border-amber-200/90 rounded-2xl p-4 text-xs text-[#1F366A] space-y-1.5">

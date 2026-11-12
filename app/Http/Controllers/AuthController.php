@@ -59,6 +59,8 @@ class AuthController extends Controller
             'student_phone' => $student['phone'] ?? '',
             'student_school' => $student['school'] ?? '',
             'student_avatar' => $student['avatar'] ?? null,
+            'student_type' => $student['student_type'] ?? 'umum',
+            'bimbel_token' => $student['bimbel_token'] ?? null,
         ]);
 
         return redirect('/student/dashboard')->with('success', 'Selamat datang kembali, ' . $student['name'] . '!');
@@ -72,10 +74,35 @@ class AuthController extends Controller
             'phone' => 'required|string|max:20',
             'school' => 'nullable|string|max:120',
             'password' => 'required|string|min:4',
+            'bimbel_token' => 'nullable|string|max:60',
         ]);
 
         $data = TryoutDataStore::read();
         $email = strtolower(trim($request->input('email')));
+        $tokenInput = trim($request->input('bimbel_token') ?? '');
+
+        // Pre-validate token if filled
+        if ($tokenInput !== '') {
+            $tokens = collect($data['bimbel_tokens'] ?? []);
+            $foundToken = $tokens->first(fn($t) => strtoupper($t['code']) === strtoupper($tokenInput));
+            if (!$foundToken) {
+                return back()->withErrors(['bimbel_token' => 'Kode token bimbel tidak ditemukan atau salah.'])->withInput();
+            }
+            if (isset($foundToken['is_active']) && !$foundToken['is_active']) {
+                return back()->withErrors(['bimbel_token' => 'Token bimbel ini sudah tidak aktif.'])->withInput();
+            }
+            if (!empty($foundToken['expires_at'])) {
+                $exp = strtotime($foundToken['expires_at'] . ' 23:59:59');
+                if ($exp && time() > $exp) {
+                    return back()->withErrors(['bimbel_token' => 'Masa berlaku token bimbel ini sudah berakhir.'])->withInput();
+                }
+            }
+            $maxUses = (int) ($foundToken['max_uses'] ?? 0);
+            $usedCount = (int) ($foundToken['used_count'] ?? 0);
+            if ($maxUses > 0 && $usedCount >= $maxUses) {
+                return back()->withErrors(['bimbel_token' => 'Kuota penggunaan token bimbel ini sudah habis.'])->withInput();
+            }
+        }
 
         $exists = collect($data['users'] ?? [])->first(function ($u) use ($email) {
             return strtolower($u['email'] ?? '') === $email;
@@ -93,6 +120,7 @@ class AuthController extends Controller
             'phone' => trim($request->input('phone')),
             'school' => trim($request->input('school') ?: '-'),
             'role' => 'student',
+            'student_type' => 'umum',
             'password' => trim($request->input('password')),
             'created_at' => date('Y-m-d H:i:s'),
         ];
@@ -106,7 +134,16 @@ class AuthController extends Controller
             'student_email' => $newStudent['email'],
             'student_phone' => $newStudent['phone'],
             'student_school' => $newStudent['school'],
+            'student_type' => 'umum',
         ]);
+
+        // Auto-claim token if provided during registration
+        if ($tokenInput !== '') {
+            $claimResult = \App\Services\BimbelTokenService::claimToken($tokenInput, $newStudent['id'], $newStudent['name']);
+            if ($claimResult['success']) {
+                return redirect('/student/dashboard')->with('success', 'Pendaftaran berhasil & Token Bimbel aktif! Semua paket Try Out GRATIS untuk Anda.');
+            }
+        }
 
         return redirect('/student/catalog')->with('success', 'Pendaftaran akun Bimbel Cemerlang berhasil! Silakan pilih paket try out.');
     }
@@ -258,6 +295,8 @@ class AuthController extends Controller
             'student_phone' => $student['phone'] ?? '',
             'student_school' => $student['school'] ?? '',
             'student_avatar' => $student['avatar'] ?? null,
+            'student_type' => $student['student_type'] ?? 'umum',
+            'bimbel_token' => $student['bimbel_token'] ?? null,
         ]);
 
         $redirectUrl = $isNewRegistration ? url('/student/catalog') : url('/student/dashboard');
@@ -468,6 +507,8 @@ class AuthController extends Controller
             'student_phone' => $student['phone'] ?? '',
             'student_school' => $student['school'] ?? '',
             'student_avatar' => $student['avatar'] ?? null,
+            'student_type' => $student['student_type'] ?? 'umum',
+            'bimbel_token' => $student['bimbel_token'] ?? null,
         ]);
 
         $redirectUrl = $isNewRegistration ? url('/student/catalog') : url('/student/dashboard');

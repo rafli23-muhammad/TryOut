@@ -711,6 +711,170 @@ class CemerlangTryoutTest extends TestCase
         ]);
         $this->assertEquals(200.0, $matrixFail['score']);
     }
+
+    public function test_admin_can_manage_bimbel_tokens()
+    {
+        // 1. Admin login session
+        $adminSession = ['admin_id' => 'usr_admin', 'admin_username' => 'admin'];
+
+        // 2. View tokens index
+        $res = $this->withSession($adminSession)->get('/admin/tokens');
+        $res->assertStatus(200);
+        $res->assertSee('Kelola Token Siswa Bimbel');
+
+        // 3. Create a token
+        $tokenCode = 'BIMBEL-TEST-2026';
+        $res = $this->withSession($adminSession)->post('/admin/tokens', [
+            'code' => $tokenCode,
+            'max_uses' => 10,
+            'expires_at' => date('Y-m-d', strtotime('+30 days')),
+            'notes' => 'Token Kelas 12 Intensif UTBK',
+        ]);
+        $res->assertRedirect('/admin/tokens');
+        $res->assertSessionHas('success');
+
+        // Verify in store
+        $store = TryoutDataStore::read();
+        $token = collect($store['bimbel_tokens'] ?? [])->firstWhere('code', $tokenCode);
+        $this->assertNotNull($token);
+        $this->assertEquals(10, $token['max_uses']);
+        $this->assertTrue($token['is_active']);
+
+        // 4. Toggle token status
+        $res = $this->withSession($adminSession)->post('/admin/tokens/' . $token['id'] . '/toggle');
+        $res->assertRedirect('/admin/tokens');
+        $store = TryoutDataStore::read();
+        $token = collect($store['bimbel_tokens'] ?? [])->firstWhere('id', $token['id']);
+        $this->assertFalse($token['is_active']);
+
+        // Toggle back to active
+        $this->withSession($adminSession)->post('/admin/tokens/' . $token['id'] . '/toggle');
+
+        // 5. Delete token
+        $res = $this->withSession($adminSession)->post('/admin/tokens/' . $token['id'] . '/delete');
+        $res->assertRedirect('/admin/tokens');
+        $store = TryoutDataStore::read();
+        $this->assertNull(collect($store['bimbel_tokens'] ?? [])->firstWhere('id', $token['id']));
+    }
+
+    public function test_student_registration_with_bimbel_token_grants_instant_free_access()
+    {
+        // Setup a token first
+        \App\Services\BimbelTokenService::createToken([
+            'code' => 'BIMBEL-REG-FREE',
+            'max_uses' => 5,
+            'notes' => 'Registration Token',
+        ]);
+
+        $testEmail = 'bimbel_student_' . time() . '@test.com';
+        $res = $this->post('/register', [
+            'name' => 'Siswa Bimbel Pendaftar',
+            'email' => $testEmail,
+            'phone' => '0899998888',
+            'school' => 'SMA Bimbel 1',
+            'password' => 'secret123',
+            'bimbel_token' => 'BIMBEL-REG-FREE',
+        ]);
+        $res->assertRedirect('/student/dashboard');
+        $res->assertSessionHas('success');
+
+        // Verify student type in store is bimbel
+        $store = TryoutDataStore::read();
+        $user = collect($store['users'])->firstWhere('email', $testEmail);
+        $this->assertNotNull($user);
+        $this->assertEquals('bimbel', $user['student_type'] ?? null);
+
+        // Verify user has auto-approved orders for all packages
+        $packages = $store['packages'] ?? [];
+        $orders = collect($store['orders'])->where('student_id', $user['id']);
+        $this->assertCount(count($packages), $orders);
+        foreach ($orders as $order) {
+            $this->assertEquals('approved', $order['status']);
+            $this->assertEquals(0, $order['amount']);
+        }
+
+        // Verify token used count incremented
+        $token = collect($store['bimbel_tokens'] ?? [])->firstWhere('code', 'BIMBEL-REG-FREE');
+        $this->assertEquals(1, $token['used_count']);
+        $this->assertCount(1, $token['claimed_users']);
+    }
+
+    public function test_student_can_claim_bimbel_token_from_profile()
+    {
+        // 1. Create a token
+        \App\Services\BimbelTokenService::createToken([
+            'code' => 'BIMBEL-UPGRADE',
+            'max_uses' => 5,
+        ]);
+
+        // 2. Register as regular student without token
+        $email = 'reguler_' . time() . '@test.com';
+        $this->post('/register', [
+            'name' => 'Siswa Reguler Awal',
+            'email' => $email,
+            'phone' => '0877776666',
+            'school' => 'SMA Reguler',
+            'password' => 'secret123',
+        ]);
+
+        $store = TryoutDataStore::read();
+        $user = collect($store['users'])->firstWhere('email', $email);
+        $this->assertEquals('umum', $user['student_type'] ?? 'umum');
+
+        // 3. Login as this student
+        $studentSession = [
+            'student_id' => $user['id'],
+            'student_name' => $user['name'],
+            'student_email' => $user['email'],
+            'student_type' => 'umum',
+        ];
+
+        // 4. Claim token
+        $res = $this->from('/student/profile')->withSession($studentSession)->post('/student/claim-token', [
+            'bimbel_token' => 'BIMBEL-UPGRADE',
+        ]);
+        $res->assertRedirect('/student/profile');
+        $res->assertSessionHas('success');
+
+        // Check updated status
+        $this->assertTrue(\App\Services\BimbelTokenService::isBimbelStudent($user['id']));
+
+        // Attempting to claim again should warn already claimed
+        $resAgain = $this->from('/student/profile')->withSession($studentSession)->post('/student/claim-token', [
+            'bimbel_token' => 'BIMBEL-UPGRADE',
+        ]);
+        $resAgain->assertSessionHas('warning');
+    }
+
+    public function test_bimbel_student_can_start_exam_directly_without_manual_order()
+    {
+        // 1. Setup bimbel student
+        $store = TryoutDataStore::read();
+        $packages = $store['packages'] ?? [];
+        $firstPackage = $packages[0];
+
+        $studentId = 'usr_bimbel_direct_' . time();
+        $store['users'][] = [
+            'id' => $studentId,
+            'name' => 'Siswa Bimbel Langsung Ujian',
+            'email' => 'bimbel_direct@test.com',
+            'role' => 'user',
+            'student_type' => 'bimbel',
+            'created_at' => date('Y-m-d H:i:s'),
+        ];
+        TryoutDataStore::write($store);
+
+        // 2. Start exam directly as bimbel student
+        $res = $this->withSession([
+            'student_id' => $studentId,
+            'student_name' => 'Siswa Bimbel Langsung Ujian',
+            'student_email' => 'bimbel_direct@test.com',
+            'student_type' => 'bimbel',
+        ])->get('/exam/' . $firstPackage['id']);
+
+        $res->assertStatus(200);
+        $res->assertSee('Sisa Waktu');
+    }
 }
 
 

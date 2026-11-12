@@ -16,7 +16,21 @@
                 @endif
             </div>
             <div class="min-w-0">
-                <span class="text-[10px] sm:text-xs font-bold text-[#FFBE2A] uppercase tracking-wider block">Panel Siswa Terdaftar</span>
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                    <span class="text-[10px] sm:text-xs font-bold text-[#FFBE2A] uppercase tracking-wider block">Panel Siswa Terdaftar</span>
+                    @if(session('student_type') === 'bimbel' || \App\Services\BimbelTokenService::isBimbelStudent(session('student_id')))
+                        <span class="inline-flex items-center gap-1 bg-emerald-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+                            <i class="fa-solid fa-graduation-cap"></i> Siswa Bimbel Resmi (Akses Gratis)
+                        </span>
+                    @else
+                        <span class="inline-flex items-center gap-1 bg-amber-400 text-[#1F366A] text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+                            <i class="fa-solid fa-user"></i> Siswa Umum
+                        </span>
+                        <a href="{{ url('/student/profile') }}#token-card" class="text-[10px] font-extrabold text-[#FFBE2A] underline hover:text-white transition">
+                            <i class="fa-solid fa-key mr-0.5"></i> Punya Token Bimbel? Klaim di sini
+                        </a>
+                    @endif
+                </div>
                 <h1 class="text-xl sm:text-3xl font-extrabold font-serif truncate">{{ session('student_name') }}</h1>
                 <p class="text-xs sm:text-sm text-slate-300 mt-1 flex flex-wrap items-center gap-2 sm:gap-3">
                     <span class="truncate"><i class="fa-solid fa-envelope mr-1 text-[#FFBE2A]"></i>{{ session('student_email') }}</span>

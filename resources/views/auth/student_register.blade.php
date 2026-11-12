@@ -107,6 +107,23 @@
                 </div>
             </div>
 
+            <!-- Kode Token Siswa Bimbel (Opsional) -->
+            <div class="bg-[#FFF7E9] border-2 border-dashed border-[#FFBE2A] rounded-2xl p-4">
+                <div class="flex items-center justify-between mb-1.5">
+                    <label class="block text-xs font-black text-[#1F366A] uppercase tracking-wider">
+                        <i class="fa-solid fa-key text-amber-500 mr-1"></i> Punya Token Siswa Bimbel?
+                    </label>
+                    <span class="text-[10px] font-extrabold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">Opsional</span>
+                </div>
+                <input type="text" name="bimbel_token" value="{{ old('bimbel_token') }}" placeholder="Contoh: BIMBEL-2026 / KELAS-12" class="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:outline-none focus:ring-2 focus:ring-[#FFBE2A] text-xs font-mono font-bold uppercase bg-white">
+                <p class="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
+                    Khusus siswa bimbingan belajar resmi Bimbel Cemerlang. Masukkan token untuk mendapatkan <strong>Akses 100% GRATIS</strong> ke semua paket Try Out.
+                </p>
+                @error('bimbel_token')
+                    <p class="text-xs text-rose-600 font-bold mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
             <button type="submit" class="btn-cemerlang-yellow w-full py-3.5 rounded-xl text-sm font-extrabold shadow-md hover:shadow-lg transition">
                 Daftar & Lanjut ke Katalog <i class="fa-solid fa-arrow-right ml-2 text-[#1F366A]"></i>
             </button>

@@ -110,6 +110,11 @@
                     <span>Kelola Akun</span>
                 </a>
 
+                <a href="{{ url('/admin/tokens') }}" class="sidebar-nav-item flex items-center space-x-3 px-4 py-3 rounded-xl transition-colors duration-200 relative z-10 {{ request()->is('admin/tokens*') ? 'is-active text-[#1F366A] font-extrabold' : 'text-slate-200 hover:text-white hover:bg-white/5' }}">
+                    <i class="fa-solid fa-key text-base"></i>
+                    <span>Token Siswa Bimbel</span>
+                </a>
+
                 <a href="{{ url('/admin/packages') }}" class="sidebar-nav-item flex items-center space-x-3 px-4 py-3 rounded-xl transition-colors duration-200 relative z-10 {{ request()->is('admin/packages*') ? 'is-active text-[#1F366A] font-extrabold' : 'text-slate-200 hover:text-white hover:bg-white/5' }}">
                     <i class="fa-solid fa-box-archive text-base"></i>
                     <span>Paket Try Out</span>

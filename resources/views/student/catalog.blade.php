@@ -22,6 +22,28 @@
         </div>
     </div>
 
+    @php
+        $isBimbelUser = \App\Services\BimbelTokenService::isBimbelStudent(session('student_id'));
+    @endphp
+
+    @if($isBimbelUser)
+        <!-- Banner Khusus Siswa Bimbel -->
+        <div class="mb-6 p-4 rounded-2xl bg-[#1F366A] text-white border-2 border-[#FFBE2A] flex items-center justify-between shadow-md">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-[#FFBE2A] text-[#1F366A] flex items-center justify-center text-lg font-black shrink-0">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h4 class="font-black text-sm text-[#FFBE2A]">Hak Akses Siswa Bimbel Resmi Aktif</h4>
+                    <p class="text-xs text-slate-200">Semua paket Try Out terbuka gratis untuk Anda. Cukup klik "Mulai Ujian Sekarang".</p>
+                </div>
+            </div>
+            <span class="hidden sm:inline-block px-3 py-1 rounded-full bg-emerald-500 text-white font-extrabold text-[10px] uppercase tracking-wider">
+                100% Gratis
+            </span>
+        </div>
+    @endif
+
     <!-- Category Filter Tabs (Fokus SNBT & TKA) -->
     <div class="flex flex-wrap items-center gap-2 mb-6 sm:mb-8">
         <button onclick="filterCatalog('all')" id="tab-all" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-black bg-[#1F366A] text-white shadow-sm transition">
@@ -106,8 +128,13 @@
                         <!-- Price Tag -->
                         <div class="pt-2 flex items-baseline justify-between border-t border-slate-100">
                             <span class="text-xs text-slate-500 font-bold">Biaya Investasi:</span>
-                            @if($pkg['price'] == 0)
-                                <span class="text-lg font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">GRATIS</span>
+                            @if($isBimbelUser || $pkg['price'] == 0)
+                                <div>
+                                    <span class="text-lg font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">GRATIS</span>
+                                    @if($isBimbelUser && $pkg['price'] > 0)
+                                        <span class="text-[10px] text-slate-400 line-through ml-1.5">Rp {{ number_format($pkg['price'], 0, ',', '.') }}</span>
+                                    @endif
+                                </div>
                             @else
                                 <span class="text-xl font-black text-[#1F366A]">Rp {{ number_format($pkg['price'], 0, ',', '.') }}</span>
                             @endif
@@ -117,7 +144,7 @@
 
                 <!-- Footer Action -->
                 <div class="p-6 pt-0">
-                    @if($isApproved)
+                    @if($isBimbelUser || $isApproved)
                         <a href="{{ url('/exam/' . $pkg['id']) }}" class="btn-cemerlang-yellow w-full py-3.5 rounded-xl font-bold text-sm text-center block shadow">
                             <i class="fa-solid fa-play mr-2"></i> Mulai Ujian Sekarang
                         </a>

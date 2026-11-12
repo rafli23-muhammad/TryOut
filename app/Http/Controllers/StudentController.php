@@ -13,13 +13,14 @@ class StudentController extends Controller
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu untuk mengakses fitur siswa.');
         }
 
-        // Keep session synced with persistent user avatar
-        if (!session('student_avatar')) {
-            $data = TryoutDataStore::read();
-            $student = collect($data['users'] ?? [])->firstWhere('id', session('student_id'));
-            if ($student && !empty($student['avatar'])) {
+        // Keep session synced with persistent user avatar & student type
+        $data = TryoutDataStore::read();
+        $student = collect($data['users'] ?? [])->firstWhere('id', session('student_id'));
+        if ($student) {
+            if (!empty($student['avatar'])) {
                 session(['student_avatar' => $student['avatar']]);
             }
+            session(['student_type' => $student['student_type'] ?? 'umum']);
         }
 
         return null;
@@ -86,11 +87,12 @@ class StudentController extends Controller
             return redirect('/student/dashboard')->with('info', 'Anda sudah memiliki akses ke paket ini.');
         }
 
-        $price = (int) ($package['price'] ?? 0);
+        $isBimbel = \App\Services\BimbelTokenService::isBimbelStudent($studentId);
+        $price = $isBimbel ? 0 : (int) ($package['price'] ?? 0);
         $orderId = 'TRX-' . strtoupper(substr(md5(uniqid()), 0, 8));
 
         $paymentProof = null;
-        if ($request->hasFile('payment_proof')) {
+        if (!$isBimbel && $request->hasFile('payment_proof')) {
             $file = $request->file('payment_proof');
             $filename = 'proof_' . time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/proofs'), $filename);
@@ -100,6 +102,10 @@ class StudentController extends Controller
         $isFree = ($price === 0);
         $status = $isFree ? 'approved' : 'pending';
 
+        $paymentMethod = $isBimbel 
+            ? 'Gratis Siswa Bimbel' 
+            : ($isFree ? 'Gratis' : ($request->input('payment_method') ?: 'Transfer Bank'));
+
         $newOrder = [
             'id' => $orderId,
             'student_id' => $studentId,
@@ -108,7 +114,7 @@ class StudentController extends Controller
             'package_id' => $package['id'],
             'package_title' => $package['title'],
             'amount' => $price,
-            'payment_method' => $isFree ? 'Gratis' : ($request->input('payment_method') ?: 'Transfer Bank'),
+            'payment_method' => $paymentMethod,
             'payment_proof' => $paymentProof,
             'status' => $status,
             'created_at' => date('Y-m-d H:i:s'),
@@ -117,6 +123,10 @@ class StudentController extends Controller
 
         $data['orders'][] = $newOrder;
         TryoutDataStore::write($data);
+
+        if ($isBimbel) {
+            return redirect('/student/dashboard')->with('success', 'Paket berhasil diaktifkan secara GRATIS (Hak Akses Siswa Bimbel)!');
+        }
 
         if ($isFree) {
             return redirect('/student/dashboard')->with('success', 'Paket Gratis berhasil diaktifkan! Anda siap mengerjakan try out.');
@@ -244,8 +254,34 @@ class StudentController extends Controller
             'student_phone' => $data['users'][$userIndex]['phone'],
             'student_school' => $data['users'][$userIndex]['school'],
             'student_avatar' => $avatarPath,
+            'student_type' => $data['users'][$userIndex]['student_type'] ?? 'umum',
         ]);
 
         return redirect('/student/profile')->with('success', 'Profil dan foto profil Anda berhasil diperbarui!');
+    }
+
+    public function claimBimbelToken(Request $request)
+    {
+        if ($redirect = $this->checkStudentAuth()) return $redirect;
+
+        $tokenCode = trim((string) ($request->input('token') ?? $request->input('bimbel_token')));
+        if ($tokenCode === '') {
+            return back()->with('error', 'Kode token wajib diisi.')->withInput();
+        }
+
+        $studentId = session('student_id');
+        $studentName = session('student_name');
+
+        $result = \App\Services\BimbelTokenService::claimToken($tokenCode, $studentId, $studentName);
+
+        if (!$result['success']) {
+            return back()->with('error', $result['message'])->withInput();
+        }
+
+        if (!empty($result['already'])) {
+            return back()->with('warning', $result['message']);
+        }
+
+        return back()->with('success', $result['message']);
     }
 }

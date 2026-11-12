@@ -1180,6 +1180,7 @@ class AdminController extends Controller
             'email' => 'required|email|max:120',
             'phone' => 'required|string|max:20',
             'role' => 'required|in:student,admin',
+            'student_type' => 'nullable|in:umum,bimbel',
             'password' => 'required|string|min:4',
             'school' => 'nullable|string|max:120',
         ]);
@@ -1199,6 +1200,8 @@ class AdminController extends Controller
         $id = uniqid($role === 'admin' ? 'usr_admin_' : 'usr_student_');
         $username = explode('@', $email)[0];
 
+        $studentType = ($role === 'student') ? ($request->input('student_type') ?: 'umum') : null;
+
         $newUser = [
             'id' => $id,
             'username' => $username,
@@ -1207,10 +1210,32 @@ class AdminController extends Controller
             'phone' => trim($request->input('phone')),
             'school' => trim($request->input('school') ?: '-'),
             'role' => $role,
+            'student_type' => $studentType,
             'password' => trim($request->input('password')),
             'status' => 'active',
             'created_at' => date('Y-m-d H:i:s'),
         ];
+
+        // If creating a bimbel student, auto enroll in all packages
+        if ($role === 'student' && $studentType === 'bimbel') {
+            $now = date('Y-m-d H:i:s');
+            foreach ($data['packages'] ?? [] as $pkg) {
+                $data['orders'][] = [
+                    'id' => 'TRX-BIMBEL-' . strtoupper(substr(md5($id . $pkg['id'] . time()), 0, 8)),
+                    'student_id' => $id,
+                    'student_name' => $newUser['name'],
+                    'student_email' => $email,
+                    'package_id' => $pkg['id'],
+                    'package_title' => $pkg['title'],
+                    'amount' => 0,
+                    'payment_method' => 'Hak Akses Admin (Siswa Bimbel)',
+                    'payment_proof' => null,
+                    'status' => 'approved',
+                    'created_at' => $now,
+                    'approved_at' => $now,
+                ];
+            }
+        }
 
         $data['users'][] = $newUser;
         TryoutDataStore::write($data);
@@ -1228,6 +1253,7 @@ class AdminController extends Controller
             'phone' => 'required|string|max:20',
             'role' => 'required|in:student,admin',
             'status' => 'required|in:active,suspended',
+            'student_type' => 'nullable|in:umum,bimbel',
             'school' => 'nullable|string|max:120',
             'password' => 'nullable|string|min:4',
         ]);
@@ -1262,6 +1288,36 @@ class AdminController extends Controller
         $data['users'][$userIndex]['role'] = $request->input('role');
         $data['users'][$userIndex]['status'] = $request->input('status');
         $data['users'][$userIndex]['school'] = trim($request->input('school') ?: '-');
+
+        if ($request->input('role') === 'student') {
+            $prevType = $data['users'][$userIndex]['student_type'] ?? 'umum';
+            $newType = $request->input('student_type') ?: 'umum';
+            $data['users'][$userIndex]['student_type'] = $newType;
+
+            // If upgraded to bimbel, auto enroll in all packages for free
+            if ($newType === 'bimbel' && $prevType !== 'bimbel') {
+                $now = date('Y-m-d H:i:s');
+                foreach ($data['packages'] ?? [] as $pkg) {
+                    $hasOrd = collect($data['orders'] ?? [])->contains(fn($o) => $o['student_id'] === $id && $o['package_id'] === $pkg['id'] && $o['status'] === 'approved');
+                    if (!$hasOrd) {
+                        $data['orders'][] = [
+                            'id' => 'TRX-BIMBEL-' . strtoupper(substr(md5($id . $pkg['id'] . time()), 0, 8)),
+                            'student_id' => $id,
+                            'student_name' => $newName,
+                            'student_email' => $email,
+                            'package_id' => $pkg['id'],
+                            'package_title' => $pkg['title'],
+                            'amount' => 0,
+                            'payment_method' => 'Hak Akses Admin (Siswa Bimbel)',
+                            'payment_proof' => null,
+                            'status' => 'approved',
+                            'created_at' => $now,
+                            'approved_at' => $now,
+                        ];
+                    }
+                }
+            }
+        }
 
         if ($request->filled('password')) {
             $data['users'][$userIndex]['password'] = trim($request->input('password'));
@@ -1468,5 +1524,112 @@ class AdminController extends Controller
         ]);
 
         return redirect('/admin/profile')->with('success', 'Profil dan kredensial akun Gmail & kata sandi Administrator berhasil diperbarui!');
+    }
+
+    // --- KELOLA TOKEN KHUSUS SISWA BIMBEL ---
+    public function tokens(Request $request)
+    {
+        if ($redirect = $this->checkAdminAuth()) return $redirect;
+
+        $data = TryoutDataStore::read();
+        $tokens = collect($data['bimbel_tokens'] ?? [])->sortByDesc('created_at')->values();
+
+        $totalTokens = $tokens->count();
+        $activeTokens = $tokens->where('is_active', true)->count();
+        $totalClaims = $tokens->sum('used_count');
+
+        $users = collect($data['users'] ?? [])->where('role', 'student');
+        $bimbelStudentsCount = $users->where('student_type', 'bimbel')->count();
+
+        return view('admin.tokens', compact('tokens', 'totalTokens', 'activeTokens', 'totalClaims', 'bimbelStudentsCount'));
+    }
+
+    public function storeToken(Request $request)
+    {
+        if ($redirect = $this->checkAdminAuth()) return $redirect;
+
+        $request->validate([
+            'code' => 'nullable|string|max:40',
+            'label' => 'nullable|string|max:120',
+            'max_uses' => 'nullable|integer|min:0',
+            'expires_at' => 'nullable|date',
+            'notes' => 'nullable|string|max:255',
+        ]);
+
+        $data = TryoutDataStore::read();
+        $tokens = $data['bimbel_tokens'] ?? [];
+
+        $code = strtoupper(trim((string) $request->input('code')));
+        if ($code === '') {
+            $code = \App\Services\BimbelTokenService::generateCode('BIMBEL');
+        }
+
+        // Check code uniqueness
+        $exists = collect($tokens)->contains(fn($t) => strtoupper($t['code']) === $code);
+        if ($exists) {
+            return back()->with('error', 'Kode token ' . $code . ' sudah ada. Gunakan kode lain.')->withInput();
+        }
+
+        $label = trim((string) $request->input('label'));
+        if ($label === '') {
+            $label = trim((string) $request->input('notes')) ?: 'Token Siswa Bimbel';
+        }
+
+        $newToken = [
+            'id' => uniqid('tok_'),
+            'code' => $code,
+            'label' => $label,
+            'max_uses' => (int) ($request->input('max_uses') ?? 0),
+            'used_count' => 0,
+            'expires_at' => $request->input('expires_at') ?: null,
+            'notes' => trim((string) ($request->input('notes') ?? '')),
+            'is_active' => true,
+            'claimed_users' => [],
+            'created_at' => date('Y-m-d H:i:s'),
+        ];
+
+        $tokens[] = $newToken;
+        $data['bimbel_tokens'] = $tokens;
+        TryoutDataStore::write($data);
+
+        return redirect('/admin/tokens')->with('success', 'Token Bimbel baru [' . $code . '] berhasil dibuat!');
+    }
+
+    public function toggleTokenStatus($id)
+    {
+        if ($redirect = $this->checkAdminAuth()) return $redirect;
+
+        $data = TryoutDataStore::read();
+        $tokens = $data['bimbel_tokens'] ?? [];
+        $found = false;
+
+        foreach ($tokens as &$tok) {
+            if ($tok['id'] === $id) {
+                $tok['is_active'] = !($tok['is_active'] ?? true);
+                $found = true;
+                break;
+            }
+        }
+        unset($tok);
+
+        if ($found) {
+            $data['bimbel_tokens'] = $tokens;
+            TryoutDataStore::write($data);
+            return back()->with('success', 'Status keaktifan token berhasil diperbarui.');
+        }
+
+        return back()->with('error', 'Token tidak ditemukan.');
+    }
+
+    public function deleteToken($id)
+    {
+        if ($redirect = $this->checkAdminAuth()) return $redirect;
+
+        $data = TryoutDataStore::read();
+        $tokens = $data['bimbel_tokens'] ?? [];
+        $data['bimbel_tokens'] = array_values(array_filter($tokens, fn($t) => $t['id'] !== $id));
+
+        TryoutDataStore::write($data);
+        return redirect('/admin/tokens')->with('success', 'Token bimbel berhasil dihapus.');
     }
 }
